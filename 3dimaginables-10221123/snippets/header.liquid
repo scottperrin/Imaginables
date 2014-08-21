@@ -14,24 +14,22 @@
 		    </div>
 		{% endif %}
 		<!-- End Slideshow -->
+		<!-- Logo -->
+		{% if settings.use_logo %}
+			<div id="logo">
+				<a href="/" >
+					{{ 'logo.png' | asset_url | img_tag: shop.name }}
+				</a>
+			</div>
+		{% endif %}
+		<!-- End Logo -->
+		<!-- Site Title -->
+		{% if settings.site_title %}
+			<h1 id="site-title" role="banner">
+				<a href="/">{{ shop.name }}</a>
+			</h1>
+		{% endif %}
+		<!-- End Site Title -->
 	{% endif %}
-
-	<!-- Logo -->
-	{% if settings.use_logo %}
-		<div id="logo">
-			<a href="/" >
-				{{ 'logo.png' | asset_url | img_tag: shop.name }}
-			</a>
-		</div>
-	{% endif %}
-	<!-- End Logo -->
-	
-	<!-- Site Title -->
-	{% if settings.site_title %}
-		<h1 id="site-title" role="banner">
-			<a href="/">{{ shop.name }}</a>
-		</h1>
-	{% endif %}
-	<!-- End Site Title -->
 
 </header>
