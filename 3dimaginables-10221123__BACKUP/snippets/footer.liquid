@@ -1,0 +1,14 @@
+<footer>
+	<div class="row">
+		<div class="large-6 columns">
+			{% if settings.bottom_menu_on %}  
+				<!-- Include Bottom Navigation -->
+				{% include 'footer-nav' %}
+				<!-- End Include Bottom Navigation -->
+			{% endif %}
+		</div>
+		<div class="large-6 columns">
+	    	<p align="right">&copy; Copyright {{ "now" | date: "%Y" }} {{ shop.name }} | <a href="http://elkfox.com" title="Shopify Experts">Elkfox</a></p>
+		</div>
+	</div>
+</footer>

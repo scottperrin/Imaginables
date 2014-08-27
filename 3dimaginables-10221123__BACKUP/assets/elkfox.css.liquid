@@ -225,6 +225,7 @@ button:hover, button:focus, .button:hover, .button:focus { background-color:#000
 /*********   SLICK JS   ********/
 @font-face { font-family: "slick"; src: url('slick.eot') !important; src: url('slick.eot?#iefix') format("embedded-opentype"), url('slick.woff') format("woff"), url('slick.ttf') format("truetype"), url('slick.svg#slick') format("svg")  !important; }
 .slick-prev { left:20px; } .slick-next { right:20px; }
+button.slick-prev:hover, button.slick-next:hover { background-color:transparent !important; }
 
 /**********   HEADER   *********/
 header { z-index:1;position:relative; }
@@ -243,12 +244,13 @@ footer p, footer ul.inline-list { margin:0;font-size:0.8em; }
 footer .inline-list>li { margin-left:0;margin-right:20px; }
 
 /***********   HOME   **********/
+.slideshow .slick-prev, .slideshow .slick-next { display:none !important; }
 .shopify-welcome-message { margin:10px 0 40px; }
 .gallery .slick-slide { opacity:0.8;-moz-opacity:0.8;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:gray;-webkit-filter:grayscale(100%);-webkit-transition: all 1s ease-in-out;-moz-transition: all 1s ease-in-out;-o-transition: all 1s ease-in-out;transition: all 1s ease-in-out; }
 .gallery .slick-slide:hover { opacity:1;-moz-opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";filter:none;-webkit-filter:grayscale(0%); }
 #news { margin:-60px 0;padding:80px 0 30px; }
 #news h5.date { line-height:2.2;text-align:right; }
-#contact { width:100%;background-color:#ffe5e4;padding:50px 0 30px; }
+#contact { width:100%;background-color:#1F2831;padding:50px 0 30px; }
 #contact .button { width:100%; }
 .index ul.social-sharing.inline-list { text-align:center; }
 .index ul.social-sharing.inline-list li { float:none;display:inline-block;font-size:1.6em; }

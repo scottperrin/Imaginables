@@ -1,0 +1,35 @@
+<header>
+	
+	{% if template == 'index' %}
+		<!-- Slideshow -->
+		{% if settings.slideshow_enable %}
+			<div class="slideshow">
+				{% for i in (1..6) %}
+			    	{% capture enable %}slideshow_image_{{ i }}_enable{% endcapture %}
+					{% capture image %}slideshow_image_{{ i }}.jpg{% endcapture %}
+					{% if settings[enable] %}
+		        		<div class="CoverImage FlexEmbed FlexEmbed--2by1" style="background-image:url({{ image | asset_url }})"></div>
+		        	{% endif %}
+			    {% endfor %}
+		    </div>
+		{% endif %}
+		<!-- End Slideshow -->
+		<!-- Logo -->
+		{% if settings.use_logo %}
+			<div id="logo">
+				<a href="/" >
+					{{ 'logo.png' | asset_url | img_tag: shop.name }}
+				</a>
+			</div>
+		{% endif %}
+		<!-- End Logo -->
+		<!-- Site Title -->
+		{% if settings.site_title %}
+			<h1 id="site-title" role="banner">
+				<a href="/">{{ shop.name }}</a>
+			</h1>
+		{% endif %}
+		<!-- End Site Title -->
+	{% endif %}
+
+</header>
