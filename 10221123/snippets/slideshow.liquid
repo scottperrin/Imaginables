@@ -1,0 +1,13 @@
+<!-- Slideshow -->
+	{% if settings.slideshow_enable %}
+		<div class="slideshow">
+			{% for i in (1..6) %}
+		    	{% capture enable %}slideshow_image_{{ i }}_enable{% endcapture %}
+				{% capture image %}slideshow_image_{{ i }}.jpg{% endcapture %}
+				{% if settings[enable] %}
+	        		<div class="CoverImage FlexEmbed FlexEmbed--2by1" style="background-image:url({{ image | asset_url }})"></div>
+	        	{% endif %}
+		    {% endfor %}
+	    </div>
+	{% endif %}
+<!-- End Slideshow -->

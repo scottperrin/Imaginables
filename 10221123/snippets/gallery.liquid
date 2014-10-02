@@ -1,31 +1,35 @@
-<!-- Desktop Slider -->
-</div>
-   <div class="hide-for-small">
-		<div class="gallery large">
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_1.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_2.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_3.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_4.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_5.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_6.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_7.jpg' | asset_url }})"></div>
-		</div>	  
-	</div>
-<div class="row">
-<!-- End Desktop Slider -->
+{% if settings.gallery_enable %}
 
-<!-- Mobile Header -->
-</div>
-   <div class="show-for-small">
-		<div class="gallery small">
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_1.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_2.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_3.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_4.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_5.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_6.jpg' | asset_url }})"></div>
-	        <div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ 'gallery_7.jpg' | asset_url }})"></div>
-		</div>	  
+	<!-- Desktop Slider -->
 	</div>
-<div class="row">
-<!-- End Mobile Header -->
+	   <div class="hide-for-small">
+			<div class="gallery large">
+				{% for i in (1..9) %}
+			    	{% capture enable %}gallery_image_{{ i }}_enable{% endcapture %}
+					{% capture image %}gallery_image_{{ i }}.jpg{% endcapture %}
+					{% if settings[enable] %}
+		        		<div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ image | asset_url }})"></div>
+		        	{% endif %}
+			    {% endfor %}
+			</div>	  
+		</div>
+	<div class="row">
+	<!-- End Desktop Slider -->
+	
+	<!-- Mobile Header -->
+	</div>
+	   <div class="show-for-small">
+			<div class="gallery small">
+				{% for i in (1..9) %}
+			    	{% capture enable %}gallery_image_{{ i }}_enable{% endcapture %}
+					{% capture image %}gallery_image_{{ i }}.jpg{% endcapture %}
+					{% if settings[enable] %}
+		        		<div class="CoverImage FlexEmbed FlexEmbed--1by1" style="background-image:url({{ image | asset_url }})"></div>
+		        	{% endif %}
+			    {% endfor %}
+			</div>	  
+		</div>
+	<div class="row">
+	<!-- End Mobile Header -->
+
+{% endif %}

@@ -1,0 +1,16 @@
+{% form 'customer' %}
+<div id="subscribe">
+	  <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter"/>
+	  <input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="" />
+	  <input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="" />
+	<div class="medium-2 medium-offset-2 columns">
+	  <h3 class="subscribe">Subscribe</h3>
+	</div>
+	<div class="medium-4 columns">
+	  <input type="text" id="contact_email" name="contact[email]" placeholder="your@email"/>
+	</div>
+	<div class="medium-2 columns">
+	  <input type='submit' class="button" />
+	</div>
+</div>
+{% endform %}

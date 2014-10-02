@@ -26,7 +26,7 @@
       
 		<!-- #product-photos -->
 	    <div class="large-6 columns" id="product-images">
-	        <div id="zoom{{ product.url | within: collection | replace: '/', '-' }}">
+	        <div id="{{ product.url | within: collection | replace: '/', '-' }}">
 				<img src="{{ product.featured_image | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" id="product_feature_image" />
 			</div>
 	
@@ -38,15 +38,6 @@
 	            </ul>
 	        {% endif %}
 	    </div>
-		<!-- for product image zoom - use the #id sets here for different behaviour - we add the stripped product URL to give it a unique ID -->
-		<script>
-			$(document).ready(function(){
-				$('#zoom{{ product.url | within: collection | replace: '/', '-' }}').zoom();
-				$('#grab{{ product.url | within: collection | replace: '/', '-' }}').zoom({ on:'grab' });
-				$('#click{{ product.url | within: collection | replace: '/', '-' }}').zoom({ on:'click' });			 
-				$('#toggle{{ product.url | within: collection | replace: '/', '-' }}').zoom({ on:'toggle' });
-			});
-		</script>
 		<!-- End #product-photos -->
       
 		<!-- #product-details -->
@@ -55,6 +46,7 @@
             <div id="product-description" class="rte" itemprop="description">
                 <p>{{ product.description }}</p>
             </div>
+            
           
             <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
@@ -63,16 +55,20 @@
                     {% else %}
                     <link itemprop="availability" href="http://schema.org/OutOfStock" />
                     {% endif %}
+                    
+                    {% unless product.tags contains 'doodle3d wifi box' %}
                     <h5>
                         {% if product.compare_at_price > product.price %}
-                        <span class="price" itemprop="price">{{ product.price | money }}</span>&nbsp;<s class="sale-price">{{ product.compare_at_price_max | money }}</s>
+                        <span class="price" itemprop="price">{{ product.price | money }}</span>&nbsp; incl. GST<s class="sale-price">{{ product.compare_at_price_max | money }}</s>
                         {% else %}
-                        <span class="price" itemprop="price">{{ product.price | money }}</span>
+                        <span class="price" itemprop="price">{{ product.price | money }}&nbsp; Incl. GST</span>
                         {% endif %}
                     </h5>
+                    {% endunless %}
+                    
             </div>
             
-            <h5 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h5>
+            <!-- <h5 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h5> -->
           
             {% assign hide_default_title = false %}
             {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
@@ -82,7 +78,7 @@
             <div id="product-variants" class="{% if hide_default_title %} hidden{% endif %}">
                 <select id="product-select" name="id" class="hidden">
                 {% for variant in product.variants %}
-                    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }} incl. GST</option>
                 {% endfor %}
                 </select>
             </div>        
@@ -91,15 +87,25 @@
                 <p>{{ '%s is back-ordered. We will ship it separately in 10 to 15 days.' | replace: '%s', '<span id="selected-variant"></span>' }}</p>
             </div> -->
             
+            {% unless product.tags contains 'doodle3d wifi box' %}
             <div id="product-add">
+            	<br/>
                 <input class="button" type="submit" name="add" id="add" value="Add to cart">
             </div>
+            {% endunless %}
+            
+  </form>
+            
+           
+	    	{% if product.tags contains 'ultimaker' and product.tags contains '3d printers' %}
+	    		<h3>{{ pages.specifications.title }}</h3>
+	    		<span style="font-size:90%;">{{ pages.specifications.content }}</span>
+	    	{% endif %}
       
 		</div>
 		<!-- END #product-details -->
     
-    	{% include 'share' %}
-    
+    	{% include 'share' %}    	
 		
 		{% if settings.related-products %}
 			<div class="large-12 columns">
@@ -108,8 +114,12 @@
 				<!-- End Related Products -->
 			</div>
 		{% endif %}
-
-  </form>
+  
+{% if product.tags contains 'doodle3d wifi box' %}
+	<div class="large-12 columns">
+		{{ pages.doodle-video.content }}
+	</div>
+{% endif %}
 
 </div>
 

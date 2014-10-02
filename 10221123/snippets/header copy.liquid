@@ -1,0 +1,37 @@
+<header>
+	
+	{% if template == 'index' %}
+		<!-- Slideshow -->
+		{% if settings.slideshow_enable %}
+			<div class="slideshow">
+				<div class="CoverImage FlexEmbed FlexEmbed--3by1" style="background:#1F2831;"></div>
+		    </div>
+		{% endif %}
+		<!-- End Slideshow -->
+		<!-- Logo -->
+		{% if settings.use_logo %}
+			<div id="logo">
+				<a href="/" >
+					{{ 'logo.png' | asset_url | img_tag: shop.name }}
+				</a>
+			</div>
+		{% endif %}
+		<!-- End Logo -->
+		
+		<h4 class="catch-phrase">Infinite Imagination. Infinite Possibilities.</h4>
+		
+		<div id="cd-hamburger-menu"><a class="mini-menus" href="#0"><i class="fi-list"></a></i></div>
+		<div id="cd-cart-trigger"><a class="mini-menus" href="#0"><i class="fi-shopping-cart"></a></i></div>
+		
+		<!-- Site Title -->
+		{% if settings.site_title %}
+			<h1 id="site-title" role="banner">
+				<a href="/">{{ shop.name }}</a>
+			</h1>
+		{% endif %}
+		<!-- End Site Title -->
+	{% else %}
+		{{ 'logo.png' | asset_url | img_tag: shop.name }}
+	{% endif %}
+
+</header>

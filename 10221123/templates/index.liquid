@@ -1,8 +1,9 @@
-	<div class="large-8 large-offset-2 columns shopify-welcome-message">
+	<div class="large-12 columns shopify-welcome-message">
 		{% assign page = pages.frontpage %}
 		{{ page.content }}
 		<p style="text-align:center;">
-			<a class="button" href="/pages/about">Find out more</a>
+			<a class="button" href="/pages/about">More Info</a>
+			<!-- <a class="button" href="/products/all">Shop Now</a> -->
 		</p>
 	</div>
 	
@@ -12,6 +13,8 @@
 		<!-- End Slideshow -->
 	{% endif %}
 	
+	{% include 'share' %}
+	
 	<div id="news">
 		<div class="large-8 large-offset-2 columns">
 			{% include 'recent-blog' %}
@@ -19,18 +22,18 @@
 	</div>
 
 </div>
-
-	<div id="contact">
-		<div class="row">
-			<div class="large-10 large-offset-1 columns">
-				<h2 class="centered">Get in touch</h2>
-				{% include 'contact-form' %}
-				<!--<h3 class="centered follow">Follow and Friend</h3>-->
-				{% include 'social-links' %}
-			</div>
+	
+<div id="contact">
+	<div class="row">
+		<div class="large-8 large-offset-2 columns">
+			<h2 class="centered">Get in touch</h2>
+			<div id="contact" style="height:0;padding:0;margin:0;"></div>
+			{% include 'contact-form' %}
+			<!--<h3 class="centered follow">Follow and Friend</h3>-->
+			{% include 'social-links' %}
 		</div>
 	</div>
-	
+</div>
 
 {% comment %} NO MAP REQUIRED
 {% include 'map' %}

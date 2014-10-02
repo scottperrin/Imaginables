@@ -19,10 +19,8 @@
         <a href="{{ product.url | within: collection }}" class="clearfix">
     
             <h5 class="title"><a href= "{{ product.url | within: collection }}">{{ product.title | truncate: 30 }}</a></h5>
-            {% if settings.product_vendor %}
-            	<span class="vendor">{{ product.vendor }}</span>
-            {% endif %}
-          
+            <h6><span class="vendor">{{ product.vendor }}</span></h6>
+               
             <span class="price">
                 {% if product.available %}
                     {% if product.compare_at_price_max > product.price %}
@@ -43,3 +41,5 @@
     </div>
   
 </div>
+
+{% cycle 'clear-product-loop': '', '', '<div style="clear:both;"></div>' %}
