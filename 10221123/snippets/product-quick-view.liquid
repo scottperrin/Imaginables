@@ -63,7 +63,7 @@
                     </select>
                 </div>  
         
-                <input class="button" type="submit" name="add" id="add" value="Add to cart">
+                {% if product.available %}<input class="button" type="submit" name="add" id="add" value="Add to cart">{% else %}<small>Sold Out. Check back soon.</small>{% endif %}
     
             </div>
       	</div>

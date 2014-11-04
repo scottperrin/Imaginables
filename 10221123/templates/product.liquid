@@ -97,15 +97,26 @@
   </form>
             
            
-	    	{% if product.tags contains 'ultimaker' and product.tags contains '3d printers' %}
+	    	{% if product.title contains 'Ultimaker 2' and product.tags contains '3d printers' %}
 	    		<h3>{{ pages.specifications.title }}</h3>
 	    		<span style="font-size:90%;">{{ pages.specifications.content }}</span>
+	    	{% elsif product.title contains 'Ultimaker Original' and product.tags contains '3d printers' %}
+	    		<h3>{{ pages.specifications-original.title }}</h3>
+	    		<span style="font-size:90%;">{{ pages.specifications-original.content }}</span>
 	    	{% endif %}
       
 		</div>
 		<!-- END #product-details -->
     
-    	{% include 'share' %}    	
+    	{% include 'share' %}
+    	
+    	
+		{% if product.tags contains 'doodle3d wifi box' %}
+			<div class="large-12 columns">
+				{{ pages.doodle-video.content }}
+			</div>
+		{% endif %}
+    	
 		
 		{% if settings.related-products %}
 			<div class="large-12 columns">
@@ -114,12 +125,6 @@
 				<!-- End Related Products -->
 			</div>
 		{% endif %}
-  
-{% if product.tags contains 'doodle3d wifi box' %}
-	<div class="large-12 columns">
-		{{ pages.doodle-video.content }}
-	</div>
-{% endif %}
 
 </div>
 
