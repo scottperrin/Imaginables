@@ -1,6 +1,6 @@
 development:
   password: fc2279f0fc15394f15f6fb20644b8020
-  theme_id: 126896641
+  theme_id: 163036301
   store: imaginables-2.myshopify.com
   ignores:
   ignore_files:
@@ -8,7 +8,6 @@ development:
   - "*.png"
   - "*.jpg"
   - "*.mp4"
-  - /\.(txt|gif|bat)$/
   refill_rate: 2
   bucket_size: 40
   concurrency: 4
