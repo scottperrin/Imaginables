@@ -1,0 +1,42 @@
+<!-- snippets/index-slider-2.liquid -->
+
+{% assign slider_autoplay = false %}
+{% assign slider_dots = false %}
+{% assign slider_arrows = true %}
+
+<div id="index_slider_2">
+  
+  {% for i in (1..2) %}
+    {% capture feature_enable %}feature_{{ i }}_enable{% endcapture %}
+    {% capture feature_img %}feature_{{ i }}.jpg{% endcapture %}
+    {% capture feature_link %}feature_{{ i }}_link{% endcapture %}
+    {% if forloop.first or settings[feature_enable] %}
+      <a href="{{ settings[feature_link] }}">
+        <img src="{{ feature_img | asset_url }}">
+      </a>
+    {% endif %}
+  {% endfor %}
+
+</div>
+
+<script type="text/javascript">
+  // Slider
+  $(document).ready(function() {
+    $('#index_slider_2').imagesLoaded().always(function(instance) {
+      $('#index_slider_2').addClass('visible');
+      loadSlider();
+    });
+    // Initiate product slider
+    function loadSlider() {
+      $("#index_slider_2").slick({
+        slidesToShow: 1,
+        {% if slider_autoplay %}autoplay: true,{% else %}autoplay: false,{% endif %}
+        {% if slider_dots %}dots: true,{% else %}dots: false,{% endif %}
+        {% if slider_arrows %}arrows: true,{% else %}arrows: false,{% endif %}
+        prevArrow: '<span class="icon"><svg class="slick-prev" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="21,0.586 5.586,16 21,31.414 26.414,26 16.414,16 26.414,6 "/></svg></span>',
+        nextArrow: '<span class="icon"><svg class="slick-next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="5.586,6 15.586,16 5.586,26 11,31.414 26.414,16 11,0.586 "/></svg></span>',
+        adaptiveHeight: true
+      });
+    }
+  });
+</script>
