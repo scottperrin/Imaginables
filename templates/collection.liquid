@@ -5,20 +5,12 @@
   <div class="container">
       <div class="tabs-slider grid--full color green">
         <nav id="tabs-links">
-<<<<<<< HEAD
-          {% for article in blogs.filaments.articles | limit: 10 %}
-=======
           {% for article in blogs.filaments.articles %}
->>>>>>> george@elkfox.com
             <div data-tab="{{ article.title | replace: '+', 'plus' | handleize }}" class="tab-link{% if forloop.first %} active{% endif %}">{{ article.title }}</div>
           {% endfor %}
         </nav>
         <div class="tabs">
-<<<<<<< HEAD
-          {% for article in blogs.filaments.articles | limit: 10 %}
-=======
           {% for article in blogs.filaments.articles %}
->>>>>>> george@elkfox.com
             <div id="{{ article.title | replace: '+', 'plus' | handleize }}" class="tab{% if forloop.first %} active{% endif %}{% if article.image %} with-image{% endif %}">
               <h3>{{ article.title }}</h3>
               <div class="content rte">
@@ -80,11 +72,7 @@
 
   {% else %}
 
-<<<<<<< HEAD
-    {% for product in collection.products | limit: 24 %}
-=======
     {% for product in collection.products %}
->>>>>>> george@elkfox.com
 
       <div class="container color{% cycle '', ' grey' %}">
         <div class="wrapper">
@@ -187,11 +175,7 @@
     {% for link in linklists[linklist_handle].links %}
 
       {% if link.type == 'collection_link' %}
-<<<<<<< HEAD
-        {% unless link.url == current_collection }
-=======
         {% unless link.url == current_collection %}
->>>>>>> george@elkfox.com
 
           {% assign collection = link.object %}
           {% assign link_count = link_count | plus: 1 %}

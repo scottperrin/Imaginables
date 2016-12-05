@@ -1,0 +1,105 @@
+<!-- /snippets/snippet-custom-filters.liquid -->
+
+<h3>{{ 'layout.navigation.filters' | t }}</h3>
+
+{% assign filter_menu = 'Filter Menu' %}
+{% assign current_tags = current_tags | handleize %}
+
+{% unless current_tags == null %}
+  <a href="/collections/{{ collection.handle }}">Clear All</a>
+{% endunless %}
+
+<hr>
+
+<div class="filter_menus">
+  
+  {% assign filter_menu = filter_menu | handleize %}
+  {% for link in linklists[filter_menu].links %}
+    {% assign filter_menu_title = link.title %}
+    {% assign filter_menu = link.title | handleize %}
+    <h4>{{ filter_menu_title }}</h4>
+    <form class="{{ filter_menu }}">
+      <label class="tag_title"><input type="checkbox" name="tag" class="filter_tag" value="all">{{ 'layout.navigation.all' | t }}</label>
+      {% for link in linklists[filter_menu].links %}
+        {% assign tag = link.title | handleize %}
+        {% assign tag_title = link.title %}
+        {% if linklists[tag_title].links != blank %}
+          <div class="tag">
+            <label class="tag_title{% if current_tags contains tag %} checked{% endif %}"><input type="checkbox" name="tag" class="filter_tag" value="{{ tag | handleize }}" {% if current_tags contains tag %}Checked{% endif %}>{{ tag_title }}</label>
+          </div>
+          {% assign sub_tag = tag | handle %}
+          <div class="sub_tag_group" id="{{ sub_tag }}">
+            {% for link in linklists[sub_tag].links %}
+              {% assign tag = link.title | handleize %}
+              {% assign tag_title = link.title %}
+              <div class="tag">
+                <label class="tag_title{% if current_tags contains tag %} checked{% endif %}"><input type="checkbox" name="tag" class="filter_tag" value="{{ tag | handleize }}" {% if current_tags contains tag %}Checked{% endif %}>{{ tag_title }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="tag">
+            <label class="tag_title{% if current_tags contains tag %} checked{% endif %}"><input type="checkbox" name="tag" class="filter_tag" value="{{ tag | handleize }}" {% if current_tags contains tag %}Checked{% endif %}>{{ tag_title }}</label>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </form>
+    
+    <hr>
+    
+  {% endfor %}
+
+</div>
+
+<script>
+  // Product Tag Filters
+  selectAllForEmpty = function() {
+    $('.filter_menus form').each(function(index, elem) {
+      if ($(elem).find('.filter_tag:checked').length === 0) {
+        $(elem).find('.filter_tag').each(function(index, tag) {
+          if ($(tag).attr('value').toLowerCase() === "all") {
+            $(tag).prop('checked', true)
+            $(this).parent('label').addClass('checked')
+          }
+        })
+      }
+    })
+  }
+  var currentTags = [
+    {% for tag in current_tags %}
+    '{{ tag | handle }}',
+    {% endfor %}
+  ]
+  $('.filter_tag').each(function(index, elem) {
+    if ($.inArray($(elem).attr('value').toLowerCase(), currentTags) !== -1) {
+      $(elem).prop('checked', true)
+    }
+  })
+  var newTags = []
+  $('.tag_title').on('click', '.filter_tag', function() {
+    newTags = []
+    $(this).closest('form').find('.filter_tag').each(function(index, elem) {
+      $(elem).prop('checked', false)
+    })
+    $(this).prop('checked', true)
+    $('.filter_tag').each(function(index, elem) {
+      if (($(elem).prop('checked') == true) && ($(elem).attr('value').toLowerCase() !== "all")) {
+        newTags.push($(elem).attr('value'))
+      }
+    })
+    if (newTags.length > 0) {
+      var query = newTags.join('+');
+      window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('tag', query);
+    } else {
+      {% if collection.handle %}
+      window.location.href = '/collections/{{ collection.handle }}';
+      {% elsif collection.products.first.type == collection.title %}
+      window.location.href = '{{ collection.title | url_for_type }}';
+      {% elsif collection.products.first.vendor == collection.title %}
+      window.location.href = '{{ collection.title | url_for_vendor }}';
+      {% endif %}
+    }
+    selectAllForEmpty()
+  })
+  selectAllForEmpty()
+</script>
