@@ -18,28 +18,30 @@
 
     <div class="grid--full">
       <div class="grid__item large--three-fifths">
-        {% for article in blogs['news'].articles %}
+        {% for article in blogs['news'].articles | limit: 1 %}
           {% if article.image %}
             <a class="article__featured-image" href="{{ article.url }}">
-              <div class="image-ratio OneByOne hover-zoom" style="background-image:url('{{ article | img_url: '1024x1024' }}');">
+              <div class="image-ratio OneByOne hover-zoom">
                 <div class="content">
                   <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
                   <h3>{{ article.title }}</h3>
                 </div>
+                <div class="hover-zoom-image" style="background-image:url('{{ article | img_url: 'original' }}');"></div>
               </div>
             </a>
           {% endif %}
         {% endfor %}
       </div>
       <div class="grid__item large--two-fifths">
-      {% for article in blogs['news'].articles %}
+      {% for article in blogs['news'].articles | limit: 2 | offset: 1 %}
         {% if article.image %}
           <a class="article__featured-image" href="{{ article.url }}">
-            <div class="image-ratio News hover-zoom" style="background-image:url('{{ article | img_url: 'grande' }}');">
+            <div class="image-ratio News hover-zoom">
               <div class="content">
                 <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
                 <h3>{{ article.title }}</h3>
               </div>
+              <div class="hover-zoom-image" style="background-image:url('{{ article | img_url: 'original' }}');"></div>
             </div>
           </a>
         {% endif %}
