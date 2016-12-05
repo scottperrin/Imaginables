@@ -1,0 +1,57 @@
+<!-- /templates/product.liquid -->
+{% comment %}
+Capture the product description and split in to sections and distribute into shortcode includes
+{% endcomment %}
+{% assign content = product.description %}
+{% assign splits = content | split: '[split]' %}
+{% for split in splits %}
+  {% if split contains '[description]' and split contains '[/description]'  %}
+    {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' }}{% endcapture %}
+  {% endif %}
+  {% if split contains '[hero' %}
+    {% capture hero %}{{ split | strip_html }}{% endcapture %}
+  {% endif %}
+  {% if split contains '[spec' %}
+    {% comment %}Strip all the html except for lists{% endcomment %}
+    {% capture specs %}{{ split | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]'  | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' }}{% endcapture %}
+  {% endif %}
+  {% if split contains '[technical' %}
+    {% capture technical %}{{ split }}{% endcapture %}
+  {% endif %}
+  {% if split contains '[awards]' and split contains '[/awards]'  %}
+    {% capture awards %}{{ split | remove: '[awards]' | remove: '[/awards]' }}{% endcapture %}
+  {% endif %}
+{% endfor %}
+<div itemscope itemtype="http://schema.org/Product">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+  {% comment %}
+    Get first variant, or deep linked one
+  {% endcomment %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+
+  <section class="container color">
+    <div class="wrapper">
+      <div class="grid--full grid-uniform text-center">
+        <div class="grid__item flex__item large--one-half large--text-right text-center">
+          <div class="mini-wrapper">
+            {% include 'product-form' %}
+          </div>
+        </div>
+        <div class="grid__item large--one-half flex__item text-center">
+            <img src="{{ product.featured_image | img_url: 'large' }}">
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% if specs != blank %}{% include 'product-specs' %}{% endif %}
+{% if hero != blank %}{% include 'shortcode' load: hero %}{% endif %}
+{% if technical != blank %}{% include 'shortcode' load: technical %}{% endif %}
+{% include 'product-stories' %}
+{% include 'product-related-products' %}
+{% include 'product-awards' %}
+
+</div>

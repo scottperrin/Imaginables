@@ -1,0 +1,123 @@
+<!-- /templates/index.liquid -->
+
+{% if settings.slideshow_enable %}
+  {% include 'index-slider' %}
+{% endif %}
+
+{% include 'index-slider-2' %}
+
+
+<div class="news">
+  <div class="wrapper">
+
+    <div class="grid">
+      <div class="grid__item">
+        <h2 class="text-center">{{ 'homepage.sections.news_title' | t }}</h2>
+      </div>
+    </div>
+
+    <div class="grid--full">
+      <div class="grid__item large--three-fifths">
+        {% for article in blogs['news'].articles | limit:1 %}
+          {% if article.image %}
+            <a class="article__featured-image" href="{{ article.url }}">
+              <div class="image-ratio OneByOne hover-zoom" style="background-image:url('{{ article | img_url: '1024x1024' }}');">
+                <div class="content">
+                  <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
+                  <h3>{{ article.title }}</h3>
+                </div>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="grid__item large--two-fifths">
+      {% for article in blogs['news'].articles | limit:2 | offset:1 %}
+        {% if article.image %}
+          <a class="article__featured-image" href="{{ article.url }}">
+            <div class="image-ratio News hover-zoom" style="background-image:url('{{ article | img_url: 'grande' }}');">
+              <div class="content">
+                <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
+                <h3>{{ article.title }}</h3>
+              </div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+    {% comment %}
+    <div class="grid--full">
+    {% for article in blogs['news'].articles | limit:4 | offset:3 %}
+      {% if article.image %}
+        <div class="grid__item large--one-quarter medium--one-half">
+          <a class="article__featured-image" href="{{ article.url }}">
+            <div class="image-ratio OneByOne hover-zoom" style="background-image:url('{{ article | img_url: 'grande' }}');">
+              <div class="content">
+                <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
+                <h3>{{ article.title }}</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% endcomment %}
+
+  </div>
+</div>
+{% comment %}
+<div class="contact">
+  <div class="wrapper">
+
+    <div class="grid">
+      <div class="grid__item">
+        <h2 class="text-center">{{ 'homepage.sections.news_title' | t }}</h2>
+      </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="grid__item large--one-half">
+
+          <h3>{{ page.title }}</h3>
+
+          <div class="form-vertical">
+            {% form 'contact' %}
+
+              {% if form.posted_successfully? %}
+                <p class="note form-success">
+                  {{ 'contact.form.post_success' | t }}
+                </p>
+              {% endif %}
+
+              {{ form.errors | default_errors }}
+
+              {% assign name_attr = 'contact.form.name' | t | handle %}
+              <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
+              <input type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+
+              <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+              <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+
+              <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+              <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+              <input type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">
+
+            {% endform %}
+          </div>
+
+        </div>
+
+        <div class="grid__item large--one-half">
+
+
+
+        </div>
+
+    </div>
+
+  </div>
+</div>{% endcomment %}
