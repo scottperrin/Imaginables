@@ -2923,7 +2923,7 @@ label.error {
   .news {
     background-color: $colorTertiary;
     padding: $gutter 0 $gutter*1.5;
-    margin-bottom: $gutter;
+    // margin-bottom: $gutter;
     color: $colorBody;
     .article__featured-image {
       .image-ratio {
@@ -3104,6 +3104,22 @@ AddToCart {
         .circle_image {
           border: $borderWeight*4 solid $colorTertiary;
         }
+      }
+    }
+  }
+
+
+  .spare_parts {
+    padding: $gutter $gutter/2;
+    .parts_container {
+      margin-bottom: $gutter/2;
+      h6 {
+        @include responsive-type( $baseFontSize, $h5Base, 20px, 0.02vmax );
+        color: $colorSecondary;
+        @include transition();
+      }
+      .parts_item {
+        padding: $gutter/4;
       }
     }
   }
