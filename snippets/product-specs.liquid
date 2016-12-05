@@ -1,0 +1,42 @@
+<!-- snippets/product-specs.liquid -->
+{% assign specs = specs | replace: '[specs', '[split] [specs' | remove_first: "[split]" | split: '[split]' %}
+
+<section id="specifications" class="tabs-slider grid--full color blue">
+  <nav id="tabs-links">
+    {% for spec in specs %}
+      {% include 'shortcode' load: spec %}
+      <div data-tab="{{ title | handleize | prepend: 'tab-' }}" class="tab-link{% if forloop.first == true %} active{% endif %}">
+        {{ title }}
+      </div>
+    {% endfor %}
+  </nav>
+  <div class="tabs">
+    {% for spec in specs %}
+    {% include 'shortcode' load: spec %}
+      <div id="{{ title | handleize | prepend: 'tab-' }}" class="tab{% if forloop.first == true %} active{% endif %}">
+  			<h3 class="">{{ title }}</h3>
+  			<div>
+  				<div class="content">
+  					<p>
+              {{ text }}
+            </p>
+  				</div>
+  			</div>
+      </div>
+		{% endfor %}
+	</div>
+</section>
+
+<script>
+  $(document).ready(function(){
+    var tab = 'div.tab-link'
+    var content = 'div.tabs .tab'
+    $( tab ).click(function(){
+      var tab_id = $(this).attr('data-tab');
+      $( tab ).removeClass('active');
+      $( content ).removeClass('active');
+      $(this).addClass('active');
+      $("#"+tab_id).addClass('active');
+    })
+  });
+</script>

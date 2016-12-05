@@ -1,0 +1,148 @@
+<!-- /templates/collection.printers.liquid -->
+{% paginate collection.products by 6 %}
+  {% for product in collection.products | limit: 6 %}
+    <div class="container{% cycle '', ' grey' %}">
+      <div class="wrapper">
+        <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+          <div class="grid__item large--one-third flex__item">
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+              {% assign on_sale = true %}
+            {% endif %}
+            {% assign sold_out = true %}
+            {% if product.available %}
+              {% assign sold_out = false %}
+            {% endif %}
+
+            <a href="{{ product.url | within: collection }}" class="grid__image">
+              <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+            </a>
+
+          </div>
+          <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+
+            <div class="mini-wrapper">
+              <h2>
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+              </h2>
+
+                {% assign content = product.description %}
+                {% assign splits = content | split: '[split]' %}
+                {% capture description %}{% endcapture %}
+                {% for split in splits %}
+                  {% if split contains '[description]' and split contains '[/description]'  %}
+                    {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
+                  {% endif %}
+                {% endfor %}
+                <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+
+              <p>
+                {% if on_sale %}
+                  {% if product.price_varies %}
+                    {% assign sale_price = product.price | money %}
+                    {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                  {% else %}
+                    <strong>{{ 'products.product.on_sale' | t }}</strong>
+                    {{ product.price | money }}
+                  {% endif %}
+                {% else %}
+                  {% if product.price_varies %}
+                    {% assign price = product.price | money %}
+                    {{ 'products.general.from_text_html' | t: price: price }}
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+                {% endif %}
+                {% if sold_out %}
+                  <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+                {% endif %}
+                {% if on_sale %}
+                  <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                  <br><s>{{ product.compare_at_price | money }}</s>
+                {% endif %}
+              </p>
+
+              <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+
+                <select name="id" id="productSelect" class="product-single__variants visually-hidden">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+
+                <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                  <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  {% endfor %}
+
+
+  {% assign current_collection = collection.url %}
+  {% assign linklist_handle = 'featured-collections' %}
+  {% assign image_size = '1024x1024' %}
+
+  {% if linklists[linklist_handle].links.size > 0 %}
+    {% assign link_count = 0 %}
+    {% for link in linklists[linklist_handle].links %}
+      {% if link.type == 'collection_link' %}
+        {% if link.url != current_collection }
+
+          {% assign collection = link.object %}
+          {% assign link_count = link_count | plus: 1 %}
+
+          <div class="container{% cycle ' dark', ' green', ' grey' %}">
+            <div class="wrapper">
+              <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+                <div class="grid__item large--one-third flex__item">
+                  <a href="{{ link.url }}" class="grid__image">
+                    {% if collection.image %}
+                      <img src="{{ collection | img_url: image_size }}" alt="{{ link.title | escape }}">
+                    {% else %}
+                      {% assign product = collection.products.first %}
+                      <img src="{{ product | img_url: image_size }}" alt="{{ link.title | escape }}">
+                    {% endif %}
+                  </a>
+                </div>
+
+                <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+                  <div class="mini-wrapper">
+                    <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                    <p>{{ link.object.description | truncatewords: 36 }}...</p>
+                    <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">Shop Now</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          </div>
+          <div class="clearfix"></div>
+
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+
+  {% include 'pagination' %}
+
+{% endpaginate %}

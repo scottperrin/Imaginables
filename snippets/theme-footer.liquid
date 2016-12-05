@@ -1,0 +1,164 @@
+<!-- /snippets/theme-footer.liquid -->
+
+<footer class="site-footer small--text-center" role="contentinfo">
+  <div class="wrapper">
+
+    <div class="grid">
+      <div class="grid__item one-half small--one-whole">
+
+        <div class="grid">
+          {% assign link_count = 1 %}
+          {% assign all_links = '' %}
+          {% for link in linklists.main-menu.links %}
+            {% assign link_count = link_count | plus: 1 %}
+            {% capture all_links %}{{ all_links }},{{ link.title }}+{{ link.url }},{% endcapture %}
+            {% assign child_list_handle = link.title | handleize %}
+            {% if linklists[child_list_handle].links != blank %}
+              {% for childlink in linklists[child_list_handle].links %}
+                {% assign link_count = link_count | plus: 1 %}
+                {% capture all_links %}{{ all_links }},{{ childlink.title }}+{{ childlink.url }},{% endcapture %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          {% assign all_links = all_links | replace: ',,', ',' %}
+          {% assign all_links = all_links | remove_first: ',' | split: ',' %}
+          {% assign menu_links_per_row = link_count | divided_by: 2  %}
+          <div class="grid__item one-half{% cycle ' small--text-left', ' small--text-right' %}">
+            <ul class="nav">
+              {% for i in all_links %}
+                {% assign link_elements = all_links[forloop.index0] | split: '+' %}
+                {% assign idx = forloop.index | modulo: menu_links_per_row %}
+                <li>
+                  <a href="{{ link_elements[1] }}" title="{{ link_elements[0] }}">{{ link_elements[0] }}</a>
+                </li>
+                {% if idx == 0 %}
+                  </ul>
+                </div>
+                <div class="grid__item one-half{% cycle ' small--text-left', ' small--text-right' %}">
+                  <ul class="nav">
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="grid__item one-half small--one-whole text-right small--text-center">
+
+        {% if settings.footer_social_enable %}
+          <ul class="inline-list social-icons">
+            {% if settings.social_twitter_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on {{ 'social.twitter' | t }}">
+                  {% include 'icon' with 'twitter' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_facebook_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on {{ 'social.facebook' | t }}">
+                  {% include 'icon' with 'facebook' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_instagram_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on {{ 'social.instagram' | t }}">
+                  {% include 'icon' with 'instagram' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_pinterest_link }}" title="{{ shop.name }} on {{ 'social.pinterest' | t }}">
+                  {% include 'icon' with 'pinterest' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_fancy_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_fancy_link }}" title="{{ shop.name }} on {{ 'social.fancy' | t }}">
+                  {% include 'icon' with 'fancy' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_google_plus_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_google_plus_link }}" title="{{ shop.name }} on {{ 'social.google_plus' | t }}">
+                  {% include 'icon' with 'google_plus' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ shop.name }} on {{ 'social.youtube' | t }}">
+                  {% include 'icon' with 'youtube' %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_vimeo_link != blank %}
+              <li>
+                <a class="icon-fallback-text" href="{{ settings.social_vimeo_link }}" title="{{ shop.name }} on {{ 'social.vimeo' | t }}">
+                  {% include 'icon' with 'vimeo' %}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+
+        {% if settings.footer_newsletter_enable %}
+          {% comment %}
+            If using MailChimp (recommended) don't forget to set up the MailChimp integration
+          {% endcomment %}
+          {% form 'customer' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+              <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+            {% else %}
+              <div class="input-group">
+                <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <span class="input-group-btn">
+                  <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+                </span>
+              </div>
+            {% endif %}
+          {% endform %}
+        {% endif %}
+
+      </div>
+    </div>
+
+
+    <div class="grid">
+      <div class="grid__item one-half small--one-whole  small--text-center">
+        {% comment %}
+          Loop through available payment methods and show their icons.
+        {% endcomment %}
+        {% unless shop.enabled_payment_types == empty %}
+          {% assign payment_icons_available = 'amazon_payments,american_express,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' %}
+          <ul class="inline-list payment-icons">
+            {% for type in shop.enabled_payment_types %}
+              {% if payment_icons_available contains type %}
+                <li>
+                  <span>
+                    {% include 'icon' with type %}
+                  </span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endunless %}
+      </div>
+
+      <div class="grid__item one-half small--one-whole text-right small--text-center">
+        {% comment %}
+          IMPORTANT! Removing the following link is not permitted and voids your IP agreement
+        {% endcomment %}
+        <small>&copy; <a href="/">{{ shop.name }}</a> | site by <a href="https://elkfox.com?ref={{ shop.name | handleize }}" title="Digital Commerce Agency Elkfox.com">Elkfox</a> & <a href="http://shopify.com?ref=elkfox" title="Shopify.com">Shopify {% include 'icon' with 'shopify' %}</a></small>
+      </div>
+
+    </div>
+  </div>
+</footer>
+<!-- //site-footer -->

@@ -1,0 +1,42 @@
+<!-- /snippets/account-bar.liquid -->
+
+{% if shop.customer_accounts_enabled %}
+
+	{% if customer %}
+
+      {% if customer.first_name != blank %}
+        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+        <br><br>
+      {% endif %}
+	  	<a href="/account" class="block-link">{{ 'layout.customer.account' | t }}</a>
+	  	<a href="/account/logout" class="block-link">{{ 'layout.customer.log_out' | t }}</a>
+    
+	{% else %}
+
+		{% form 'customer_login' %}
+
+			<p><small><b>{{ 'customer.login.sign_in' | t }}</b></small></p>
+
+			{{ form.errors | default_errors }}
+
+			<label for="CustomerEmail" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+			<input type="email" name="customer[email]" id="CustomerEmail" class="input-full input-borderless{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+
+			{% if form.password_needed %}
+			  <label for="CustomerPassword" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+			  <input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-full input-borderless{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.login.password' | t }}">
+			{% endif %}
+			 
+			<input type="submit" class="btn btn--full btn--secondary" value="{{ 'customer.login.sign_in' | t }}">
+
+			<a href="/account/register" class="block-link" title="{{ 'layout.customer.create_account' | t }}">{{ 'layout.customer.create_account' | t }}</a>
+
+			{% if form.password_needed %}
+			  <a href="/account/login#recover" class="block-link">{{ 'customer.login.forgot_password' | t }}</a>
+			{% endif %}
+
+		{% endform %}
+
+	{% endif %}
+
+{% endif %}

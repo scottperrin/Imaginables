@@ -1,0 +1,23 @@
+<!-- /snippets/shortcode-technical.liquid -->
+{% capture video %}//www.youtube.com/embed/{% include 'shortcode-render' render:'video' default:'' %}{% endcapture %}
+{% capture width %}{% include 'shortcode-render' render:'width' default:'640' %}{% endcapture %}
+{% capture height %}{% include 'shortcode-render' render:'height' default:'390' %}{% endcapture %}
+{% capture text %}{% include 'shortcode-render' render:'text' default:'' %}{% endcapture %}
+<section id="technical" class="container color dark">
+  <div class="wrapper">
+    <div class="grid--full grid-uniform text-center">
+      <div class="grid__item flex__item text-center{% if video != blank %} text-right large--one-half{% endif %}">
+        <div class="mini-wrapper">
+          {{ text }}
+        </div>
+      </div>
+      {% if video != blank %}
+        <div class="grid__item flex__item large--one-half">
+          <div class="mini-wrapper">
+            <iframe id="ytplayer" type="text/html" width="{{ width }}" height="{{ height }}" src="{{ video }}" frameborder="0" ></iframe>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
