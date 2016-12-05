@@ -51,9 +51,9 @@
   #Cart Page
   #Ajax Cart Styles
 ==============================================================================*/
-#admin_bar_iframe {
-  display: none;
-}
+// #admin_bar_iframe {
+//   display: none;
+// }
 
 html, body {
   margin-top: 0;
@@ -1456,16 +1456,29 @@ iframe {
   &.News {
     padding-bottom: 75%; // Special for home page news
   }
-  &.hover-zoom {
-    background-size: 165%;
-    -webkit-transition: background-size .25s;
-    -moz-transition: background-size .25s;
-    transition: background-size .25s;
-    &:hover {
-      background-size: 170%;
-    }
+}
+.hover-zoom {
+  overflow: hidden;
+  &:hover .hover-zoom-image {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+  }
+  .hover-zoom-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+    transition: all 1s;
   }
 }
+
 
 .circle_image {
   margin: $gutter/2 auto;
@@ -2922,6 +2935,7 @@ label.error {
           margin: $gutter / 2;
           color: $colorBody;
           opacity: 0.8;
+          z-index: 2;
           p {
             margin-bottom: 0;
           }
