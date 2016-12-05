@@ -1,0 +1,82 @@
+<!-- /snippets/product-related-products.liquid -->
+{% assign image_size = 'large' %}
+{% assign grid = '' %}
+{% if product.metafields.elkfox_product.related %}
+  <section id="related" class="container color white">
+    <div class="wrapper">
+      <div class="grid--full grid-uniform">
+        <div class="grid__item flex__item">
+    			<h3 class="text-center">Related Products</h3>
+    		</div>
+        <div class="grid__item flex__item">
+          <div class="mini-wrapper">
+            <div class="slick-wrapper">
+              <div class="slick_left">{% include 'icon' with 'previous' %}</div>
+              <div class="slick_right">{% include 'icon' with 'next' %}</div>
+    				  <div class="related-products text-center"></div>
+            </div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </section>
+  <script type="text/javascript" charset="utf-8">
+  //<![CDATA[
+    // let's wait until the main product assets are loaded, as they are more important
+    $(window).load(function(){
+    	// now for the goodness
+  	  var related = [];
+  	  {% if product.metafields.elkfox_product.related %}
+  	  related = jQuery.trim({{ product.metafields.elkfox_product.related | json }}).split(/[\s,;]+/);
+  	  {% endif %}
+  	  if (related.length && related[0] !== '') {
+  	    var list = jQuery('.related-products');
+  	    for (var i=0; i<related.length; i++) {
+  	      jQuery.getJSON('/products/' + related[i] + '.js', function(product) {
+  	        list.slick('slickAdd',('<div class="{{ grid }}"><a href="' + product.url +'"><img src="' + product.images[0].replace(/(\.jpg|\.png|\.jpeg|\.gif)/, '_{{ image_size }}$1') + '" /></a><p><a href="' + product.url + '">' + product.title + '</a></p><p class="price">' + Shopify.formatMoney(product.price, '{{ shop.money_format }}') + '</p></div>'));
+  	      });
+  	    }
+  	  }
+
+    });
+  //]]>
+
+  $(window).load(function(){
+    $('.related-products').slick({
+    dots: false,
+    prevArrow: '.slick_left',
+    nextArrow: '.slick_right',
+    infinite: true,
+    speed: 300,
+    autoplay: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+    });
+  });
+  </script>
+
+{% endif %}

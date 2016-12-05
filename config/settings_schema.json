@@ -1,0 +1,445 @@
+[
+  {
+    "name": "theme_info",
+    "logo": "https:\/\/elkfox.com\/brand\/elkfox_square_300.png",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Custom Theme by Elkfox v1.0"
+      },
+      {
+        "type": "paragraph",
+        "content": "This theme has been designed specifically for your store. Please note that removing this notice or the credit link in the footer of your site is not permitted. Need help? Please contact us via [help@elkfox.com](mailto:help@elkfox.com) for assistance."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary",
+        "default": "#204a80",
+        "info": "Used for text links, and primary buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary",
+        "default": "#dcdcdc",
+        "info": "Used for secondary buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_tertiary",
+        "label": "Tertiary",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "header",
+        "content": "Body"
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Text",
+        "default": "#333333"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_use_image",
+        "label": "Use custom logo"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom logo",
+        "max-width": 700,
+        "max-height": 300,
+        "info": "700 x 300px .png"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Max logo width",
+        "default": "450",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "checkbox",
+        "id": "favicon_enable",
+        "label": "Use custom icon"
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "Icon",
+        "max-width": 32,
+        "max-height": 32,
+        "info": "32 x 32px .png required"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "footer_social_enable",
+        "label": "Show social media icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_enable",
+        "label": "Show newsletter field"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_form_action",
+        "label": "MailChimp form action URL",
+        "info": "[Where do I find my MailChimp form action URL?](http:\/\/docs.shopify.com\/support\/configuration\/store-customization\/where-do-i-get-my-mailchimp-form-action)"
+      }
+    ]
+  },
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_vendor_enable",
+        "label": "Show product vendor"
+      },
+      {
+        "type": "select",
+        "id": "ajax_cart_method",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Home page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slideshow"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_small",
+        "label": "Show for small screens",
+        "info": "Would you like the slideshow to show on small screens (eg. smartphones)"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_enable",
+        "label": "Enable Slideshow"
+      },
+      {
+        "type": "header",
+        "content": "Slide 1",
+        "info": "You will need at least one slide for this feature to work"
+      },
+      {
+        "type": "checkbox",
+        "id": "slide_1_enable",
+        "label": "Enable Slide 1"
+      },
+      {
+        "type": "text",
+        "id": "slide_1_title",
+        "label": "Slide 1 Title",
+        "info": "This should be a short 2 or 3 word title"
+      },
+      {
+        "type": "image",
+        "id": "slide_1.png",
+        "label": "Slide 1 image",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "Should be an approximately 800 x 800px .png image with a transparent background"
+      },
+      {
+        "type": "text",
+        "id": "slide_1_text",
+        "label": "Slide 1 Text",
+        "info": "This should be a short paragraph of text"
+      },
+      {
+        "type": "text",
+        "id": "slide_1_button",
+        "label": "Slide 1 Button Text",
+        "info": "This should be a short 2 word call to action, with capitalised words"
+      },
+      {
+        "type": "text",
+        "id": "slide_1_link",
+        "label": "Slide 1 Button Link",
+        "info": "Example \/products\/my-product"
+      },
+      {
+        "type": "header",
+        "content": "Slide 2",
+        "info": "You will need at least one slide for this feature to work"
+      },
+      {
+        "type": "checkbox",
+        "id": "slide_2_enable",
+        "label": "Enable Slide 2"
+      },
+      {
+        "type": "text",
+        "id": "slide_2_title",
+        "label": "Slide 2 Title",
+        "info": "This should be a short 2 or 3 word title"
+      },
+      {
+        "type": "image",
+        "id": "slide_2.png",
+        "label": "Slide 2 image",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "Should be an approximately 800 x 800px .png image with a transparent background"
+      },
+      {
+        "type": "text",
+        "id": "slide_2_text",
+        "label": "Slide 2 Text",
+        "info": "This should be a short paragraph of text"
+      },
+      {
+        "type": "text",
+        "id": "slide_2_button",
+        "label": "Slide 2 Button Text",
+        "info": "This should be a short 2 word call to action, with capitalised words"
+      },
+      {
+        "type": "text",
+        "id": "slide_2_link",
+        "label": "Slide 2 Button Link",
+        "info": "Example \/products\/my-product"
+      },
+      {
+        "type": "header",
+        "content": "Slide 3",
+        "info": "You will need at least one slide for this feature to work"
+      },
+      {
+        "type": "checkbox",
+        "id": "slide_3_enable",
+        "label": "Enable Slide 3"
+      },
+      {
+        "type": "text",
+        "id": "slide_3_title",
+        "label": "Slide 3 Title",
+        "info": "This should be a short 2 or 3 word title"
+      },
+      {
+        "type": "image",
+        "id": "slide_3.png",
+        "label": "Slide 3 image",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "Should be an approximately 800 x 800px .png image with a transparent background"
+      },
+      {
+        "type": "text",
+        "id": "slide_3_text",
+        "label": "Slide 3 Text",
+        "info": "This should be a short paragraph of text"
+      },
+      {
+        "type": "text",
+        "id": "slide_3_button",
+        "label": "Slide 3 Button Text",
+        "info": "This should be a short 2 word call to action, with capitalised words"
+      },
+      {
+        "type": "text",
+        "id": "slide_3_link",
+        "label": "Slide 3 Button Link",
+        "info": "Example \/products\/my-product"
+      },
+      {
+        "type": "header",
+        "content": "Flat feature",
+        "info": "Image feature below slider"
+      },
+      {
+        "type": "checkbox",
+        "id": "feature_1_enable",
+        "label": "Enable Feature 1"
+      },
+      {
+        "type": "image",
+        "id": "feature_1.jpg",
+        "label": "Feature 1 image",
+        "max-width": 2000,
+        "max-height": 500,
+        "info": "Should be an approximately 2000 x 500px .jpg image"
+      },
+      {
+        "type": "text",
+        "id": "feature_1_link",
+        "label": "Feature 1 Link",
+        "info": "Example \/products\/my-product"
+      },
+      {
+        "type": "checkbox",
+        "id": "feature_2_enable",
+        "label": "Enable Feature 2"
+      },
+      {
+        "type": "image",
+        "id": "feature_2.jpg",
+        "label": "Feature 2 image",
+        "max-width": 2000,
+        "max-height": 500,
+        "info": "Should be an approximately 2000 x 500px .jpg image"
+      },
+      {
+        "type": "text",
+        "id": "feature_2_link",
+        "label": "Feature 2 Link",
+        "info": "Example \/products\/my-product"
+      },
+      {
+        "type": "header",
+        "content": "Latest Blog Posts"
+      },
+      {
+        "type": "checkbox",
+        "id": "latest_posts_enable",
+        "label": "Show recent blog posts"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter URL",
+        "default": "http:\/\/twitter.com\/shopify",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL",
+        "default": "http:\/\/instagram.com\/shopify",
+        "info": "http:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link",
+        "default": "http:\/\/facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link",
+        "default": "http:\/\/pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_fancy_link",
+        "label": "Fancy link",
+        "default": "http:\/\/fancy.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_google_plus_link",
+        "label": "Google+ link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube link",
+        "default": "http:\/\/youtube.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo link",
+        "default": "http:\/\/vimeo.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_products",
+        "label": "Enable sharing for products"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable sharing for blog articles"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_fancy",
+        "label": "Add to Fancy"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_google",
+        "label": "+1 on Google Plus"
+      }
+    ]
+  }
+]

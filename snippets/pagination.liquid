@@ -1,0 +1,12 @@
+<!-- /snippets/pagination.liquid -->
+
+{% if paginate.pages > 1 %}
+
+  {% capture prev %}{% include 'icon' with 'previous' %}{% endcapture %}
+  {% capture next %}{% include 'icon' with 'next' %}{% endcapture %}
+
+  <div class="pagination">
+    {{ paginate | default_pagination | replace: '&laquo; Previous', prev | replace: 'Next &raquo;', next }}
+  </div>
+
+{% endif %}

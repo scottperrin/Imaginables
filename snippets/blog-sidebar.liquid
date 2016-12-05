@@ -1,0 +1,55 @@
+<!-- /snippets/blog-sidebar.liquid -->
+
+{% assign current_url = article.url %}
+
+<div class="grid">
+  {% for article in blogs[blog.handle].articles limit:5 %}
+    {% unless article.url == current_url %}
+      <div class="grid__item">
+        {% assign size = '_medium' %}
+        {% include 'blog-image' %}
+        <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+        <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+        <div class="rte">
+          {% if article.excerpt.size > 0 %}
+            {{ article.excerpt }}
+          {% else %}
+            <p>{{ article.content | strip_html | truncatewords: 24 }}...</p>
+          {% endif %}
+        </div>
+        {% comment %}<p><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></p>{% endcomment %}
+        <br><br>
+      </div>
+    {% endunless %}
+  {% endfor %}
+</div>
+
+{% comment %}
+  Recent blog posts
+
+<h3 class="h4">{{ 'blogs.sidebar.recent_articles' | t }}</h3>
+<ul class="no-bullets">
+  {% for article in blogs[blog.handle].articles limit:6 %}
+    <li>
+      <a href="{{ article.url }}">{{ article.title }}</a>
+      <br>
+      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
+    </li>
+  {% endfor %}
+</ul>{% endcomment %}
+
+{% comment %}
+  Blog tags
+
+{% if blog.all_tags.size > 0 %}
+  <h3 class="h4">{{ 'blogs.sidebar.categories' | t }}</h3>
+  <ul class="no-bullets">
+    {% for tag in blog.all_tags %}
+      {% if current_tags contains tag %}
+      <li>{{ tag }}</li>
+      {% else %}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}{% endcomment %}
