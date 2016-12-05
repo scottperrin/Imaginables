@@ -1,0 +1,42 @@
+{% assign src = false %}
+{% if article.image %}
+  {% assign size = size | remove: '_' %}
+  {% assign src = article.image.src | img_url: size %}
+{% elsif article.content contains '<img' %}
+  {% assign img = article.content | split: '<img' %}
+  {% assign src = img[1] | split: 'src="' %}
+  {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'http:' | remove: 'https:' %}
+  {% if src %}
+    {% assign src = src
+    | replace:'_pico',size
+    | replace:'_icon',size
+    | replace:'_thumb',size
+    | replace:'_small',size
+    | replace:'_medium',size
+    | replace:'_large',size
+    | replace:'_grande',size
+    | replace:'_original',size
+    | replace:'_1024x1024',size
+    | replace:'_2048x2048',size
+    | replace:'_master',size
+    %}
+  {% endif %}
+{% endif %}
+{% if src != false %}
+  <a href="{{ article.url }}" title="{{ article.title }}">
+    <div class="image-ratio ThreeByFive" style="background-image:url('{{ src }}')"></div>
+  </a>
+{% elsif article.content contains 'youtube.com/embed/' %}
+  {% assign vid = article.content | split: 'embed/' %}
+  {% assign vid = vid[1] | split: '"' | first %}
+  <iframe id="ytplayer" type="text/html" width="640" height="390" src="//www.youtube.com/embed/{{ vid }}" frameborder="0" ></iframe>
+{% else %}
+  {% comment %}
+    Fallback for when there is no image - demo only
+  {% endcomment %}
+  {% assign src = "//source.unsplash.com/collection/1051/" %}
+  <a href="{{ article.url }}" title="{{ article.title }}">
+    <div class="image-ratio ThreeByFive" style="background-image:url('{{ src | append: index }}')"></div>
+  </a>
+  {% assign index = index | plus:1 %}
+{% endif %}
