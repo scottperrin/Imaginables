@@ -19,7 +19,7 @@
               {% include 'shortcode' load: article.content %}
                 <div class="grid__item text-center">
                   <div class="story-wrapper">
-                    {% if link != blank %}<a href="{{ link }}" target="_blank" rel="nofollow" title="{{ article.title }}">{% endif %}<img src="{{ article | img_url: 'large' }}" alt="{{ article.title }}">{% if link != blank %}</a>{% endif %}
+                    {% if link != blank %}<a href="{{ link }}" target="_blank" rel="nofollow" title="{{ article.title }}" class="grid__image" style="background-image:url({{ article | img_url: 'large' }});background-size:cover;background-position:center center;"></a>{% endif %}
                     <p>
                       {% if link != blank %}<a target="_blank" rel="nofollow" title="{{ article.title }}" href="{{ link }}">{% endif %}
                         {{ article.title }}

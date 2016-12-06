@@ -1,0 +1,62 @@
+<!-- /snippets/product-parts-grid-item.liquid -->
+
+{% comment %}
+  Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+
+{% comment %}
+  Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+  Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<div class="grid__item {{ grid_item_width }}">
+  <div class="product-part-wrapper text-center">
+    <a href="{{ product.url | within: collection }}" class="grid__image" style="background-image: url({{ product.featured_image.src | img_url: 'large' }});background-size:cover;background-position: center center;background-repeat:no-repeat;"></a>
+
+    <a href="{{ product.url | within: collection }}">
+      <div class="product-part-text">
+        <p class="h6">{{ product.title }}</p>
+
+        <p>
+          {% if on_sale %}
+            {% if product.price_varies %}
+              {% assign sale_price = product.price | money %}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              <strong>{{ 'products.product.on_sale' | t }}</strong>
+              {{ product.price | money }}
+            {% endif %}
+          {% else %}
+            {% if product.price_varies %}
+              {% assign price = product.price | money %}
+              {{ 'products.general.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          {% endif %}
+          {% if sold_out %}
+            <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+          {% endif %}
+          {% if on_sale %}
+            <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+            <br><s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+        </p>
+      </div>
+    </a>
+  </div>
+</div>

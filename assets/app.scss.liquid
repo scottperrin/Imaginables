@@ -59,6 +59,7 @@ html, body {
   margin-top: 0;
   padding-top: 0;
   top: 0;
+  outline: none;
 }
 
 /*============================================================================
@@ -276,6 +277,8 @@ $iconDash: none;
 @mixin transition($value: all .25s ease-out) {
   @include prefixer(transition, $value, webkit moz ms spec);
 }
+
+
 
 // Vertically align anything
 @mixin vertical-align($position: relative) {
@@ -1105,6 +1108,7 @@ hr {
 
   a {
     text-decoration: underline;
+    outline: none;
   }
 
   // Add some top margin to headers from the rich text editor
@@ -1142,6 +1146,7 @@ a,
   text-decoration: none;
   background: transparent;
   @include transition();
+  outline: none;
 }
 
 a:hover,
@@ -1481,7 +1486,7 @@ iframe {
 
 
 .circle_image {
-  margin: $gutter/2 auto;
+  margin: 0 auto $gutter/2 auto;
   width: $gutter*4;
   height: $gutter*4;
   border-radius: $gutter*2;
@@ -1691,6 +1696,10 @@ label[for] {
   textarea {
     display: block;
     margin-bottom: 10px;
+  }
+  select {
+    display: block;
+    margin-bottom: $gutter/2;
   }
 
   input[type="radio"],
@@ -2422,6 +2431,14 @@ label.error {
       right: 0;
     }
   }
+
+  .additional_checkout_buttons{
+    margin-top: $gutter/2;
+
+    button{
+      width: 100%;
+    }
+  }
 }
 
 #PageContainer {
@@ -3025,7 +3042,7 @@ AddToCart {
   }
 
   .container.color {
-    padding: $gutter 0 $gutter/2;
+    padding: $gutter/2 0 $gutter/2;
   }
 
   /*================ Nav & Tag Based Filtering ================*/
@@ -3088,21 +3105,41 @@ AddToCart {
     margin: 0 auto;
   }
 
-  .filament_brands {
-    padding: $gutter $gutter/2;
-    .brand_container {
-      margin-bottom: $gutter/2;
+  .brand_container.container.color {
+    padding-top: $gutter*1.5;
+    padding-bottom: $gutter*1.5;
+    h2 {
+      //@include responsive-type( $baseFontSize, $h4Base, 24px, 0.02vmax );
+      color: $colorSecondary;
+      @include transition();
+    }
+    &:hover {
       h2 {
-        @include responsive-type( $baseFontSize, $h4Base, 24px, 0.02vmax );
-        color: $colorSecondary;
-        @include transition();
+        color: $colorTertiary;
       }
-      &:hover {
-        h2 {
-          color: $colorTertiary;
-        }
-        .circle_image {
-          border: $borderWeight*4 solid $colorTertiary;
+      .circle_image {
+        border: $borderWeight*4 solid $colorTertiary;
+      }
+    }
+  }
+
+  .product-part-wrapper{
+    background: $colorPrimary;
+    margin-bottom: $gutter;
+
+    .grid__image{
+      min-height: 250px;
+      margin-bottom: 0;
+    }
+    .product-part-text{
+      padding: 20px;
+
+      p{
+        color: $colorBody;
+        margin-bottom: 0;
+
+        &.h6{
+          margin-bottom: $gutter/4;
         }
       }
     }
@@ -3112,24 +3149,7 @@ AddToCart {
 /*============================================================================
   #Tab Navigation
 ==============================================================================*/
-.blue {
-  div.tab-link {
-    &.active {
-      &:before {
-        background-color: $colorPrimary;
-      }
-    }
-  }
-}
-.green {
-  div.tab-link {
-    &.active {
-      &:before {
-        background-color: $colorSecondary;
-      }
-    }
-  }
-}
+
 .tabs-slider {
   border-top: solid 2px white;
 
@@ -3225,15 +3245,37 @@ AddToCart {
     }
   }
 }
+.tabs-slider {
+  &.blue #tabs-links div.tab-link {
+    &.active {
+      &:before {
+        background-color: $colorPrimary;
+      }
+    }
+  }
+  &.grey #tabs-links div.tab-link {
+    &.active {
+      @include transition(color 1s ease);
+      color: #000;
+      &:before {
+        background-color: darken($colorBody, 7%);
+      }
+    }
+  }
+}
 
 /*============================================================================
   #Product Page
 ==============================================================================*/
 
 .template-product {
-  .js-qty {
-    display: none !important;
+  .mini-wrapper{
+    .js-qty{
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
   }
+
   .main-content {
     padding: 0;
   }
@@ -3285,6 +3327,8 @@ AddToCart {
     .slick_left, .slick_right {
     top: 50%;
     position: absolute;
+    margin-top: -20px;
+    z-index: 100;
     }
     .slick_left {
       left: -$gutter;
@@ -3301,6 +3345,13 @@ AddToCart {
   }
   .story-wrapper {
     background: $colorBody;
+
+    .grid__image{
+      display: block;
+      min-height: 200px;
+      margin-bottom: 0;
+    }
+
     p {
       padding: 20px;
     }
@@ -3549,6 +3600,7 @@ AddToCart {
     width: 100%;
     padding: 5px 25px;
     margin: 0;
+    border: none;
   }
 }
 

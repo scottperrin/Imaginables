@@ -18,7 +18,7 @@
 
     <div class="grid--full">
       <div class="grid__item large--three-fifths">
-        {% for article in blogs['news'].articles | limit: 1 %}
+        {% for article in blogs['news'].articles limit: 1 %}
           {% if article.image %}
             <a class="article__featured-image" href="{{ article.url }}">
               <div class="image-ratio OneByOne hover-zoom">
@@ -33,7 +33,7 @@
         {% endfor %}
       </div>
       <div class="grid__item large--two-fifths">
-      {% for article in blogs['news'].articles | limit: 2 | offset: 1 %}
+      {% for article in blogs['news'].articles limit: 2 offset: 1 %}
         {% if article.image %}
           <a class="article__featured-image" href="{{ article.url }}">
             <div class="image-ratio News hover-zoom">
