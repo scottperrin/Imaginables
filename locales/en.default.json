@@ -281,8 +281,7 @@
       "unavailable": "Unavailable",
       "compare_at": "On sale from",
       "quantity": "Quantity",
-      "add_to_cart": "Buy Now",
-      "price_suffix": "incl. GST"
+      "add_to_cart": "Buy Now"
     }
   },
   "gift_cards": {

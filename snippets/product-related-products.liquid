@@ -1,7 +1,7 @@
 <!-- /snippets/product-related-products.liquid -->
 {% assign image_size = 'large' %}
 {% assign grid = '' %}
-{% if product.metafields.related.product %}
+{% if product.metafields.elkfox_product.related %}
   <section id="related" class="container color white">
     <div class="wrapper">
       <div class="grid--full grid-uniform">
@@ -26,8 +26,8 @@
     $(window).load(function(){
     	// now for the goodness
   	  var related = [];
-  	  {% if product.metafields.related.product %}
-  	  related = jQuery.trim({{ product.metafields.related.product | json }}).split(/[\s,;]+/);
+  	  {% if product.metafields.elkfox_product.related %}
+  	  related = jQuery.trim({{ product.metafields.elkfox_product.related | json }}).split(/[\s,;]+/);
   	  {% endif %}
   	  if (related.length && related[0] !== '') {
   	    var list = jQuery('.related-products');
@@ -44,8 +44,8 @@
   $(window).load(function(){
     $('.related-products').slick({
     dots: false,
-    prevArrow: '.slick_left',
-    nextArrow: '.slick_right',
+    prevArrow: '#related .slick_left',
+    nextArrow: '#related .slick_right',
     infinite: true,
     speed: 300,
     autoplay: true,

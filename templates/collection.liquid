@@ -2,73 +2,8 @@
 {% assign current_collection = collection.url %}
 {% paginate collection.products by 24 %}
   {% if collection.handle == 'filaments' %}
-  <div class="container">
-      <div class="tabs-slider grid--full color green">
-        <nav id="tabs-links">
-          {% for article in blogs.filaments.articles %}
-            <div data-tab="{{ article.title | replace: '+', 'plus' | handleize }}" class="tab-link{% if forloop.first %} active{% endif %}">{{ article.title }}</div>
-          {% endfor %}
-        </nav>
-        <div class="tabs">
-          {% for article in blogs.filaments.articles %}
-            <div id="{{ article.title | replace: '+', 'plus' | handleize }}" class="tab{% if forloop.first %} active{% endif %}{% if article.image %} with-image{% endif %}">
-              <h3>{{ article.title }}</h3>
-              <div class="content rte">
-                  {{ article.content }}
-              </div>
-              {% if article.image %}
-              <div class="tab-image">
-                <img src="{{ article.image | img_url: '1024x1024' }}">
-              </div>
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-  </div>
 
-<script>
-  $(document).ready(function(){
-    var tab = 'div.tab-link'
-    var content = 'div.tabs .tab'
-    $( tab ).click(function(){
-      var tab_id = $(this).attr('data-tab');
-      $( tab ).removeClass('active');
-      $( content ).removeClass('active');
-      $(this).addClass('active');
-      $("#"+tab_id).addClass('active');
-    })
-  });
-</script>
-
-    {% assign linklist_handle = 'filament-brands' %}
-    <div class="container color grey">
-      <div class="wrapper">
-        <div class="grid--full grid-uniform filament_brands text-center">
-          {% assign image_size = 'grande' %}
-          {% for link in linklists[linklist_handle].links %}
-            {% assign collection = link.object %}
-            <div class="grid__item large--one-half medium--one-half text-center brand_container">
-              <a href="{{ link.url }}" title="{{ link.title }}">
-                <div class="brand_item">
-                  {% if collection.image %}
-                    <div class="circle_image" style="background-image:url('{{ link.object | img_url: image_size }}');">
-                      <img src="{{ link.object | img_url: image_size }}" alt="{{ link.title | escape }}">
-                    </div>
-                  {% else %}
-                    {% assign product = link.object.products.first %}
-                    <div class="circle_image" style="background-image:url('{{ product | img_url: image_size }}');">
-                      <img src="{{ product | img_url: image_size }}" alt="{{ link.title | escape }}">
-                    </div>
-                  {% endif %}
-                  <h2>{{ link.title }}</h2>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+    {% include 'collection-filaments' %}
 
   {% else %}
 
