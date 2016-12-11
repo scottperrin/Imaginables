@@ -1,29 +1,40 @@
 <!-- /templates/collection.accessories.liquid -->
-<div class="container color grey">
-  <div class="wrapper">
-    <div class="grid--full grid-uniform spare_parts text-center">
-      {% assign linklist_handle = 'spare-parts' %}
-      {% assign image_size = 'grande' %}
-      {% for link in linklists[linklist_handle].links %}
+{% assign linklist_handle = 'spare-parts' %}
+{% assign image_size = 'grande' %}
+{% for link in linklists[linklist_handle].links %}
+  <div class="container color{% cycle '', ' grey' %}">
+    <div class="wrapper">
+      <div class="grid large--grid--flex">
         {% assign collection = link.object %}
-        <div class="grid__item large--one-quarter medium--one-third text-center parts_container">
-          <a href="{{ link.url }}" title="{{ link.title }}">
-            <div class="parts_item">
-              {% if collection.image %}
-                <div>
-                  <img src="{{ link.object | img_url: image_size }}" alt="{{ link.title | escape }}">
-                </div>
-              {% else %}
-                {% assign product = link.object.products.first %}
-                <div>
-                  <img src="{{ product | img_url: image_size }}" alt="{{ link.title | escape }}">
-                </div>
-              {% endif %}
-              <p>{{ link.title }}</p>
-            </div>
+
+        <div class="grid__item large--one-third flex__item">
+          <a href="{{ link.url }}" title="{{ link.title }}" class="grid__image">
+            {% if link.object.image %}
+              <div>
+                <img src="{{ link.object | img_url: image_size }}" alt="{{ link.title | escape }}">
+              </div>
+            {% else %}
+              {% assign product = link.object.products.first %}
+              <div>
+                <img src="{{ product | img_url: image_size }}" alt="{{ link.title | escape }}">
+              </div>
+            {% endif %}
           </a>
         </div>
-      {% endfor %}
+        <div class="grid__item large--two-thirds flex__item">
+          <div class="mini-wrapper">
+            <h2>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </h2>
+            <a href="{{ link.url }}">
+              <button class="btn btn--large">
+                <span>View Parts</span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
+{% endfor %}

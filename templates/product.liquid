@@ -13,7 +13,7 @@ Capture the product description and split in to sections and distribute into sho
   {% endif %}
   {% if split contains '[spec' %}
     {% comment %}Strip all the html except for lists{% endcomment %}
-    {% capture specs %}{{ split | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]' | replace: '<br>', '[br]'  | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' | replace: '[br]', '<br>' }}{% endcapture %}
+    {% capture specs %}{{ split | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]'  | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' }}{% endcapture %}
   {% endif %}
   {% if split contains '[technical' %}
     {% capture technical %}{{ split }}{% endcapture %}
