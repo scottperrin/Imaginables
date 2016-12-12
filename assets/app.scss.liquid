@@ -797,7 +797,7 @@ body {
 .main-content {
   display: block;
   margin-top: $headerHeight;
-  padding-bottom: $gutter * 1.5;
+  padding: $gutter * 1.5 0;
 }
 
 /*============================================================================
@@ -999,7 +999,7 @@ pre {
 /*================ Horizontal Rules ================*/
 hr {
   clear: both;
-  border-top: solid $colorTertiary;
+  border-top: solid lighten($colorTertiary, 5%);
   border-width: $borderWeight 0 0;
   margin: $gutter 0;
   height: 0;
@@ -2858,7 +2858,7 @@ label.error {
 
   .main-content {
     margin-top: 0;
-    padding-bottom: 0;
+    padding: 0;
   }
 
   h2 {
@@ -2940,7 +2940,6 @@ label.error {
   .news {
     background-color: $colorTertiary;
     padding: $gutter 0 $gutter*1.5;
-    margin-bottom: $gutter;
     color: $colorBody;
     .article__featured-image {
       .image-ratio {

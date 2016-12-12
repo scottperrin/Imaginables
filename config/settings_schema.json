@@ -156,7 +156,7 @@
     ]
   },
   {
-    "name": "Home page",
+    "name": "Home page - Slideshow",
     "settings": [
       {
         "type": "header",
@@ -167,6 +167,24 @@
         "id": "slideshow_small",
         "label": "Show for small screens",
         "info": "Would you like the slideshow to show on small screens (eg. smartphones)"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_autoplay",
+        "label": "Autoplay Slideshow"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_pause_on_hover",
+        "label": "Pause slideshow on mouse over"
+      },
+      {
+        "type": "text",
+        "id": "slideshow_speed",
+        "label": "Slideshow Speed",
+        "default": "5",
+        "placeholder": "5",
+        "info": "In seconds"
       },
       {
         "type": "checkbox",
@@ -196,6 +214,18 @@
         "max-width": 800,
         "max-height": 800,
         "info": "Should be an approximately 800 x 800px .png image with a transparent background"
+      },
+      {
+        "type": "text",
+        "id": "slide_1_video_url",
+        "label": "Slide 1 video",
+        "placeholder": "Youtube Video ID",
+        "info": "This will overwrite the image if it is not empty"
+      },
+      {
+        "type": "checkbox",
+        "id": "slide_video_background_1_enable",
+        "label": "Full size video"
       },
       {
         "type": "text",
@@ -298,58 +328,34 @@
         "id": "slide_3_link",
         "label": "Slide 3 Button Link",
         "info": "Example \/products\/my-product"
-      },
+      }
+    ]
+  },
+  {
+    "name": "Home page - Illustration Slider",
+    "settings": [
       {
         "type": "header",
-        "content": "Flat feature",
-        "info": "Image feature below slider"
+        "content": "Illustration Slider"
       },
       {
         "type": "checkbox",
-        "id": "feature_1_enable",
-        "label": "Enable Feature 1"
-      },
-      {
-        "type": "image",
-        "id": "feature_1.jpg",
-        "label": "Feature 1 image",
-        "max-width": 2000,
-        "max-height": 500,
-        "info": "Should be an approximately 2000 x 500px .jpg image"
-      },
-      {
-        "type": "text",
-        "id": "feature_1_link",
-        "label": "Feature 1 Link",
-        "info": "Example \/products\/my-product"
-      },
-      {
-        "type": "checkbox",
-        "id": "feature_2_enable",
-        "label": "Enable Feature 2"
-      },
-      {
-        "type": "image",
-        "id": "feature_2.jpg",
-        "label": "Feature 2 image",
-        "max-width": 2000,
-        "max-height": 500,
-        "info": "Should be an approximately 2000 x 500px .jpg image"
-      },
-      {
-        "type": "text",
-        "id": "feature_2_link",
-        "label": "Feature 2 Link",
-        "info": "Example \/products\/my-product"
-      },
+        "id": "cartoon_slideshow_enable",
+        "label": "Show the illustration slider"
+      }
+    ]
+  },
+  {
+    "name": "Home page - Major News",
+    "settings": [
       {
         "type": "header",
         "content": "Latest Blog Posts"
       },
       {
         "type": "checkbox",
-        "id": "latest_posts_enable",
-        "label": "Show recent blog posts"
+        "id": "latest_major_news_enable",
+        "label": "Show major news or features"
       }
     ]
   },
