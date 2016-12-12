@@ -4,8 +4,13 @@
   {% include 'index-slider' %}
 {% endif %}
 
-{% include 'index-slider-2' %}
+{% if settings.cartoon_slideshow_enable %}
+  {% include 'index-slider-2' %}
+{% endif %}
 
+{% if settings.latest_major_news_enable %}
+  {% include 'index-major-news' %}
+{% endif %}
 
 <div class="news">
   <div class="wrapper">

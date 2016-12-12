@@ -1,6 +1,5 @@
 <!-- snippets/index-slider.liquid -->
 
-{% assign slider_autoplay = true %}
 {% assign slider_dots = true %}
 {% assign slider_arrows = true %}
 
@@ -13,6 +12,8 @@
     {% capture slide_text %}slide_{{ i }}_text{% endcapture %}
     {% capture slide_link %}slide_{{ i }}_link{% endcapture %}
     {% capture slide_btn_text %}slide_{{ i }}_button{% endcapture %}
+    {% capture slide_video_url %}slide_{{ i }}_video_url{% endcapture %}
+    {% capture slide_enable_video_background %}slide_video_background_{{ i }}_enable{% endcapture %}
     {% if forloop.first or settings[slide_enable] %}
       <div>
         <div class="grid large--grid--flex">
@@ -21,14 +22,34 @@
             <p>{{ settings[slide_text] }}</p>
             <a href="{{ settings[slide_link] }}" title="{{ settings[slide_title] }}" class="btn btn--large">{{ settings[slide_btn_text] }}</a>
           </div>
-          <div class="grid__item large--one-half flex__item">
-            <img src="{{ slide_img | asset_url }}">
-          </div>
+
+            {% if settings[slide_video_url] != blank %}
+
+              {% if settings[slide_enable_video_background] %}
+                <div class="video-background">
+                  <div class="video-foreground">
+                    <iframe src="https://www.youtube.com/embed/{{ settings[slide_video_url] }}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <div class="grid__item large--one-half flex__item">
+                  </div>
+                </div>
+              {% else %}
+                <div class="grid__item large--one-half flex__item">
+                  <iframe src="https://www.youtube.com/embed/{{ settings[slide_video_url] }}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe>
+                </div>
+              {% endif %}
+
+            {% else %}
+              <div class="grid__item large--one-half flex__item">
+                <img src="{{ slide_img | asset_url }}">
+              </div>
+            {% endif %}
+
         </div>
       </div>
     {% endif %}
   {% endfor %}
-  
+
 </div>
 
 <script type="text/javascript">
@@ -42,12 +63,14 @@
     function loadSlider() {
       $("#index_slider").slick({
         slidesToShow: 1,
-        {% if slider_autoplay %}autoplay: true,{% else %}autoplay: false,{% endif %}
-        {% if slider_dots %}dots: true,{% else %}dots: false,{% endif %}
-        {% if slider_arrows %}arrows: true,{% else %}arrows: false,{% endif %}
+        autoplay: {% if settings.slideshow_autoplay %}true{% else %}false{% endif %},
+        dots: {% if slider_dots %}true{% else %}false{% endif %},
+        arrows: {% if slider_arrows %}true{% else %}false{% endif %},
+        pauseOnHover: {% if settings.slideshow_pause_on_hover %}true{% else %}false{% endif %},
+        autoplaySpeed: {{ settings.slideshow_speed }}000,
         prevArrow: '<span class="icon"><svg class="slick-prev" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="21,0.586 5.586,16 21,31.414 26.414,26 16.414,16 26.414,6 "/></svg></span>',
         nextArrow: '<span class="icon"><svg class="slick-next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="5.586,6 15.586,16 5.586,26 11,31.414 26.414,16 11,0.586 "/></svg></span>',
-        adaptiveHeight: true
+        adaptiveHeight: false
       });
     }
   });
