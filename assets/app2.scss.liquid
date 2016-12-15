@@ -1,18 +1,18 @@
 /*============================================================================
-  ___  _   _    _
- /   || | | |  | |
- \__  | | | |  | |  __
- /    |/  |/_) |/  /  \_/\/
+  ___  _   _    _            
+ /   || | | |  | |           
+ \__  | | | |  | |  __       
+ /    |/  |/_) |/  /  \_/\/  
  \___/|__/| \_/|__/\__/  /\_/
-               |\
-               |/
+               |\            
+               |/            
 
   Help @ Elkfox.com
   https://elkfox.com
   https://experts.shopify.com/elkfox
   Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
   Author Carson Shold @cshold & Team Elkfox @elkfox
-
+  
 ==============================================================================*/
 
 /*============================================================================
@@ -46,20 +46,18 @@
   #Popup Modals
   #Product and Collection Grids
   #Collection Filters
-  #Tab Navigation
   #Product Page
   #Cart Page
   #Ajax Cart Styles
 ==============================================================================*/
-// #admin_bar_iframe {
-//   display: none;
-// }
 
+#admin_bar_iframe {
+  display: none;
+}
 html, body {
   margin-top: 0;
   padding-top: 0;
   top: 0;
-  outline: none;
 }
 
 /*============================================================================
@@ -100,7 +98,6 @@ $breakpoint-has-pull:  ('medium', 'medium-down', 'large');
 // Timber Colors
 $colorPrimary: {{ settings.color_primary }};
 $colorSecondary: {{ settings.color_secondary }};
-$colorTertiary: {{ settings.color_tertiary }};
 
 // Button colors
 $colorBtnPrimary: $colorPrimary;
@@ -124,15 +121,17 @@ $colorTextBody: {{ settings.color_body_text }};
 $colorBody: {{ settings.color_body_bg }};
 
 // Borders
+$colorTertiary: {{ settings.color_tertiary }};
 $borderWeight: 1px;
 
 // Forms
 $inputHeight: 37px;
 
-// Nav and Header
+// Nav and dropdown link background
 $colorNavText: $colorBody;
+
+// Logo max width
 $logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-$headerHeight: 70px;
 
 // Helper colors
 $disabledGrey: #f6f6f6;
@@ -153,6 +152,14 @@ $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 // Z-index
 $zindexNavDropdowns: 5;
 $zindexDrawer: 10;
+
+/*================ Typography ================*/
+
+$headerFontStack: 'Montserrat', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$headerFontWeight: 700;
+
+$bodyFontStack: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$baseFontSize: 15px; // Henceforth known as 1em
 
 /*================ Icons ================*/
 
@@ -216,44 +223,14 @@ $iconDash: none;
   }
 }
 
-@mixin flex($value) {
-  -webkit-box-flex: $value;
-  -webkit-flex: $value;
-  -moz-box-flex: $value;
-  -ms-flex: $value;
-  flex: $value;
-}
-@mixin flex-display() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-@mixin flex-box-pack($direction) {
-  -webkit-box-pack: $direction;
-  -webkit-justify-content: $direction;
-  -moz-box-pack: $direction;
-  -ms-flex-pack: $direction;
-  justify-content: $direction;
-}
-@mixin flex-box-orient($orient) {
-  @include prefixer(box-orient, $orient, webkit moz);
-}
-@mixin flex-box-direction($direction) {
-  @include prefixer(direction, $direction, webkit moz);
-}
-@mixin flex-direction($direction) {
-  @include prefixer(flex-direction, $direction, webkit ms spec);
-}
 @mixin transform($transform) {
   @include prefixer(transform, $transform, ms webkit spec);
 }
+
 @mixin user-select($value: none) {
   @include prefixer(user-select, $value, webkit moz ms spec);
 }
+
 @mixin backface($visibility: hidden) {
   @include prefixer(backface-visibility, $visibility, webkit spec);
 }
@@ -277,8 +254,6 @@ $iconDash: none;
 @mixin transition($value: all .25s ease-out) {
   @include prefixer(transition, $value, webkit moz ms spec);
 }
-
-
 
 // Vertically align anything
 @mixin vertical-align($position: relative) {
@@ -760,13 +735,10 @@ $class-type: unquote(".");
       }
       &.align-bottom {
         align-self: flex-end;
-
       }
     }
   }
 }
-
-
 
 /*============================================================================
   #Basic Styles
@@ -796,8 +768,8 @@ body {
 
 .main-content {
   display: block;
-  margin-top: $headerHeight;
-  padding: $gutter * 1.5 0;
+  margin-top: $gutter * 2;
+  padding-bottom: $gutter * 2;
 }
 
 /*============================================================================
@@ -845,20 +817,19 @@ body {
 /*============================================================================
   #Typography
 ==============================================================================*/
-/*================ Variables ================*/
-
-$headerFontStack: 'Montserrat', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$headerFontWeight: 700;
-$h1Base: 2.4;
-$h2Base: 1.8;
-$h3Base: 1.1;
-$h4Base: 0.8;
-$h5Base: 0.5;
-$h6Base: 0.4;
-
-$bodyFontStack: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$baseFontSize: 15px; // Henceforth known as 1em
-$pBase: 0.1;
+body,
+input,
+textarea,
+button,
+select {
+  font-size: $baseFontSize;
+  line-height: 1.6;
+  font-family: $bodyFontStack;
+  color: $colorTextBody;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
 
 h1, h2, h3, h4, h5, h6 {
   display: block;
@@ -873,43 +844,92 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*================ Responsive Typography - Fallback from vmax to vm to sass em function ================*/
-@mixin responsive-type($minFont, $viewport, $default, $kerning) {
-  font-size: em($default);
+
+$h1Base: 2.4;
+$h2Base: 1.8;
+$h3Base: 1.1;
+$h4Base: 0.8;
+$h5Base: 0.5;
+$h6Base: 0.4;
+$pBase: 0.1;
+
+h1 {
+  font-size: em(68px);
   //em fallback
-  font-size: -moz-calc(#{$minFont} + #{$viewport}vw);
-  font-size: -webkit-calc(#{$minFont} + #{$viewport}vw);
-  font-size: -o-calc(#{$minFont} + #{$viewport}vw);
-  font-size: calc(#{$minFont} + #{$viewport}vw);
+  font-size: calc(#{$baseFontSize} + #{$h1Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h1Base}vm);
   //vm fallback
-  font-size: -moz-calc(#{$minFont} + #{$viewport}vmax);
-  font-size: -webkit-calc(#{$minFont} + #{$viewport}vmax);
-  font-size: -o-calc(#{$minFont} + #{$viewport}vmax);
-  font-size: calc(#{$minFont} + #{$viewport}vmax);
-  letter-spacing: $kerning;
+  font-size: calc(#{$baseFontSize} + #{$h1Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h1Base}vmax);
+  letter-spacing: 0.07vmax;
+  text-transform: uppercase;
 }
 
-/*================ Responsive Typography - Fallback from vmax to vm to sass em function ================*/
+h2 {
+  font-size: em(36px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$h2Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h2Base}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$h2Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h2Base}vmax);
+  letter-spacing: 0.05vmax;
+  text-transform: uppercase;
+}
 
-h1 { @include responsive-type( $baseFontSize, $h1Base, 14px, 0.07vmax ); }
-h2 { @include responsive-type( $baseFontSize, $h2Base, 14px, 0.05vmax ); }
-h3 { @include responsive-type( $baseFontSize, $h3Base, 14px, 0.02vmax ); }
-h4 { @include responsive-type( $baseFontSize, $h4Base, 14px, 0.02vmax ); }
-h5 { @include responsive-type( $baseFontSize, $h5Base, 14px, 0.02vmax ); }
-h6 { @include responsive-type( $baseFontSize, $h6Base, 14px, 0.02vmax ); }
+h3 {
+  font-size: em(22px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$h3Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h3Base}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$h3Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h3Base}vmax);
+  letter-spacing: 0.02vmax;
+}
 
-body,
-input,
-textarea,
-button,
-select,
-{
-  @include responsive-type( $baseFontSize, $pBase, 12px, 0.02vmax );
-  line-height: 1.6;
-  font-family: $bodyFontStack;
-  color: $colorTextBody;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
+h4 {
+  font-size: em(20px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$h4Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h4Base}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$h4Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h4Base}vmax);
+  letter-spacing: 0.02vmax;
+}
+
+h5 {
+  font-size: em(14px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$h5Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h5Base}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$h5Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h5Base}vmax);
+  letter-spacing: 0.02vmax;
+}
+
+h6 {
+  font-size: em(14px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$h6Base}vm);
+  line-height: calc(#{$baseFontSize} + #{$h6Base}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$h6Base}vmax);
+  line-height: calc(#{$baseFontSize} + #{$h6Base}vmax);
+  letter-spacing: 0.02vmax;
+}
+
+p {
+  font-size: em(12px);
+  //em fallback
+  font-size: calc(#{$baseFontSize} + #{$pBase}vm);
+  line-height: calc(#{$baseFontSize} + #{$pBase}vm);
+  //vm fallback
+  font-size: calc(#{$baseFontSize} + #{$pBase}vmax);
+  line-height: 1.5;
+  letter-spacing: 0.02vmax;
 }
 
 .h1 { @extend h1; }
@@ -920,7 +940,6 @@ select,
 .h6 { @extend h6; }
 
 p {
-  @include responsive-type( $baseFontSize, $pBase, 12px, 0.02vmax );
   margin: 0 0 ($gutter / 2) 0;
 
   img {
@@ -999,7 +1018,7 @@ pre {
 /*================ Horizontal Rules ================*/
 hr {
   clear: both;
-  border-top: solid lighten($colorTertiary, 5%);
+  border-top: solid $colorTertiary;
   border-width: $borderWeight 0 0;
   margin: $gutter 0;
   height: 0;
@@ -1108,7 +1127,6 @@ hr {
 
   a {
     text-decoration: underline;
-    outline: none;
   }
 
   // Add some top margin to headers from the rich text editor
@@ -1146,7 +1164,6 @@ a,
   text-decoration: none;
   background: transparent;
   @include transition();
-  outline: none;
 }
 
 a:hover,
@@ -1180,7 +1197,7 @@ html input[disabled] {
   @include user-select(none);
   -webkit-appearance: none;
   -moz-appearance: none;
-  border-radius: 20px;
+  border-radius: $radius;
   @include transition();
 
   /*================ Set primary button colors - can override later ================*/
@@ -1461,42 +1478,14 @@ iframe {
   &.News {
     padding-bottom: 75%; // Special for home page news
   }
-}
-.hover-zoom {
-  overflow: hidden;
-  &:hover .hover-zoom-image {
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
-    -webkit-transform-origin: center;
-    -ms-transform-origin: center;
-    transform-origin: center;
-  }
-  .hover-zoom-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-size: cover;
-    background-position: center;
-    transition: all 1s;
-  }
-}
-
-
-.circle_image {
-  margin: 0 auto $gutter/2 auto;
-  width: $gutter*4;
-  height: $gutter*4;
-  border-radius: $gutter*2;
-  border: $borderWeight*4 solid $colorSecondary;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  @include transition();
-  img {
-    display: none;
+  &.hover-zoom {
+    background-size: 165%;
+    -webkit-transition: background-size .25s;
+    -moz-transition: background-size .25s;
+    transition: background-size .25s;
+    &:hover {
+      background-size: 170%;
+    }
   }
 }
 
@@ -1572,7 +1561,7 @@ input[type="submit"] {
 input,
 textarea,
 select {
-  border: $borderWeight solid lighten($colorTextBody, 50%);
+  border: $borderWeight solid $colorTertiary;
   max-width: 100%;
   padding: 8px 10px;
   border-radius: $radius;
@@ -1591,11 +1580,6 @@ select {
   &.input-full {
     width: 100%;
   }
-
-  &.input-borderless {
-    border-width: 0;
-  }
-
 }
 
 textarea {
@@ -1696,10 +1680,6 @@ label[for] {
   textarea {
     display: block;
     margin-bottom: 10px;
-  }
-  select {
-    display: block;
-    margin-bottom: $gutter/2;
   }
 
   input[type="radio"],
@@ -1813,10 +1793,6 @@ label.error {
   }
 }
 
-.sale {
-  color: $successGreen;
-}
-
 .form-success {
   color: $successGreen;
   background-color: $successGreenBg;
@@ -1825,7 +1801,7 @@ label.error {
   a {
     color: $successGreen;
     text-decoration: underline;
-
+    
     &:hover {
       text-decoration: none;
     }
@@ -1845,82 +1821,6 @@ label.error {
     &:hover {
       text-decoration: none;
     }
-  }
-}
-
-
-@-webkit-keyframes rotating {
-  from {
-    -ms-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -ms-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes rotating {
-  from {
-    -ms-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -ms-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-.no-js #loading {
-  display: none;
-}
-.supports-js #loading {
-  display: block;
-}
-#loading {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999999;
-  background-color: $colorTertiary;
-  svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -60px;
-    margin-left: -60px;
-
-    -webkit-animation: rotating 2s linear infinite;
-       -moz-animation: rotating 2s linear infinite;
-        -ms-animation: rotating 2s linear infinite;
-         -o-animation: rotating 2s linear infinite;
-            animation: rotating 2s linear infinite;
-  }
-
-  b {
-    color: $colorBody;
-    position: absolute;
-    width: 100px;
-    top: 50%;
-    left: 50%;
-    margin-top: $gutter/1.3;
-    margin-left: -50px;
-    text-align: center;
   }
 }
 
@@ -1950,6 +1850,16 @@ label.error {
       &.invert {
         fill: $colorBody;
       }
+    }
+  }
+}
+
+/*================ Social icons ================*/
+
+.social-icons {
+  li {
+    @include at-query ($min, $medium) {
+      margin-right: 5px;
     }
   }
 }
@@ -2008,14 +1918,12 @@ label.error {
   top: 0;
   left: 0;
   width: 100%;
-  height: $headerHeight;
   z-index: 99999;
-
+  
   .grid--table {
     display: table;
     table-layout: fixed;
     width: 100%;
-    height: 100%;
 
     > .grid__item {
       float: none;
@@ -2023,7 +1931,7 @@ label.error {
       vertical-align: middle;
     }
   }
-
+  
   svg {
     height: 1.1em;
     width: 1.1em;
@@ -2032,40 +1940,40 @@ label.error {
       fill: $colorBody;
     }
   }
-
+  
   .site-header__logo {
     text-align: center;
     margin: 0 auto;
     max-width: 100%;
-
+  
     @include at-query ($min, $large) {
       text-align: left;
     }
-
+  
     a,
     a:hover,
     a:focus {
       text-decoration: none;
     }
-
+  
     a, img {
       display: block;
     }
-
+  
     img {
       margin: 0 auto;
     }
   }
-
+  
   .site-header__logo-link {
     max-width: $logoMaxWidth;
     margin: 0 auto;
   }
-
+  
   .site-header__cart-toggle {
     display: inline-block;
     position: relative;
-    #CartCount {
+    #CartCount {      
       position: absolute;
       top: 5px;
       right: 4px;
@@ -2081,55 +1989,7 @@ label.error {
       font-weight: bold;
     }
   }
-
-  .user-tools {
-    position: relative;
-    #search_bar, #account_bar {
-      visibility: hidden;
-      opacity: 0;
-      @include transition();
-      position: absolute;
-      &.visible {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-    #search_bar {
-      max-width: 290px;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      right: 0;
-      .input-group-btn {
-        display: none;
-      }
-      .icon {
-        float: left;
-        padding: $gutter/5;
-        cursor: pointer;
-      }
-    }
-    #account_bar {
-      position: absolute;
-      right: 0;
-      width: 220px;
-      background-color: $colorTextBody;
-      box-shadow: 0 0 1px 0 black;
-      padding: $gutter/4;
-      color: $colorBody;
-      input {
-        margin-bottom: $gutter / 4;
-      }
-      a.block-link {
-        display: block;
-        font-size: 0.8em;
-        font-weight: 700;
-        line-height: 2;
-      }
-    }
-  }
-
+  
 }
 
 /*============================================================================
@@ -2173,32 +2033,13 @@ label.error {
   }
 }
 
-@include at-query ($max, $medium) {
-  .site-nav__link.js-drawer-open-left, .site-nav__link.js-drawer-open-right {
-    position: absolute;
-    top: 0;
-    height: 70px;
-    width: 70px;
-    line-height: 70px;
-    text-align: center;
-  }
-  .site-nav__link.js-drawer-open-left {
-    left: 0;
-  }
-  .site-nav__link.js-drawer-open-right {
-    right: 0;
-  }
-}
-
 /*================ Dropdowns ================*/
 .site-nav__dropdown {
   height: 0;
   position: absolute;
   left: 0;
   margin: 0;
-  width: 220px;
-  background-color: $colorTextBody;
-  box-shadow: 0 0 1px 0 black;
+  background-color: $colorTertiary;
   z-index: $zindexNavDropdowns;
   @include transition();
   visibility: hidden;
@@ -2211,7 +2052,7 @@ label.error {
     opacity: 1;
     visibility: visible;
   }
-
+  
   li {
     display: block;
     width: 100%;
@@ -2225,8 +2066,7 @@ label.error {
     &:hover,
     &:active,
     &:focus {
-      background-color: $colorSecondary;
-      color: $colorTextBody !important;
+      background-color: darken($colorTertiary, 10%);
     }
   }
 }
@@ -2394,13 +2234,8 @@ label.error {
 
   input,
   textarea {
-    border-color: $colorBody;
+    border-color: $colorDrawerBorder;
   }
-
-  .icon svg .fill {
-    fill: $colorBody;
-  }
-
 }
 
 .drawer--left {
@@ -2429,14 +2264,6 @@ label.error {
 
     .lt-ie9 & {
       right: 0;
-    }
-  }
-
-  .additional_checkout_buttons{
-    margin-top: $gutter/2;
-
-    button{
-      width: 100%;
     }
   }
 }
@@ -2507,7 +2334,6 @@ label.error {
     display: inline-block;
     padding: 0 7px 0 0;
     margin-right: 7px;
-    font-weight: bold;
 
     &:first-child {
       padding-left: 0;
@@ -2521,10 +2347,7 @@ label.error {
 ==============================================================================*/
 
 .pagination {
-  background-color: darken($colorBody, 7%);
-  border-top: solid lighten($colorTextBody, 70%);
-  margin: 0 auto;
-  padding: $gutter 0;
+  margin: $gutter auto;
   text-align: center;
 
   > span {
@@ -2533,28 +2356,19 @@ label.error {
     height: $inputHeight;
     width: $inputHeight;
     line-height: $inputHeight;
-    background-color: $colorPrimary;
-    border: 0;
-    border-radius: 50%;
-    font-weight: bold;
-    color: $colorBody;
+    border: $borderWeight solid $colorTertiary;
+    border-radius: $radius;
+    color: $colorPrimary;
     @include transition();
     a {
       display: block;
-      color: $colorBody;
-    }
-    svg.next, svg.previous {
-      width: 17px;
-      height: 17px;
-      .fill {
-        fill: $colorBody;
-      }
+      color: $colorPrimary;
     }
     svg.next {
-      margin: 0 0 0 2px;
+      margin: -3px -1px -3px 0;
     }
     svg.previous {
-      margin: 0 2px 0 0;
+      margin: -3px 0 -3px -1px;
     }
     &:hover {
       background-color: $colorPrimary;
@@ -2569,7 +2383,6 @@ label.error {
   }
   span.page.current {
     border: $borderWeight solid lighten($colorTextBody, 30%);
-    background-color: transparent;
     color: lighten($colorTextBody, 30%);
     &:hover {
       background-color: lighten($colorTextBody, 30%);
@@ -2588,64 +2401,6 @@ label.error {
   @include at-query ($min, $large) {
     padding: ($gutter * 2) 0;
   }
-
-  svg.gateway {
-    width: 32px;
-    height: 32px;
-  }
-
-  ul.nav {
-    list-style: none;
-    &:last-of-type {
-      margin: 0 0 $gutter;
-    }
-    li {
-      a {
-        color: $colorBody;
-        &:hover {
-          color: $colorSecondary;
-        }
-      }
-    }
-  }
-
-  .social-icons {
-    margin: 0 0 $gutter;
-    li {
-      margin: 5px;
-      @include at-query ($min, $medium) {
-        margin-left: 8px;
-      }
-      a .icon svg .fill {
-        fill: $colorBody;
-      }
-    }
-  }
-
-  @include at-query ($min, $large) {
-    .input-group {
-      float: right;
-      max-width: 300px;
-      margin-bottom: $gutter;
-    }
-  }
-  @include at-query ($max, $small) {
-    .input-group {
-      margin-bottom: $gutter;
-    }
-  }
-
-  small {
-    font-size: 0.8em;
-    color: $colorBody;
-    a {
-      color: $colorBody;
-      .fill {
-        fill: $colorBody;
-      }
-    }
-  }
-
 }
 
 /*============================================================================
@@ -2855,22 +2610,21 @@ label.error {
 ==============================================================================*/
 
 .template-index {
-
+  
   .main-content {
     margin-top: 0;
-    padding: 0;
   }
-
+  
   h2 {
     font-size: calc(15px + 1.1vmax);
   }
-
+  
   /*===== Home Page Slider =====*/
   #index_slider, #index_slider_2 {
     display: none;
     &.visible {
       display: block;
-    }
+    }  
     figure {
       position: relative;
       margin: 0;
@@ -2940,6 +2694,7 @@ label.error {
   .news {
     background-color: $colorTertiary;
     padding: $gutter 0 $gutter*1.5;
+    margin-bottom: $gutter;
     color: $colorBody;
     .article__featured-image {
       .image-ratio {
@@ -2951,7 +2706,6 @@ label.error {
           margin: $gutter / 2;
           color: $colorBody;
           opacity: 0.8;
-          z-index: 2;
           p {
             margin-bottom: 0;
           }
@@ -2965,61 +2719,6 @@ label.error {
     }
   }
 }
-
-
-/*============================================================================
-  #Custom Container Colors
-==============================================================================*/
-
-.container.color, .grid.color, .grid__item.color {
-  &.grey {
-    background-color: darken($colorBody, 7%);
-  }
-  &.dark, &.black {
-    background-color: $colorTertiary;
-    color: $colorBody;
-    h2 a {
-      color: $colorSecondary;
-    }
-  }
-  &.black {
-    background-color: $colorTextBody;
-    .btn {
-      background-color: $colorSecondary;
-    }
-  }
-  &.green {
-    background-color: $colorSecondary;
-    color: $colorBody;
-    .btn {
-      background-color: $colorTertiary;
-    }
-    h2 a {
-      color: $colorTertiary;
-    }
-  }
-  &.blue {
-    background-color: $colorPrimary;
-    color: $colorBody;
-    .btn {
-      background-color: $colorTertiary;
-    }
-    h2 a {
-      color: $colorTertiary;
-    }
-  }
-  &.black-over {
-    background-color: rgba($colorTertiary, 0.4 );
-    color: $colorBody;
-    h2 a {
-      color: $colorSecondary;
-    }
-  }
-  .mini-wrapper {
-    padding: $gutter*1.25 $gutter*0.75;
-  }
-}
-
 
 /*============================================================================
   #Product and Collection Grids
@@ -3035,15 +2734,7 @@ AddToCart {
 */
 
 .template-collection {
-
-  .main-content {
-    padding-bottom: 0;
-  }
-
-  .container.color {
-    padding: $gutter/2 0 $gutter/2;
-  }
-
+  
   /*================ Nav & Tag Based Filtering ================*/
   .filter_menus {
     form {
@@ -3059,8 +2750,8 @@ AddToCart {
               pointer-events: none;
               background: url('{{ "transparent.png" | asset_url }}');
               // IE SUX
-               filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ "transparent.png" | asset_url }}', sizingMethod='scale');
-              background: none !important;
+              filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{ "transparent.png" | asset_url }}', sizingMethod='scale');
+      background: none !important;
               visibility: visible;
               position: absolute;
               content: '';
@@ -3084,183 +2775,32 @@ AddToCart {
       }
     }
   }
-
+    
   .grid__image {
     display: block;
     margin: 0 auto ($gutter / 2);
-
+  
     img {
       display: block;
       margin: 0 auto;
     }
   }
-
-  p.price {
-    font-weight: bold;
+  
+  
+  .container {
+    padding: $gutter 0 $gutter/2;
+    &.grey {
+      background-color: darken($colorBody, 5%);
+    }
   }
-
+  
   .mini-wrapper {
     max-width: $small - $gutter*2;
     margin: 0 auto;
   }
-
-  .brand_container.container.color {
-    padding-top: $gutter*1.5;
-    padding-bottom: $gutter*1.5;
-    h2 {
-      //@include responsive-type( $baseFontSize, $h4Base, 24px, 0.02vmax );
-      color: $colorSecondary;
-      @include transition();
-    }
-    &:hover {
-      h2 {
-        color: $colorTertiary;
-      }
-      .circle_image {
-        border: $borderWeight*4 solid $colorTertiary;
-      }
-    }
-  }
-
-  .product-part-wrapper{
-    background: $colorPrimary;
-    margin-bottom: $gutter;
-
-    .grid__image{
-      min-height: 250px;
-      margin-bottom: 0;
-    }
-    .product-part-text{
-      padding: 20px;
-
-      p{
-        color: $colorBody;
-        margin-bottom: 0;
-
-        &.h6{
-          margin-bottom: $gutter/4;
-        }
-      }
-    }
-  }
-
-}
-/*============================================================================
-  #Tab Navigation
-==============================================================================*/
-
-.tabs-slider {
-  border-top: solid 2px white;
-
-  #tabs-links {
-    background-color: $colorTertiary;
-    outline: none;
-     div.tab-link {
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.1em;
-      padding: $gutter / 2;
-      display: inline-block;
-      color: #fff;
-      z-index: 1;
-      @include at-query ($max, $small) {
-        width: 100%;
-      }
-      &:before {
-        @include at-query ($max, $small) {
-          width: 0%;
-          transition: ease width 1s;
-        }
-
-        height: 0%;
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        transition: ease height 1s;
-        transition: ease width 1s;
-      }
-      &.active {
-        position: relative;
-        &:before {
-          @include at-query ($max, $small) {
-            width: 100%;
-            transition: ease width 1s;
-          }
-          height: 100%;
-          content: '';
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: -1;
-          transition: ease height 1s;
-        }
-      }
-    }
-  }
-
-  .tabs {
-    position: relative;
-    div.tab {
-      padding: $gutter;
-      position: absolute;
-      width: 100%;
-      height: auto;
-      top: 0;
-      display: none;
-
-      &.active {
-        display: block;
-        position: relative;
-      }
-
-      .content {
-        max-width: 600px;
-      }
-
-      &.with-image {
-        .content {
-          @include at-query ($min, $large) {
-            width: 50%;
-            float: left;
-          }
-          @include at-query ($max, $small) {
-            width: 100%;
-          }
-        }
-        .tab-image {
-          @include at-query ($min, $large) {
-            width: 50%;
-            float: right;
-          }
-          @include at-query ($max, $small) {
-            width: 100%;
-          }
-        }
-      }
-    }
-  }
-}
-.tabs-slider {
-  &.blue #tabs-links div.tab-link {
-    &.active {
-      &:before {
-        background-color: $colorPrimary;
-      }
-    }
-  }
-  &.grey #tabs-links div.tab-link {
-    &.active {
-      @include transition(color 1s ease);
-      color: #000;
-      &:before {
-        background-color: darken($colorBody, 7%);
-      }
-    }
-  }
+  
+  
+  
 }
 
 /*============================================================================
@@ -3268,28 +2808,15 @@ AddToCart {
 ==============================================================================*/
 
 .template-product {
-  .mini-wrapper{
-    .js-qty{
-      margin: 0 auto;
-      margin-bottom: 20px;
-    }
-  }
-
-  .main-content {
-    padding: 0;
-  }
-  .container.color {
-    padding: $gutter 0 $gutter/2;
-  }
-
+  
   .product-single__variants {
     display: none;
-
+    
     .no-js & {
       display: block;
     }
   }
-
+  
   #ProductPhoto, #ProductThumbs {
     margin-bottom: $gutter / 3;
     display: none;
@@ -3298,7 +2825,6 @@ AddToCart {
     }
     figure {
       margin: 0;
-      max-height:350px;
     }
   }
   #ProductThumbs {
@@ -3309,64 +2835,7 @@ AddToCart {
       margin: 0 ($gutter / 3) 0 0;
     }
   }
-  #hero {
-    > div {
-      background-size: cover;
-      background-attachment: fixed;
-    }
-  }
-  .related-products {
-    img {
-      max-height: 150px;
-      margin: auto;
-    }
-  }
-  .slick-wrapper {
-    position: relative;
-    .slick_left, .slick_right {
-    top: 50%;
-    position: absolute;
-    margin-top: -20px;
-    z-index: 100;
-    }
-    .slick_left {
-      left: -$gutter;
-    }
-    .slick_right {
-      right: -$gutter;
-    }
-  }
-
-  .slick-stories{
-    .slick-track {
-      margin: auto;
-    }
-  }
-  .story-wrapper {
-    background: $colorBody;
-
-    .grid__image{
-      display: block;
-      min-height: 200px;
-      margin-bottom: 0;
-    }
-
-    p {
-      padding: 20px;
-    }
-  }
-  .award-wrapper {
-    text-align: center;
-    .award {
-      display: inline-block;
-      position: relative;
-      img {
-        max-height: 150px;
-        margin: 10px 30px;
-      }
-    }
-  }
-
+  
   /*===== Product Page Popup Slider =====*/
   #gallery.popup {
     .popup_slider {
@@ -3417,33 +2886,6 @@ AddToCart {
       position: fixed;
       top: 20px;
       right: 20px;
-    }
-  }
-}
-
-/*============================================================================
-  #Blog
-==============================================================================*/
-
-.template-blog, .template-article {
-  .main-content {
-    margin-top: $gutter*2.5;
-    h1 {
-      margin-bottom: $gutter/5;
-    }
-    h2, h3, h4 {
-      margin-bottom: $gutter/5;
-    }
-    .image-ratio {
-      margin-bottom: $gutter/2.5;
-    }
-    span.date {
-      font-weight: bold;
-      font-size: 0.9em;
-      margin-bottom: $gutter/5;
-    }
-    .btn {
-      margin-bottom: $gutter/2;
     }
   }
 }
@@ -3585,7 +3027,7 @@ AddToCart {
 
 /*================ Quantity Selectors ================*/
 .js-qty {
-  display:block;
+  display: inline-block;
   position: relative;
   margin-bottom: 1em;
   max-width: 100px;
@@ -3599,7 +3041,6 @@ AddToCart {
     width: 100%;
     padding: 5px 25px;
     margin: 0;
-    border: none;
   }
 }
 
@@ -3624,12 +3065,12 @@ AddToCart {
 
 .js-qty__adjust--plus {
   right: 0;
-  // border-left: $borderWeight solid $colorTertiary;
+  border-left: $borderWeight solid $colorTertiary;
 }
 
 .js-qty__adjust--minus {
   left: 0;
-  // border-right: $borderWeight solid $colorTertiary;
+  border-right: $borderWeight solid $colorTertiary;
 }
 
 .additional_checkout_buttons {
@@ -3642,9 +3083,6 @@ AddToCart {
 }
 
 /*================ Quantity Selectors in Ajax Cart ================*/
-.quantity-selector {
-  display: none !important;
-}
 .ajaxcart__qty {
   @extend .js-qty;
   margin: 0;
@@ -3657,7 +3095,6 @@ AddToCart {
 
 .ajaxcart__qty-num {
   border-color: $colorDrawerBorder;
-  border-width: 0;
   color: $colorDrawerText;
 }
 
@@ -3680,4 +3117,4 @@ AddToCart {
   float: right;
 }
 
-{% endif %}// settings.ajax_cart_method
+{% endif %} // settings.ajax_cart_method
