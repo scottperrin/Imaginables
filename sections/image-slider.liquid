@@ -1,0 +1,106 @@
+<!-- sections/image-slider.liquid -->
+
+<div id="slick-{{ section.id }}" class="slide-container" >
+
+  {% for block in section.blocks %}
+    <div {{ block.shopify_attributes }}>
+      {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+        <img src="{{ block.settings.image | img_url: '2000x' }}">
+      {% if block.settings.link != blank %}</a>{% endif %}
+    </div>
+  {% endfor %}
+
+</div>
+
+<script type="text/javascript">
+  // Slider
+  $(document).ready(function() {
+    $('#slick-{{ section.id }}').imagesLoaded().always(function(instance) {
+      $('#slick-{{ section.id }}').addClass('visible');
+      loadSlider();
+    });
+    // Initiate product slider
+    function loadSlider() {
+      $("#slick-{{ section.id }}").slick({
+        slidesToShow: 1,
+        autoplay: {% if section.settings.slideshow_autoplay %}true{% else %}false{% endif %},
+        dots: {% if section.settings.slideshow_dots %}true{% else %}false{% endif %},
+        arrows: {% if section.settings.slideshow_arrows %}true{% else %}false{% endif %},
+        pauseOnHover: {% if section.settings.slideshow_pause_on_hover %}true{% else %}false{% endif %},
+        autoplaySpeed: {{ section.settings.slideshow_speed }}000,
+        prevArrow: '<span class="icon"><svg class="slick-prev" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="21,0.586 5.586,16 21,31.414 26.414,26 16.414,16 26.414,6 "/></svg></span>',
+        nextArrow: '<span class="icon"><svg class="slick-next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="5.586,6 15.586,16 5.586,26 11,31.414 26.414,16 11,0.586 "/></svg></span>',
+        adaptiveHeight: false
+      });
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Image Slideshow",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slideshow"
+      },
+      {
+        "id": "slideshow_dots",
+        "type": "checkbox",
+        "label": "Show navigation dots"
+      },
+      {
+        "id": "slideshow_arrows",
+        "type": "checkbox",
+        "label": "Show navigation arrows"
+      },
+      {
+        "id": "slideshow_autoplay",
+        "type": "checkbox",
+        "label": "Autoplay slideshow"
+      },
+      {
+        "id": "slideshow_speed",
+        "type": "text",
+        "label": "Slideshow Speed",
+        "info": "In seconds",
+        "default": "5",
+        "placeholder": "5"
+      },
+      {
+        "id": "slideshow_pause_on_hover",
+        "type": "checkbox",
+        "label": "Pause slideshow on mouseover"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Slide"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Slideshow",
+        "name": "Image Slideshow"
+      }
+    ]
+  }
+{% endschema %}
