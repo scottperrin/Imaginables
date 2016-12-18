@@ -1,0 +1,161 @@
+<!-- sections/content-slider.liquid -->
+
+<div id="slick-{{ section.id }}" class="slide-container one">
+  {% for block in section.blocks %}
+    <div {{ block.shopify_attributes }}>
+      <div class="grid{% if block.settings.switch_sides %} grid--rev {% endif %}large--grid--flex">
+        <div class="grid__item large--one-half flex__item">
+          <h2>{{ block.settings.title }}</h2>
+          <p>{{ block.settings.content }}</p>
+          {% if block.settings.button_text != blank or block.settings.button_link != blank %}
+            <a href="{{ block.settings.button_link }}" title="{{ block.settings.title }}" class="btn btn--large">{{ block.settings.button_text }}</a>
+          {% endif %}
+        </div>
+
+          {% if block.settings.video_url != blank %}
+
+            <div class="grid__item large--one-half flex__item">
+              <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?controls=0&showinfo=0&rel=0&autoplay=0&loop=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+          {% else %}
+
+            <div class="grid__item large--one-half flex__item content-slider-bottom">
+              <img src="{{ block.settings.image | img_url: 'grande' }}">
+            </div>
+
+          {% endif %}
+
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .content-slider-bottom {
+    padding-top: 25px;
+  }
+</style>
+
+<script type="text/javascript">
+  // Slider
+  $(document).ready(function() {
+    $('#slick-{{ section.id }}').imagesLoaded().always(function(instance) {
+      $('#slick-{{ section.id }}').addClass('visible');
+      loadSlider();
+    });
+    // Initiate product slider
+    function loadSlider() {
+      $("#slick-{{ section.id }}").slick({
+        slidesToShow: 1,
+        autoplay: {% if section.settings.slideshow_autoplay %}true{% else %}false{% endif %},
+        dots: {% if section.settings.slideshow_dots %}true{% else %}false{% endif %},
+        arrows: {% if section.settings.slideshow_arrows %}true{% else %}false{% endif %},
+        pauseOnHover: {% if section.settings.slideshow_pause_on_hover %}true{% else %}false{% endif %},
+        autoplaySpeed: {{ section.settings.slideshow_speed }}000,
+        prevArrow: '<span class="icon"><svg class="slick-prev" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="21,0.586 5.586,16 21,31.414 26.414,26 16.414,16 26.414,6 "/></svg></span>',
+        nextArrow: '<span class="icon"><svg class="slick-next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><polygon class="fill invert" points="5.586,6 15.586,16 5.586,26 11,31.414 26.414,16 11,0.586 "/></svg></span>',
+        adaptiveHeight: false
+      });
+    }
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Content Slideshow",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slideshow"
+      },
+      {
+        "id": "slideshow_dots",
+        "type": "checkbox",
+        "label": "Show navigation dots"
+      },
+      {
+        "id": "slideshow_arrows",
+        "type": "checkbox",
+        "label": "Show navigation arrows"
+      },
+      {
+        "id": "slideshow_autoplay",
+        "type": "checkbox",
+        "label": "Autoplay slideshow"
+      },
+      {
+        "id": "slideshow_speed",
+        "type": "text",
+        "label": "Slideshow Speed",
+        "info": "In seconds",
+        "default": "5",
+        "placeholder": "5"
+      },
+      {
+        "id": "slideshow_pause_on_hover",
+        "type": "checkbox",
+        "label": "Pause slideshow on mouseover"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Slide"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+          {
+            "id": "content",
+            "type": "textarea",
+            "label": "text"
+          },
+          {
+            "id": "switch_sides",
+            "type": "checkbox",
+            "label": "Switch sides",
+            "info": "Change which sides the text and image are on"
+          },
+          {
+            "id": "button_text",
+            "type": "text",
+            "label": "Button Text"
+          },
+          {
+            "id": "button_url",
+            "type": "url",
+            "label": "Button link",
+            "info": "Requires both text and link to work"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "id": "video_url",
+            "type": "video_url",
+            "label": "Video URL",
+            "info": "Overwrites image",
+            "accept": ["youtube"]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Slideshow",
+        "name": "Content Slideshow"
+      }
+    ]
+  }
+{% endschema %}

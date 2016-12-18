@@ -1,0 +1,197 @@
+<!-- sections/mega-menu.liquid -->
+<nav class="main_menu" role="navigation">
+  <div class="medium-down--hide">
+    <ul class="site-nav-mega" id="AccessibleNav-{{ section.id }}">
+      {% for link in linklists[section.settings.main_menu].links %}
+          <li class="site-nav-mega--has-dropdown{% if link.active %} site-nav-mega--active{% endif %}" aria-haspopup="true">
+            <a href="{{ link.url }}" class="site-nav-mega__link">
+              {{ link.title }}
+            </a>
+            <div class="site-nav-mega__dropdown grid">
+              {% for block in section.blocks %}
+                {% if link.title == block.settings.title %}
+                  <div class="grid__item one-quarter">
+                    <h6>{{ linklists[block.settings.child_menu_1].title }}</h6>
+                    <ul>
+                      {% if block.settings.child_image_enable_1 %}
+                        <img src="{{ block.settings.child_image_1 | img_url: '300x' }}">
+                      {% else %}
+                        {% for childlink in linklists[block.settings.child_menu_1].links %}
+                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <div class="grid__item one-quarter">
+                    <h6>{{ linklists[block.settings.child_menu_2].title }}</h6>
+                    <ul>
+                      {% if block.settings.child_image_enable_2 %}
+                        <img src="{{ block.settings.child_image_2 | img_url: '300x' }}">
+                      {% else %}
+                        {% for childlink in linklists[block.settings.child_menu_2].links %}
+                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <div class="grid__item one-quarter">
+                    <h6>{{ linklists[block.settings.child_menu_3].title }}</h6>
+                    <ul>
+                      {% if block.settings.child_image_enable_3 %}
+                        <img src="{{ block.settings.child_image_3 | img_url: '300x' }}">
+                      {% else %}
+                        {% for childlink in linklists[block.settings.child_menu_3].links %}
+                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <div class="grid__item one-quarter">
+                    <h6>{{ linklists[block.settings.child_menu_4].title }}</h6>
+                    <ul>
+                      {% if block.settings.child_image_enable_4 %}
+                        <img src="{{ block.settings.child_image_4 | img_url: '300x' }}">
+                      {% else %}
+                        {% for childlink in linklists[block.settings.child_menu_4].links %}
+                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      {% endif %}
+                    </ul>
+                  </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+
+{% schema %}
+  {
+    "name": "Mega Menu",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "default": "main-menu",
+        "label": "Main Navigation"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "menu",
+        "name": "Sub Menu",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Menu"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Parent link"
+          },
+          {
+            "type": "header",
+            "content": "Column 1"
+          },
+          {
+            "type": "link_list",
+            "id": "child_menu_1",
+            "default": "main-menu",
+            "label": "Sub Menu"
+          },
+          {
+            "type": "checkbox",
+            "id": "child_image_enable_1",
+            "label": "Enable image",
+            "info": "Overwrites the menu"
+          },
+          {
+            "type": "image_picker",
+            "id": "child_image_1",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Column 2"
+          },
+          {
+            "type": "link_list",
+            "id": "child_menu_2",
+            "default": "main-menu",
+            "label": "Sub Menu"
+          },
+          {
+            "type": "checkbox",
+            "id": "child_image_enable_2",
+            "label": "Enable image",
+            "info": "Overwrites the menu"
+          },
+          {
+            "type": "image_picker",
+            "id": "child_image_2",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Column 3"
+          },
+          {
+            "type": "link_list",
+            "id": "child_menu_3",
+            "default": "main-menu",
+            "label": "Sub Menu"
+          },
+          {
+            "type": "checkbox",
+            "id": "child_image_enable_3",
+            "label": "Enable image",
+            "info": "Overwrites the menu"
+          },
+          {
+            "type": "image_picker",
+            "id": "child_image_3",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Column 4"
+          },
+          {
+            "type": "link_list",
+            "id": "child_menu_4",
+            "default": "main-menu",
+            "label": "Sub Menu"
+          },
+          {
+            "type": "checkbox",
+            "id": "child_image_enable_4",
+            "label": "Enable image",
+            "info": "Overwrites the menu"
+          },
+          {
+            "type": "image_picker",
+            "id": "child_image_4",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Navigation",
+        "name": "Mega Menu"
+      }
+    ]
+  }
+{% endschema %}
