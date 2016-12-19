@@ -1,0 +1,136 @@
+{% paginate collection.products by 24 %}
+{% for product in collection.products %}
+
+  <div class="container color{% cycle '', ' grey' %}">
+    <div class="wrapper">
+      <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+        <div class="grid__item large--one-third flex__item">
+
+          {% assign on_sale = false %}
+          {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+          {% endif %}
+          {% assign sold_out = true %}
+          {% if product.available %}
+            {% assign sold_out = false %}
+          {% endif %}
+          {% for option in product.options %}
+            {% if option == 'Colour' %}
+              {% assign index = forloop.index0 %}
+              {% assign colorlist = '' %}
+              {% assign color = '' %}
+              {% for variant in product.variants %}
+                {% capture color %}
+                  {{ variant.options[index] }}
+                {% endcapture %}
+                {% unless colorlist contains color %}
+                  <a href="{{ product.url | within: collection }}"  data-product="{{ product.id }}" data-variant="{{ color | handleize }}" class="variant-image {% if forloop.first %} active{% endif %}">
+                    <img src="{{ variant.featured_image.src | img_url: '1024x1024' }}" alt="{{ variant.featured_image.alt | escape }}">
+                  </a>
+                {% capture tempList %}
+                  {{ colorlist | append: color | append: '' }}
+                {% endcapture %}
+                {% assign colorlist = tempList %}
+              {% endunless %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+          <div class="mini-wrapper">
+            <h2>
+              <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+            </h2>
+
+            {% assign content = product.description %}
+            {% assign splits = content | split: '[split]' %}
+            {% capture description %}{% endcapture %}
+            {% for split in splits %}
+              {% if split contains '[description]' and split contains '[/description]'  %}
+                {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
+              {% endif %}
+            {% endfor %}
+
+            {% for option in product.options %}
+              {% if option == 'Colour' %}
+                {% assign index = forloop.index0 %}
+                {% assign colorlist = '' %}
+                {% assign color = '' %}
+                {% for variant in product.variants %}
+                  {% capture color %}
+                    {{ variant.options[index] }}
+                  {% endcapture %}
+                  {% unless colorlist contains color %}
+                    <div class="swatch" style="background-color:{{ color | handleize }}; background-image:url('{{ color | downcase | append: '.png' | asset_url }}');" data-product="{{ product.id }}" data-color="{{ color | handleize }}" alt="{{ color }}" /></div>
+                    {% capture tempList %}
+                      {{ colorlist | append: color | append: '' }}
+                    {% endcapture %}
+                    {% assign colorlist = tempList %}
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+
+            <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+
+            <p class="price">
+              {% if on_sale %}
+                {% if product.price_varies %}
+                  {% assign sale_price = product.price | money %}
+                  {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                {% else %}
+                  <strong>{{ 'products.product.on_sale' | t }}</strong>
+                  {{ product.price | money }}
+                {% endif %}
+              {% else %}
+                {% if product.price_varies %}
+                  {% assign price = product.price | money %}
+                  {{ 'products.general.from_text_html' | t: price: price }}
+                {% else %}
+                  {{ product.price | money }}
+                {% endif %}
+              {% endif %}
+              {% if sold_out %}
+                <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+              {% endif %}
+              {% if on_sale %}
+                <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                <br><s>{{ product.compare_at_price | money }}</s>
+              {% endif %}
+            </p>
+            {% for option in product.options %}
+              {% if option == 'Colour' %}
+                {% assign index = forloop.index0 %}
+                {% assign colorlist = '' %}
+                {% assign color = '' %}
+                {% for variant in product.variants %}
+                  {% capture color %}
+                    {{ variant.options[index] }}
+                  {% endcapture %}
+                  {% unless colorlist contains color %}
+                    <form action="/cart/add" method="post" enctype="multipart/form-data" data-product="{{ product.id }}" data-variant="{{ color | handleize }}" id="AddToCartForm" class="variant-form form-vertical{% if forloop.first %} active{% endif %}">
+                      <input type="hidden" name="id" value="{{ variant.id }}">
+                      <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                        <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                      </button>
+                    </form>
+                    {% capture tempList %}
+                      {{ colorlist | append: color | append: '' }}
+                    {% endcapture %}
+                    {% assign colorlist = tempList %}
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% include 'pagination' %}
+{% endpaginate %}
