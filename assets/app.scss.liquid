@@ -797,7 +797,7 @@ body {
 .main-content {
   display: block;
   margin-top: $headerHeight;
-  padding: $gutter * 1.5 0;
+  // padding: $gutter * 1.5 0;
 }
 
 /*============================================================================
@@ -2286,6 +2286,8 @@ label.error {
   visibility: hidden;
   opacity: 0;
   padding: $gutter 0;
+  -webkit-box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
 
   .supports-no-touch .site-nav-mega--has-dropdown:hover &,
   .site-nav-mega--has-dropdown.nav-hover &,
@@ -3225,7 +3227,6 @@ AddToCart {
       }
     }
   }
-
 }
 /*============================================================================
   #Tab Navigation
@@ -3763,3 +3764,25 @@ AddToCart {
 }
 
 {% endif %}// settings.ajax_cart_method
+
+/*======================= Swatches =========================*/
+$swatchSize: 30px;
+.swatch {
+  min-width: $swatchSize;
+  min-height: $swatchSize;
+  display: inline-block;
+  border: #aaa solid 2px;
+  border-radius: 50%;
+}
+.variant-form {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+.variant-image {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
