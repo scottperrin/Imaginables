@@ -2232,6 +2232,88 @@ label.error {
 }
 
 /*============================================================================
+  #MEGA MENU
+==============================================================================*/
+.site-nav-mega {
+  list-style: none;
+  margin: 0;
+  cursor: default;
+  li {
+    display: inline-block;
+    margin-bottom: 0;
+    a {
+      display: block;
+      padding: $gutter / 5;
+      text-decoration: none;
+      font-weight: 700;
+      color: $colorNavText;
+      white-space: nowrap;
+      position: relative;
+      @include transition();
+      &:hover,
+      &:active,
+      &:focus {
+        color: $colorSecondary;
+        .fill {
+          fill:$colorSecondary;
+        }
+      }
+    }
+    &.site-nav--has-dropdown {
+      // position: relative;
+    }
+    .site-nav--active > & {
+      color: rgba($colorNavText, .7);
+    }
+    .site-nav--mobile & {
+      display: inline-block;
+    }
+  }
+}
+
+/*================ Mega Menu Dropdowns ================*/
+.site-nav-mega__dropdown {
+  height: auto;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  width: 100%;
+  background-color: $colorPrimary;
+  z-index: $zindexNavDropdowns;
+  @include transition();
+  visibility: hidden;
+  opacity: 0;
+  padding: $gutter 0;
+
+  .supports-no-touch .site-nav-mega--has-dropdown:hover &,
+  .site-nav-mega--has-dropdown.nav-hover &,
+  .nav-focus + & {
+    opacity: 1;
+    visibility: visible;
+  }
+  ul {
+    margin: 0;
+  }
+  li {
+    display: block;
+    width: 100%;
+    a {
+      display: block;
+      width: 100%;
+      padding: $gutter / 5 0;
+      height: auto;
+      &:hover,
+      &:active,
+      &:focus {
+        color: $colorTextBody !important;
+      }
+    }
+  }
+}
+
+/*============================================================================
   #Mobile Nav
   - List of items inside the mobile drawer
 ==============================================================================*/
@@ -2866,7 +2948,7 @@ label.error {
   }
 
   /*===== Home Page Slider =====*/
-  #index_slider, #index_slider_2 {
+  .slide-container {
     display: none;
     &.visible {
       display: block;
@@ -2924,7 +3006,7 @@ label.error {
       }
     }
   }
-  #index_slider {
+  .slide-container.one {
     padding: $gutter*2 $gutter $gutter;
     background-color: $colorTertiary;
     color: $colorBody;
