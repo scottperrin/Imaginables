@@ -31,7 +31,7 @@
 <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
 <div class="mini-wrapper">
   <h2>
-    <a href="{{ variant.url | within: collection }}">{{ variant.title }}</a>
+    <a href="{{ variant.url | within: collection }}">{{ product.title }}</a>
   </h2>
 
   {% assign content = product.description %}
@@ -63,7 +63,7 @@
     {% endif %}
   {% endfor %}
 
-  <p>{{ description | truncatewords: 36 }} <b><a href="{{ variant.url | within: collection }}" title="{{ variant.title }}">More Info</a></b></p>
+  <p>{{ description | truncatewords: 36 }} <b><a href="{{ variant.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
 
   <p class="price">
     {% if on_sale %}
