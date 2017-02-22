@@ -590,8 +590,6 @@ var swatch = '.swatch';
 $(swatch).on( 'click', function() {
   variant = $(this).data('color');
   product = $(this).data('product');
-  console.log(product);
-  console.log(variant);
   $(form).filter('[data-product="' + product + '"]').removeClass('active');
   $(form).filter('[data-product="' + product + '"]').filter('[data-variant="' + variant + '"]').addClass('active');
   $(image).filter('[data-product="' + product + '"]').removeClass('active');
