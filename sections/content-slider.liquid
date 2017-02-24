@@ -3,7 +3,7 @@
 <div id="slick-{{ section.id }}" class="slide-container one">
   {% for block in section.blocks %}
     <div {{ block.shopify_attributes }}>
-      <div class="grid{% if block.settings.switch_sides %} grid--rev {% endif %}large--grid--flex">
+      <div class="grid{% if block.settings.switch_sides %} grid--rev{% endif %} large--grid--flex">
         <div class="grid__item large--one-half flex__item">
           <h2>{{ block.settings.title }}</h2>
           <p>{{ block.settings.content }}</p>
@@ -21,7 +21,7 @@
           {% else %}
 
             <div class="grid__item large--one-half flex__item content-slider-bottom">
-              <img src="{{ block.settings.image | img_url: 'grande' }}">
+              <img src="{{ block.settings.image | img_url: '1000x600', crop: 'center' }}">
             </div>
 
           {% endif %}

@@ -25,7 +25,7 @@
       </div>
     </div>
     <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-    <span id="ProductPrice" class="h3" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+    <span id="ProductPrice" class="h6" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
       {{ current_variant.price | money }}
     </span>
     {% if product.compare_at_price_max > product.price %}

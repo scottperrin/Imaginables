@@ -1,0 +1,23 @@
+<!-- /snippets/mega-menu-drawer-include.liquid -->
+
+{% unless block.settings.[child_handle] %}
+  <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+    <div class="mobile-nav__has-sublist">
+      <a {% unless block.settings.[child_handle] == blank %}href="{{ block.settings.[child_handle] }}"{% endunless %} class="mobile-nav__link">{{ linklists[block.settings.[child_handle]].title }}</a>
+      <div class="mobile-nav__toggle">
+        <button>
+          {% include 'icon' with 'angle-down' %}
+        </button>
+      </div>
+    </div>
+    <ul class="mobile-nav__sublist">
+      {% for childlink in linklists[block.settings.child_handle].links %}
+        <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+          <div class="mobile-nav__has-sublist">
+            <a href="{% if childlink.title == link.title %}{{ childlink.url }}{% else %}{{ childlink.url }}{% endif %}" class="mobile-nav__link">{{ childlink.title }}</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endunless %}

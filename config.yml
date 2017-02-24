@@ -5,8 +5,6 @@ development:
   ignores:
   ignore_files:
   - config/settings_data.json
-  - "*.png"
-  - "*.jpg"
   - "*.mp4"
   refill_rate: 2
   bucket_size: 40
@@ -18,8 +16,6 @@ oscar:
   ignores:
   ignore_files:
   - config/settings_data.json
-  - "*.png"
-  - "*.jpg"
   - "*.mp4"
   refill_rate: 2
   bucket_size: 40
@@ -31,8 +27,6 @@ george:
   ignores:
   ignore_files:
   - config/settings_data.json
-  - "*.png"
-  - "*.jpg"
   - "*.mp4"
   refill_rate: 2
   bucket_size: 40

@@ -3,17 +3,14 @@
   <div class="grid--full grid--table">
 
     <!-- begin mobile-nav-icons -->
-    <div class="large--hide medium-down--show">
+    <div class="large--hide medium-down--show medium--one-sixth small--one-sixth">
       <button type="button" class="site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false">
         {% include 'icon' with 'menu' %}
       </button>
-      <a href="/cart" class="js-drawer-open-right site-nav__link" aria-controls="CartDrawer" aria-expanded="false">
-        {% include 'icon' with 'cart' %}
-      </a>
     </div>
     <!-- //mobile-nav-icons -->
 
-    <div class="grid__item large--two-fifths small--two-thirds push--small--one-sixth">
+    <div class="grid__item large--one-third medium--four-sixths small--four-sixths">
       {% if template == 'index' %}
         <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
       {% else %}
@@ -33,19 +30,19 @@
       {% endif %}
     </div>
 
-    <div class="grid__item large--three-fifths medium-down--hide">
+    <div class="grid__item large--one-third menu-container">
       {% section 'mega-menu' %}
     </div>
 
-    <div class="grid__item large--one-fifth large--text-right medium-down--hide user-tools">
+    <div class="grid__item large--one-third medium--one-sixth small--one-sixth text-right medium--right small--right user-tools">
 
       <ul class="icon-menu">
         {% if shop.customer_accounts_enabled %}
-          <li>
+          <li class="medium-down--hide">
             <a href="/account" id="open_account" title="{{ 'layout.customer.account' | t }}">{% include 'icon' with 'account' %}</a>
           </li>
         {% endif %}
-        <li>
+        <li class="medium-down--hide">
           <a href="/search" id="open_search" title="{{ 'general.search.title' | t }}">
             {% include 'icon' with 'search' %}
           </a>
@@ -59,11 +56,11 @@
 
       </ul>
 
-      <div id="account_bar" class="text-center">
+      <div id="account_bar" class="text-center medium-down--hide">
         {% include 'account-bar' %}
       </div>
 
-      <div id="search_bar">
+      <div id="search_bar" class="medium-down--hide">
         {% include 'icon' with 'close' %}
         {% include 'search-bar' %}
       </div>
