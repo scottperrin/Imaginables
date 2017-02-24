@@ -1,0 +1,296 @@
+{
+  "current": {
+    "color_primary": "#2bb5e0",
+    "color_secondary": "#6dbd6f",
+    "color_tertiary": "#1f2831",
+    "color_body_bg": "#fff",
+    "color_body_text": "#333333",
+    "logo_use_image": true,
+    "logo_max_width": "300",
+    "favicon_enable": true,
+    "footer_social_enable": true,
+    "footer_newsletter_enable": true,
+    "newsletter_form_action": "",
+    "cart_notes_enable": true,
+    "cart_vendor_enable": false,
+    "ajax_cart_method": "drawer",
+    "social_twitter_link": "https:\/\/twitter.com\/shopify",
+    "social_instagram_link": "http:\/\/instagram.com\/shopify",
+    "social_facebook_link": "http:\/\/facebook.com\/shopify",
+    "social_pinterest_link": "http:\/\/pinterest.com\/shopify",
+    "social_fancy_link": "http:\/\/fancy.com\/shopify",
+    "social_google_plus_link": "",
+    "social_youtube_link": "http:\/\/youtube.com\/shopify",
+    "social_vimeo_link": "http:\/\/vimeo.com\/shopify",
+    "social_sharing_products": true,
+    "social_sharing_blog": true,
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
+    "share_fancy": true,
+    "share_google": true,
+    "checkout_header_image": "",
+    "checkout_use_storefront_logo": false,
+    "checkout_logo_image": "shopify:\/\/shop_images\/LogoBlack600.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#1990C6",
+    "checkout_button_color": "#1990C6",
+    "checkout_error_color": "#ff6d6d",
+    "slideshow_small": "1",
+    "slideshow_autoplay": "1",
+    "slideshow_pause_on_hover": "1",
+    "slideshow_speed": "20",
+    "slideshow_enable": "1",
+    "slide_1_enable": "1",
+    "slide_1_title": "Slide Number 1",
+    "slide_1_video_url": "s7r18MqBGi8",
+    "slide_video_background_1_enable": "0",
+    "slide_1_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "slide_1_button": "Buy Now",
+    "slide_1_link": "\/collection\/all",
+    "slide_2_enable": "1",
+    "slide_2_title": "Slide 2",
+    "slide_2_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "slide_2_button": "Find Out More",
+    "slide_2_link": "\/collection\/all",
+    "slide_3_enable": "1",
+    "slide_3_title": "Everything and more",
+    "slide_3_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "slide_3_button": "Shop Now",
+    "slide_3_link": "\/collection\/all",
+    "cartoon_slideshow_enable": "0",
+    "latest_major_news_enable": "0",
+    "latest_posts_enable": true,
+    "feature_1_enable": true,
+    "feature_1_link": "\/",
+    "feature_2_enable": true,
+    "feature_2_link": "\/",
+    "checkout_use_header_image": false,
+    "checkout_logo": "",
+    "checkout_use_body_background_image": false,
+    "checkout_use_sidebar_background_image": false,
+    "slide_1_content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "color_borders": "#e5e5e5",
+    "color_footer_bg": "#f2f2f2",
+    "color_footer_text": "#636363",
+    "color_footer_social_link": "#bbbbbb",
+    "social_instagram_id": "",
+    "twittercard_handle": "@elkfox",
+    "sections": {
+      "1481849704044": {
+        "type": "content-slider",
+        "blocks": {
+          "1481849715629": {
+            "type": "slide",
+            "settings": {
+              "title": "INTRODUCING THE NEW ULTIMAKER 3",
+              "content": "Introducing the new Ultimaker 3 - professional desktop 3D printing made accessible. It is the most robust & reliable dual extrusion 3D printer on the market, providing unlimited geometries & excellent print quality with soluble support structure.",
+              "switch_sides": false,
+              "button_text": "Find Out More",
+              "button_url": "shopify:\/\/pages\/the-new-ultimaker-3",
+              "image": "",
+              "video_url": "https:\/\/youtu.be\/MG2TXP809iw"
+            }
+          },
+          "1481849855405": {
+            "type": "slide",
+            "settings": {
+              "title": "Video Slide",
+              "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              "switch_sides": true,
+              "button_text": "Find Out More",
+              "button_url": "shopify:\/\/blogs\/stories",
+              "image": "shopify:\/\/shop_images\/Muc16_Team_Slider2-1024x576.jpeg",
+              "video_url": ""
+            }
+          },
+          "1481851459226": {
+            "type": "slide",
+            "settings": {
+              "title": "Print Lab",
+              "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              "switch_sides": false,
+              "button_text": "Text",
+              "button_url": "",
+              "image": "shopify:\/\/shop_images\/homepage-launch.jpg",
+              "video_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "1481849715629",
+          "1481849855405",
+          "1481851459226"
+        ],
+        "settings": {
+          "slideshow_dots": true,
+          "slideshow_arrows": true,
+          "slideshow_autoplay": true,
+          "slideshow_speed": "5",
+          "slideshow_pause_on_hover": true
+        }
+      },
+      "1481854666893": {
+        "type": "image-slider",
+        "blocks": {
+          "1481854682011": {
+            "type": "slide",
+            "settings": {
+              "link": "",
+              "image": "shopify:\/\/shop_images\/school.jpg"
+            }
+          },
+          "1481855088209": {
+            "type": "slide",
+            "settings": {
+              "link": "",
+              "image": "shopify:\/\/shop_images\/duke.jpg"
+            }
+          },
+          "1487673890220": {
+            "type": "slide",
+            "settings": {
+              "link": "",
+              "image": "shopify:\/\/shop_images\/printlab.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1481854682011",
+          "1481855088209",
+          "1487673890220"
+        ],
+        "settings": {
+          "slideshow_dots": true,
+          "slideshow_arrows": false,
+          "slideshow_autoplay": true,
+          "slideshow_speed": "5",
+          "slideshow_pause_on_hover": true
+        }
+      },
+      "1481856238692": {
+        "type": "featured-news",
+        "settings": {}
+      },
+      "mega-menu": {
+        "type": "mega-menu",
+        "blocks": {
+          "1481862933581": {
+            "type": "menu",
+            "settings": {
+              "title": "Products",
+              "child_menu_1": "3d-printers",
+              "child_image_enable_1": false,
+              "child_image_1": "shopify:\/\/shop_images\/slide_2.png",
+              "child_menu_2": "3d-scanners",
+              "child_image_enable_2": false,
+              "child_image_2": "",
+              "child_menu_3": "filament-brands",
+              "child_image_enable_3": false,
+              "child_image_3": "",
+              "child_menu_4": "spare-parts",
+              "child_image_enable_4": false,
+              "child_image_4": ""
+            }
+          },
+          "1481864058195": {
+            "type": "menu",
+            "settings": {
+              "title": "Resources",
+              "child_menu_1": "casestudies",
+              "child_image_enable_1": false,
+              "child_image_1": "shopify:\/\/shop_images\/resources_sq600x600.jpg",
+              "child_menu_2": "link-list",
+              "child_image_enable_2": false,
+              "child_image_2": "",
+              "child_menu_3": "education",
+              "child_image_enable_3": false,
+              "child_image_3": "",
+              "child_menu_4": "",
+              "child_image_enable_4": true,
+              "child_image_4": "shopify:\/\/shop_images\/ios_sq_600x600.jpg"
+            }
+          },
+          "1487828407101": {
+            "type": "menu",
+            "settings": {
+              "title": "Support",
+              "child_menu_1": "support",
+              "child_image_enable_1": false,
+              "child_image_1": "",
+              "child_menu_2": "",
+              "child_image_enable_2": false,
+              "child_image_2": "",
+              "child_menu_3": "",
+              "child_image_enable_3": false,
+              "child_image_3": "",
+              "child_menu_4": "",
+              "child_image_enable_4": false,
+              "child_image_4": ""
+            }
+          },
+          "1481869597186": {
+            "type": "menu",
+            "settings": {
+              "title": "More",
+              "child_menu_1": "",
+              "child_image_enable_1": true,
+              "child_image_1": "shopify:\/\/shop_images\/kids_sq660x600.jpg",
+              "child_menu_2": "resellers",
+              "child_image_enable_2": false,
+              "child_image_2": "",
+              "child_menu_3": "more",
+              "child_image_enable_3": false,
+              "child_image_3": "",
+              "child_menu_4": "",
+              "child_image_enable_4": true,
+              "child_image_4": "shopify:\/\/shop_images\/ios_sq_600x600.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1481862933581",
+          "1481864058195",
+          "1487828407101",
+          "1481869597186"
+        ],
+        "settings": {
+          "main_menu": "main-menu"
+        }
+      }
+    },
+    "content_for_index": [
+      "1481849704044",
+      "1481854666893",
+      "1481856238692"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "ajax_cart_method": "drawer",
+      "cart_notes_enable": true,
+      "color_body_bg": "#fff",
+      "color_body_text": "#333333",
+      "color_borders": "#e5e5e5",
+      "color_footer_bg": "#f2f2f2",
+      "color_footer_social_link": "#bbbbbb",
+      "color_footer_text": "#636363",
+      "color_primary": "#747474",
+      "color_secondary": "#bbb",
+      "favicon_enable": false,
+      "footer_newsletter_enable": true,
+      "footer_social_enable": true,
+      "logo_use_image": false,
+      "social_facebook_link": "",
+      "social_twitter_link": ""
+    }
+  }
+}

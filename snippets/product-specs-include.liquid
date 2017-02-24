@@ -1,0 +1,35 @@
+<!-- snippets/product-specs-include.liquid -->
+{% if spec contains "text2" or spec contains "image2" %}
+  {% if title == "Compare" %}
+    <div class="grid content-compare">
+      <div class="grid__item large--one-half medium--one-half text-center">
+        {% if image %}<img src="{{ image }}">{% endif %}
+        <p>{{ text | newline_to_br }}</p>
+      </div>
+      <div class="grid__item large--one-half medium--one-half text-center">
+        {% if image2 %}<img src="{{ image2 }}">{% endif %}
+        {% if text2 %}<p>{{ text2 | newline_to_br }}</p>{% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="grid content-compare">
+      <div class="grid__item large--one-half medium--one-half">
+        <p>{{ text | newline_to_br }}</p>
+      </div>
+      <div class="grid__item large--one-half medium--one-half{% if image2 %} text-center{% endif %}">
+        {% if image2 %}<img src="{{ image2 }}">{% endif %}
+        {% if text2 %}<p>{{ text2 | newline_to_br }}</p>{% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+  <div class="content">
+    <p>
+      {% if forloop.first %}
+        {{ text | newline_to_br }}
+      {% else %}
+        {{ text }}
+      {% endif %}
+    </p>
+  </div>
+{% endif %}

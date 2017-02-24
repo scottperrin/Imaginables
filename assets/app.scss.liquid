@@ -145,8 +145,8 @@ $successGreenBg: #ecfef0;
 // Drawers
 $drawerNavWidth: 300px;
 $drawerCartWidth: 300px;
-$colorDrawers: darken($colorTextBody, 10%);
-$colorDrawerBorder: darken($colorDrawers, 10%);
+$colorDrawers: darken($colorPrimary, 15%);
+$colorDrawerBorder: darken($colorPrimary, 15%);
 $colorDrawerText: $colorBody;
 $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 
@@ -848,7 +848,7 @@ body {
 /*================ Variables ================*/
 
 $headerFontStack: 'Montserrat', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$headerFontWeight: 700;
+$headerFontWeight: 500;
 $h1Base: 2.4;
 $h2Base: 1.8;
 $h3Base: 1.1;
@@ -857,6 +857,8 @@ $h5Base: 0.5;
 $h6Base: 0.4;
 
 $bodyFontStack: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bodyFontWeight: 400;
+$bodyFontWeightBold: 700;
 $baseFontSize: 15px; // Henceforth known as 1em
 $pBase: 0.1;
 
@@ -1471,6 +1473,7 @@ iframe {
     -webkit-transform-origin: center;
     -ms-transform-origin: center;
     transform-origin: center;
+    opacity: 0.9;
   }
   .hover-zoom-image {
     width: 100%;
@@ -1775,6 +1778,12 @@ label.error {
   white-space: nowrap;
   width: 1%;
   padding: 0;
+  .btn {
+    line-height: 18px;
+    .icon svg .fill {
+      fill: $colorBody;
+    }
+  }
 }
 
 /*================ Notes and Form Feedback ================*/
@@ -2124,7 +2133,7 @@ label.error {
       a.block-link {
         display: block;
         font-size: 0.8em;
-        font-weight: 700;
+        font-weight: $bodyFontWeightBold;
         line-height: 2;
       }
     }
@@ -2140,6 +2149,10 @@ label.error {
   list-style: none;
   margin: 0;
   cursor: default;
+  @include at-query($max, $small) {
+    position: relative;
+    right: 15px;
+  }
   li {
     display: inline-block;
     margin-bottom: 0;
@@ -2147,7 +2160,7 @@ label.error {
       display: block;
       padding: $gutter / 5;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: $bodyFontWeightBold;
       color: $colorNavText;
       white-space: nowrap;
       position: relative;
@@ -2181,6 +2194,14 @@ label.error {
     width: 70px;
     line-height: 70px;
     text-align: center;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $colorSecondary;
+      .fill {
+        fill:$colorSecondary;
+      }
+    }
   }
   .site-nav__link.js-drawer-open-left {
     left: 0;
@@ -2234,6 +2255,14 @@ label.error {
 /*============================================================================
   #MEGA MENU
 ==============================================================================*/
+
+.menu-container {
+  @include at-query($max, $medium) {
+    width: 0;
+  }
+}
+
+
 .site-nav-mega {
   list-style: none;
   margin: 0;
@@ -2244,8 +2273,11 @@ label.error {
     a {
       display: block;
       padding: $gutter / 5;
+      @include at-query($max, 1095px) {
+        padding: $gutter / 10;
+      }
       text-decoration: none;
-      font-weight: 700;
+      font-weight: $bodyFontWeight;
       color: $colorNavText;
       white-space: nowrap;
       position: relative;
@@ -2258,8 +2290,9 @@ label.error {
           fill:$colorSecondary;
         }
       }
+
     }
-    &.site-nav--has-dropdown {
+    &.site-nav-mega--has-dropdown {
       // position: relative;
     }
     .site-nav--active > & {
@@ -2272,46 +2305,58 @@ label.error {
 }
 
 /*================ Mega Menu Dropdowns ================*/
-.site-nav-mega__dropdown {
+.site-nav-mega__dropdown__wrapper {
   height: auto;
   position: absolute;
-  top: 70px;
+  top: 50px;
   left: 0;
   right: 0;
   margin: 0;
   width: 100%;
-  background-color: $colorPrimary;
   z-index: $zindexNavDropdowns;
-  @include transition();
   visibility: hidden;
   opacity: 0;
-  padding: $gutter 0;
-  -webkit-box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
-  box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
-
+  @include transition();
+  .site-nav-mega__dropdown {
+    background-color: $colorPrimary;
+    margin-top: 20px;
+    padding: $gutter/2;
+    -webkit-box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 45px 0 rgba(0,0,0,0.2);
+    .mega--subcategory-heading {
+      color: $colorTextBody;
+      padding: 0;
+      &:hover {
+        color: inherit;
+      }
+    }
+    h6 {
+      margin-bottom: $gutter/4;
+    }
+    ul {
+      margin: 0;
+    }
+    li {
+      display: block;
+      width: 100%;
+      a {
+        display: block;
+        width: 100%;
+        padding: 0;
+        height: auto;
+        &:hover,
+        &:active,
+        &:focus {
+          color: $colorTextBody !important;
+        }
+      }
+    }
+  }
   .supports-no-touch .site-nav-mega--has-dropdown:hover &,
   .site-nav-mega--has-dropdown.nav-hover &,
   .nav-focus + & {
     opacity: 1;
     visibility: visible;
-  }
-  ul {
-    margin: 0;
-  }
-  li {
-    display: block;
-    width: 100%;
-    a {
-      display: block;
-      width: 100%;
-      padding: $gutter / 5 0;
-      height: auto;
-      &:hover,
-      &:active,
-      &:focus {
-        color: $colorTextBody !important;
-      }
-    }
   }
 }
 
@@ -2339,11 +2384,13 @@ label.error {
 .mobile-nav__item {
   position: relative;
   display: block;
+  @include transition();
 
   // Background color on top level items so there is no
   // element overlap on subnav's CSS toggle animation
   .mobile-nav > & {
     background-color: $colorDrawers;
+
   }
 
   &:after {
@@ -2353,6 +2400,7 @@ label.error {
     left: $gutter / 2;
     right: $gutter / 2;
     border-bottom: $borderWeight solid $colorDrawerBorder;
+    border-bottom: 0;
   }
 
   .mobile-nav > &:last-child:after {
@@ -2370,16 +2418,22 @@ label.error {
   color: $colorDrawerText;
   padding: $gutter / 2;
   text-decoration: none;
+  @include transition();
 
   &:hover,
   &:active,
   &:focus {
     color: darken($colorDrawerText, 15%);
   }
+}
 
-  &:active,
-  &:focus {
-    background-color: darken($colorDrawers, 5%);
+.mobile-nav--expanded {
+  background-color: $colorPrimary;
+   button {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
   }
 }
 
@@ -2390,6 +2444,7 @@ label.error {
 .mobile-nav__has-sublist {
   display: table;
   width: 100%;
+  @include transition();
 
   .mobile-nav__link {
     display: table-cell;
@@ -2402,44 +2457,43 @@ label.error {
   display: table-cell;
   vertical-align: middle;
   width: 1%;
-}
-
-.mobile-nav__toggle-open {
-  .mobile-nav--expanded & {
-    display: none;
+  .icon svg .stroke {
+    stroke: $colorBody;
   }
 }
 
-.mobile-nav__toggle-close {
-  display: none;
-
-  .mobile-nav--expanded & {
-    display: block;
-  }
-}
-
+// First layer
 .mobile-nav__sublist {
   margin: 0;
   max-height: 0;
   visibility: hidden;
   overflow: hidden;
+  background-color: $colorPrimary;
   transition: all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
   @include backface();
-
   .mobile-nav--expanded + & {
     visibility: visible;
-    max-height: 700px;
+    max-height: 2000px;
     transition: all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
   }
-
   .mobile-nav__item:after {
     top: 0;
     bottom: auto;
   }
-
   .mobile-nav__link {
     padding-left: $gutter;
     font-weight: normal;
+  }
+
+  // Second layer
+  .mobile-nav__sublist {
+    .mobile-nav__link {
+      padding-left: $gutter*2;
+      background-color: $colorSecondary;
+    }
+  }
+  .mobile-nav--expanded {
+    background-color: $colorSecondary;
   }
 }
 
@@ -2569,7 +2623,7 @@ label.error {
 
 .drawer__close button {
   position: relative;
-  right: -20px;
+  right: -25px;
   height: 100%;
   padding: 0 20px;
   color: inherit;
@@ -2993,27 +3047,27 @@ label.error {
         display: inline-block;
         margin: 5px 7px;
         button {
-          height: 16px;
-          width: 16px;
+          height: 10px;
+          width: 10px;
           color: rgba(255, 255, 255, 0);
-          background-color: $colorBody;
+          background-color: rgba($colorBody, .5);
           border-radius: 50%;
           outline: none;
         }
         &.slick-active {
           button {
-            background-color: rgba($colorBody, .5);
+            background-color: $colorBody;
           }
         }
       }
     }
   }
   .slide-container.one {
-    padding: $gutter*2 $gutter $gutter;
+    padding: $gutter*2 $gutter;
     background-color: $colorTertiary;
     color: $colorBody;
     @include at-query($min, $large) {
-      padding: $gutter*2 $gutter*2 $gutter;
+      padding: $gutter*2 $gutter*2;
     }
     @include at-query($max, $medium) {
       .slick-arrow {
@@ -3022,9 +3076,9 @@ label.error {
     }
   }
   .news {
-    background-color: $colorTertiary;
+    background-color: darken($colorBody, 7%);
     padding: $gutter 0 $gutter*1.5;
-    color: $colorBody;
+    color: $colorTextBody;
     .article__featured-image {
       .image-ratio {
         position: relative;
@@ -3034,7 +3088,6 @@ label.error {
           left: 0;
           margin: $gutter / 2;
           color: $colorBody;
-          opacity: 0.8;
           z-index: 2;
           p {
             margin-bottom: 0;
@@ -3088,8 +3141,9 @@ label.error {
     .btn {
       background-color: $colorTertiary;
     }
-    h2 a {
-      color: $colorTertiary;
+    h2 a, a {
+      color: $colorBody;
+      font-weight: $bodyFontWeightBold;
     }
   }
   &.black-over {
@@ -3126,6 +3180,9 @@ AddToCart {
 
   .container.color {
     padding: $gutter/2 0 $gutter/2;
+    .mini-wrapper {
+      padding: 0;
+    }
   }
 
   /*================ Nav & Tag Based Filtering ================*/
@@ -3206,48 +3263,91 @@ AddToCart {
     }
   }
 
-  .product-part-wrapper{
+  .product-part-wrapper {
     background: $colorPrimary;
     margin-bottom: $gutter;
 
-    .grid__image{
+    .grid__image {
       min-height: 250px;
       margin-bottom: 0;
     }
-    .product-part-text{
+    .product-part-text {
       padding: 20px;
 
-      p{
+      p {
         color: $colorBody;
         margin-bottom: 0;
 
-        &.h6{
+        &.h6 {
           margin-bottom: $gutter/4;
         }
       }
     }
   }
 }
+
+.template-product {
+  .product-image-slider {
+    .slick-slide img {
+      max-height: 100%;
+      margin: 0 auto;
+    }
+    #ProductThumbs {
+      max-height: $gutter*1.5;
+      .img-wrapper {
+        overflow: hidden;
+        img {
+          max-height: none;
+          max-width: none;
+        }
+      }
+    }
+  }
+}
+
+#description .container {
+  padding: $gutter;
+}
+
 /*============================================================================
   #Tab Navigation
 ==============================================================================*/
 
 .tabs-slider {
-  border-top: solid 2px white;
 
   #tabs-links {
     background-color: $colorTertiary;
     outline: none;
      div.tab-link {
       cursor: pointer;
-      font-weight: 700;
+      font-weight: $bodyFontWeightBold;
       font-size: 1.1em;
       padding: $gutter / 2;
       display: inline-block;
       color: #fff;
       z-index: 1;
-      @include at-query ($max, $small) {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      @include at-query ($max, $medium) {
         width: 100%;
+      }
+      .tab-content {
+        @include at-query($min, $medium) {
+          display: none !important;
+        }
+        @include transition();
+        max-height: 0px;
+        overflow: hidden;
+        margin-top: 0;
+        font-weight: $bodyFontWeight;
+        br {
+          display: none;
+        }
+        p {
+          margin-bottom: 0;
+        }
       }
       &:before {
         @include at-query ($max, $small) {
@@ -3281,12 +3381,19 @@ AddToCart {
           z-index: -1;
           transition: ease height 1s;
         }
+        .tab-content {
+          margin-top: $gutter/2;
+          max-height: 2000px;
+        }
       }
     }
   }
 
   .tabs {
     position: relative;
+    @include at-query($max, $medium) {
+      display: none !important;
+    }
     div.tab {
       padding: $gutter;
       position: absolute;
@@ -3294,6 +3401,12 @@ AddToCart {
       height: auto;
       top: 0;
       display: none;
+      br {
+        display: none;
+      }
+      p {
+        margin-bottom: 0;
+      }
 
       &.active {
         display: block;
@@ -3302,6 +3415,18 @@ AddToCart {
 
       .content {
         max-width: 600px;
+        p br {
+          display: block;
+          content: " ";
+          margin: $gutter/2 0;
+        }
+      }
+
+      .content-compare {
+        img {
+          max-height: 450px;
+          margin-bottom: $gutter/2;
+        }
       }
 
       &.with-image {
@@ -3374,6 +3499,7 @@ AddToCart {
   }
 
   #ProductPhoto, #ProductThumbs {
+    position: relative;
     margin-bottom: $gutter / 3;
     display: none;
     &.visible {
@@ -3383,6 +3509,25 @@ AddToCart {
       margin: 0;
       max-height:350px;
     }
+  }
+  #ProductPhoto {
+    padding: ($gutter) ($gutter) 0;
+    @include at-query($max, $small) {
+      padding-top: 0;
+    }
+  }
+  .slider-slick-prev, .slider-slick-next {
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    margin-top: -13px;
+    cursor: pointer;
+  }
+  .slider-slick-prev {
+    left: 0;
+  }
+  .slider-slick-next {
+    right: 0;
   }
   #ProductThumbs {
     a {
@@ -3771,8 +3916,15 @@ $swatchSize: 30px;
   min-width: $swatchSize;
   min-height: $swatchSize;
   display: inline-block;
-  border: #aaa solid 2px;
-  border-radius: 50%;
+  margin: 2px;
+  box-shadow: 0 0 0 1px lighten($colorTextBody, 60%);
+  @include transition();
+  &:hover {
+    box-shadow: 0 0 0 2px lighten($colorTextBody, 60%);
+  }
+  &.active {
+    box-shadow: 0 0 0 2px $colorPrimary;
+  }
 }
 .variant-form {
   display: none;

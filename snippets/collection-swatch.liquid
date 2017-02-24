@@ -1,3 +1,4 @@
+<!-- /snippets/collection-swatch.liquid -->
 {% assign on_sale = false %}
 {% if product.compare_at_price > product.price %}
   {% assign on_sale = true %}
@@ -28,18 +29,18 @@
 {% endif %}
 {% endfor %}
 </div>
-<div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+<div class="grid__item {% if grid_width %}{{ grid_width }}{% else %}large--two-thirds{% endif %} flex__item{% cycle '', ' large--text-right' %}">
 <div class="mini-wrapper">
   <h2>
-    <a href="{{ variant.url | within: collection }}">{{ product.title }}</a>
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
   </h2>
 
   {% assign content = product.description %}
   {% assign splits = content | split: '[split]' %}
   {% capture description %}{% endcapture %}
   {% for split in splits %}
-    {% if split contains '[description]' and split contains '[/description]'  %}
-      {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
+    {% if split contains '[collection_description]' and split contains '[/collection_description]'  %}
+      {% capture description %}{{ split | remove: '[collection_description]' | remove: '[/collection_description]' | strip_html | newline_to_br }}{% endcapture %}
     {% endif %}
   {% endfor %}
 
@@ -53,7 +54,7 @@
           {{ variant.options[index] }}
         {% endcapture %}
         {% unless colorlist contains color %}
-          <div class="swatch" style="background-color:{{ color | handleize }}; background-image:url('{{ color | downcase | append: '.png' | asset_url }}');" data-product="{{ product.id }}" data-color="{{ color | handleize }}" alt="{{ color }}" /></div>
+          <div class="swatch{% if forloop.first %} active{% endif %}" style="background-color:{{ color | handleize }}; background-image:url('{{ color | downcase | strip | handleize | append: '.png' | asset_url }}');background-size:cover;" data-product="{{ product.id }}" data-color="{{ color | handleize }}" title="{{ color | strip }}" /></div>
           {% capture tempList %}
             {{ colorlist | append: color | append: '' }}
           {% endcapture %}
@@ -63,7 +64,7 @@
     {% endif %}
   {% endfor %}
 
-  <p>{{ description | truncatewords: 36 }} <b><a href="{{ variant.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+  <p>{{ description }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
 
   <p class="price">
     {% if on_sale %}
@@ -96,15 +97,25 @@
       {% assign colorlist = '' %}
       {% assign color = '' %}
       {% for variant in product.variants %}
+        {% assign color_sold_out = true %}
+        {% if variant.available %}
+          {% assign color_sold_out = false %}
+        {% endif %}
         {% capture color %}
           {{ variant.options[index] }}
         {% endcapture %}
         {% unless colorlist contains color %}
           <form action="/cart/add" method="post" enctype="multipart/form-data" data-product="{{ product.id }}" data-variant="{{ color | handleize }}" id="AddToCartForm" class="variant-form form-vertical{% if forloop.first %} active{% endif %}">
             <input type="hidden" name="id" value="{{ variant.id }}">
-            <button type="submit" name="add" id="AddToCart" class="btn btn--large">
-              <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-            </button>
+            {% if color_sold_out %}
+              <button type="submit" name="add" id="AddToCart" class="btn btn--large disabled" disabled>
+                <span id="AddToCartText">{{ 'products.product.sold_out' | t }}</span>
+              </button>
+            {% else %}
+              <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+              </button>
+            {% endif %}
           </form>
           {% capture tempList %}
             {{ colorlist | append: color | append: '' }}

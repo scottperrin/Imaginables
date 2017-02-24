@@ -1,3 +1,4 @@
+<!-- /snippets/collection-product.liquid -->
               {% assign on_sale = false %}
               {% if product.compare_at_price > product.price %}
                 {% assign on_sale = true %}
@@ -12,7 +13,7 @@
               </a>
 
             </div>
-            <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+            <div class="grid__item {% if grid_width %}{{ grid_width }}{% else %}large--two-thirds{% endif %} flex__item{% cycle '', ' large--text-right' %}">
               <div class="mini-wrapper">
                 <h2>
                   <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
@@ -22,11 +23,11 @@
                 {% assign splits = content | split: '[split]' %}
                 {% capture description %}{% endcapture %}
                 {% for split in splits %}
-                  {% if split contains '[description]' and split contains '[/description]'  %}
-                    {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
+                  {% if split contains '[collection_description]' and split contains '[/collection_description]'  %}
+                    {% capture description %}{{ split | remove: '[collection_description]' | remove: '[/collection_description]' | strip_html | newline_to_br }}{% endcapture %}
                   {% endif %}
                 {% endfor %}
-                <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+                <p>{{ description }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
 
                 <p class="price">
                   {% if on_sale %}

@@ -34,19 +34,20 @@ Capture the product description and split in to sections and distribute into sho
 
   <section class="container color">
     <div class="wrapper">
-      <div class="grid--full grid-uniform text-center">
+      <div class="grid grid-uniform text-center">
         <div class="grid__item flex__item large--one-half large--text-right text-center">
           <div class="mini-wrapper">
             {% include 'product-form' %}
           </div>
         </div>
-        <div class="grid__item large--one-half flex__item text-center">
-            <img src="{{ product.featured_image | img_url: 'large' }}">
+        <div class="product-image-slider grid__item large--one-half flex__item text-center">
+          {% include 'product-image-slider' %}
         </div>
       </div>
     </div>
   </section>
 
+{% if description != blank %}{% include 'shortcode-description' %}{% endif %}
 {% if specs != blank %}{% include 'product-specs' %}{% endif %}
 {% if hero != blank %}{% include 'shortcode' load: hero %}{% endif %}
 {% if technical != blank %}{% include 'shortcode' load: technical %}{% endif %}

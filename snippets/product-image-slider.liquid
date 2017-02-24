@@ -1,0 +1,140 @@
+<!-- /snippets/product-image-slider.liquid -->
+
+{% assign product_images_autoplay = true %}
+{% assign product_images_thumbs = false %}
+{% assign product_images_popup = false %}
+{% assign product_images_zoom = false %}
+
+<div class="product-single__photos" id="ProductPhoto">
+  <section class="product_slider">
+    {% for image in product.images %}
+      <figure data-thumb="{{ image.src | img_url: '1024x1024' }}">
+        <div class="img-wrapper">
+          <img src="{{ image.src | img_url: '1024x1024' }}" id="ProductPhotoImg">
+        </div>
+        {% if image.alt %}<figcaption class="visually-hidden">{{ image.alt }}</figcaption>{% endif %}
+      </figure>
+    {% endfor %}
+  </section>
+  <div class="slider-slick-prev icon">
+    {% include 'icon' with 'previous' %}
+  </div>
+  <div class="slider-slick-next icon">
+    {% include 'icon' with 'next' %}
+  </div>
+</div>
+
+{% comment %}
+  Create thumbnails if we have more than one product image
+{% endcomment %}
+{% if product_images_thumbs %}
+  {% if product.images.size > 1 %}
+    <section class="product-single__thumbnails product_slider_nav" id="ProductThumbs">
+      {% for image in product.images %}
+        <div data-thumb="{{ image.src | img_url: 'compact' }}" class="slider_link">
+          <a href="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail">
+            <figure>
+              <div class="img-wrapper">
+                <img src="{{ image.src | img_url: 'compact' }}">
+              </div>
+              {% if image.alt %}<figcaption class="visually-hidden">{{ image.alt }}</figcaption>{% endif %}
+            </figure>
+          </a>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+{% endif %}
+
+{% if product_images_popup == true %}
+  <div class="popup" id="gallery">
+    <div class="popup-inner">
+      <div class="popup-outside"></div>
+      <div class="popup-container">
+        <a href="#0" class="popup-close img-replace">{% include 'icon' with 'close' %}</a>
+        <section class="popup_slider">
+          {% for image in product.images %}
+            <figure>
+              <img src="{{ image.src | img_url: '1024x1024' }}" class="panzoom">
+              {% if image.alt %}<figcaption class="visually-hidden">{{ image.alt }}</figcaption>{% endif %}
+            </figure>
+          {% endfor %}
+        </section>
+        <div class="slider-slick-prev icon">
+          {% include 'icon' with 'previous' %}
+        </div>
+        <div class="slider-slick-next icon">
+          {% include 'icon' with 'next' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if product_images_zoom == true %}
+  {{ 'zoom.min.js' | asset_url | script_tag }}
+{% endif %}
+
+<script type="text/javascript">
+  // Product Gallery
+  $(document).ready(function() {
+    $('#ProductPhoto').imagesLoaded().always(function(instance) {
+      $('#ProductPhoto, #ProductThumbs').addClass('visible');
+      loadSlider();
+    });
+    // Initiate product slider
+    function loadSlider() {
+      $(".product_slider").slick({
+        slidesToShow: 1,
+        {% if product_images_autoplay %}autoplay: true,{% endif %}
+        dots: false,
+        autoplay: true,
+        arrows: true,
+        prevArrow: '.slider-slick-prev',
+        nextArrow: '.slider-slick-next',
+        adaptiveHeight: false
+      });
+      $('.product_slider_nav').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        {% if product_images_autoplay %}autoplay: true,{% endif %}
+        slide: '.slider_link',
+        asNavFor: '.product_slider',
+        arrows: false,
+        dots: false,
+        focusOnSelect: true
+      });
+    }
+    // Initiate zoom for main slider
+    {% if product_images_zoom == true %}
+      $('.product_slider .img-wrapper').zoom({
+        touch: false
+      });
+    {% endif %}
+    {% if product_images_popup == true %}
+      //Initiate popup slider when main slider image is clicked
+      $('.product_slider .img-wrapper').css('cursor', 'pointer').on('click', function() {
+        var currentSlide = $('.product_slider').slick('slickCurrentSlide');
+
+        $(".popup_slider").slick({
+          slidesToShow: 1,
+          autoplay: false,
+          dots: false,
+          prevArrow: '.popup-slick-prev',
+          nextArrow: '.popup-slick-next',
+        });
+        $(".popup_slider").slick('slickGoTo', currentSlide, true);
+        $("#gallery.popup").toggleClass('visible');
+
+      });
+      // Hide popup and destroy slick instance when close button or overlay is clicked
+      $('#gallery.popup').on('click', '.popup-close, .popup-outside', function(event){ // popup-outside not currently used in slider
+        event.preventDefault();
+        $(this).closest('.popup').removeClass('visible');
+        setTimeout(function() {
+          $('.popup_slider').slick('unslick');
+        }, 300);
+      });
+    {% endif %}
+  });
+</script>

@@ -1,73 +1,90 @@
 <!-- sections/mega-menu.liquid -->
-<nav class="main_menu" role="navigation">
-  <div class="medium-down--hide">
+{% include 'mega-menu-drawer' %}
+
+{% comment %}
+  Mega menu content
+  Link lists with titles "." will have their titles ignored
+{% endcomment %}
+
+<nav class="medium-down--hide main_menu" role="navigation">
+  <div class="text-center">
     <ul class="site-nav-mega" id="AccessibleNav-{{ section.id }}">
       {% for link in linklists[section.settings.main_menu].links %}
           <li class="site-nav-mega--has-dropdown{% if link.active %} site-nav-mega--active{% endif %}" aria-haspopup="true">
             <a href="{{ link.url }}" class="site-nav-mega__link">
               {{ link.title }}
             </a>
-            <div class="site-nav-mega__dropdown grid">
-              {% for block in section.blocks %}
-                {% if link.title == block.settings.title %}
-                  <div class="grid__item one-quarter">
-                    <h6>{{ linklists[block.settings.child_menu_1].title }}</h6>
-                    <ul>
-                      {% if block.settings.child_image_enable_1 %}
-                        <img src="{{ block.settings.child_image_1 | img_url: '300x' }}">
-                      {% else %}
-                        {% for childlink in linklists[block.settings.child_menu_1].links %}
-                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
-                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                          </li>
-                        {% endfor %}
-                      {% endif %}
-                    </ul>
-                  </div>
-                  <div class="grid__item one-quarter">
-                    <h6>{{ linklists[block.settings.child_menu_2].title }}</h6>
-                    <ul>
-                      {% if block.settings.child_image_enable_2 %}
-                        <img src="{{ block.settings.child_image_2 | img_url: '300x' }}">
-                      {% else %}
-                        {% for childlink in linklists[block.settings.child_menu_2].links %}
-                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
-                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                          </li>
-                        {% endfor %}
-                      {% endif %}
-                    </ul>
-                  </div>
-                  <div class="grid__item one-quarter">
-                    <h6>{{ linklists[block.settings.child_menu_3].title }}</h6>
-                    <ul>
-                      {% if block.settings.child_image_enable_3 %}
-                        <img src="{{ block.settings.child_image_3 | img_url: '300x' }}">
-                      {% else %}
-                        {% for childlink in linklists[block.settings.child_menu_3].links %}
-                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
-                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                          </li>
-                        {% endfor %}
-                      {% endif %}
-                    </ul>
-                  </div>
-                  <div class="grid__item one-quarter">
-                    <h6>{{ linklists[block.settings.child_menu_4].title }}</h6>
-                    <ul>
-                      {% if block.settings.child_image_enable_4 %}
-                        <img src="{{ block.settings.child_image_4 | img_url: '300x' }}">
-                      {% else %}
-                        {% for childlink in linklists[block.settings.child_menu_4].links %}
-                          <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
-                            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                          </li>
-                        {% endfor %}
-                      {% endif %}
-                    </ul>
-                  </div>
-              {% endif %}
-            {% endfor %}
+            <div class="site-nav-mega__dropdown__wrapper text-left">
+              <div class="site-nav-mega__dropdown grid">
+                {% for block in section.blocks %}
+                  {% if link.title == block.settings.title %}
+                    <div class="grid__item one-quarter">
+                      {% unless block.settings.child_image_enable_1 %}
+                        {% unless block.settings.child_menu_1_link == blank %}<a href="{{ block.settings.child_menu_1_link }}" class="mega--subcategory-heading">{% endunless %}<h6>{% if linklists[block.settings.child_menu_1].title contains "-1" %}<br>{% elsif linklists[block.settings.child_menu_1].title contains "-2" %}<br>{% else %}{{ linklists[block.settings.child_menu_1].title }}{% endif %}</h6>{% unless block.settings.child_menu_1_link == blank %}</a>{% endunless %}
+                      {% endunless %}
+                      <ul>
+                        {% if block.settings.child_image_enable_1 %}
+                          <img src="{{ block.settings.child_image_1 | img_url: '350x300', crop: 'center' }}">
+                        {% else %}
+                          {% for childlink in linklists[block.settings.child_menu_1].links %}
+                            <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+                    <div class="grid__item one-quarter">
+                      {% unless block.settings.child_image_enable_2 %}
+                        {% unless block.settings.child_menu_2_link == blank %}<a href="{{ block.settings.child_menu_2_link }}" class="mega--subcategory-heading">{% endunless %}<h6>{% if linklists[block.settings.child_menu_2].title contains "-1" %}<br>{% elsif linklists[block.settings.child_menu_2].title contains "-2" %}<br>{% else %}{{ linklists[block.settings.child_menu_2].title }}{% endif %}</h6>{% unless block.settings.child_menu_2_link == blank %}</a>{% endunless %}
+                      {% endunless %}
+                      <ul>
+                        {% if block.settings.child_image_enable_2 %}
+                          <img src="{{ block.settings.child_image_2 | img_url: '350x300', crop: 'center' }}">
+                        {% else %}
+                          {% for childlink in linklists[block.settings.child_menu_2].links %}
+                            <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+                    <div class="grid__item one-quarter">
+                      {% unless block.settings.child_image_enable_3 %}
+                        {% unless block.settings.child_menu_3_link == blank %}<a href="{{ block.settings.child_menu_3_link }}" class="mega--subcategory-heading">{% endunless %}<h6>{% if linklists[block.settings.child_menu_3].title contains "-1" %}<br>{% elsif linklists[block.settings.child_menu_3].title contains "-2" %}<br>{% else %}{{ linklists[block.settings.child_menu_3].title }}{% endif %}</h6>{% unless block.settings.child_menu_3_link == blank %}</a>{% endunless %}
+                      {% endunless %}
+                      <ul>
+                        {% if block.settings.child_image_enable_3 %}
+                          <img src="{{ block.settings.child_image_3 | img_url: '350x300', crop: 'center' }}">
+                        {% else %}
+                          {% for childlink in linklists[block.settings.child_menu_3].links %}
+                            <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+                    <div class="grid__item one-quarter">
+                      {% unless block.settings.child_image_enable_4 %}
+                        {% unless block.settings.child_menu_4_link == blank %}<a href="{{ block.settings.child_menu_4_link }}" class="mega--subcategory-heading">{% endunless %}<h6>{% if linklists[block.settings.child_menu_4].title contains "-1" %}<br>{% elsif linklists[block.settings.child_menu_4].title contains "-2" %}<br>{% else %}{{ linklists[block.settings.child_menu_4].title }}{% endif %}</h6>{% unless block.settings.child_menu_4_link == blank %}</a>{% endunless %}
+                      {% endunless %}
+                      <ul>
+                        {% if block.settings.child_image_enable_4 %}
+                          <img src="{{ block.settings.child_image_4 | img_url: '350x300', crop: 'center' }}">
+                        {% else %}
+                          {% for childlink in linklists[block.settings.child_menu_4].links %}
+                            <li{% if childlink.active %} class="site-nav-mega--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
         </li>
       {% endfor %}
@@ -111,6 +128,11 @@
             "label": "Sub Menu"
           },
           {
+            "type": "url",
+            "id": "child_menu_1_link",
+            "label": "Sub Menu Link"
+          },
+          {
             "type": "checkbox",
             "id": "child_image_enable_1",
             "label": "Enable image",
@@ -130,6 +152,11 @@
             "id": "child_menu_2",
             "default": "main-menu",
             "label": "Sub Menu"
+          },
+          {
+            "type": "url",
+            "id": "child_menu_2_link",
+            "label": "Sub Menu Link"
           },
           {
             "type": "checkbox",
@@ -153,6 +180,11 @@
             "label": "Sub Menu"
           },
           {
+            "type": "url",
+            "id": "child_menu_3_link",
+            "label": "Sub Menu Link"
+          },
+          {
             "type": "checkbox",
             "id": "child_image_enable_3",
             "label": "Enable image",
@@ -172,6 +204,11 @@
             "id": "child_menu_4",
             "default": "main-menu",
             "label": "Sub Menu"
+          },
+          {
+            "type": "url",
+            "id": "child_menu_4_link",
+            "label": "Sub Menu Link"
           },
           {
             "type": "checkbox",

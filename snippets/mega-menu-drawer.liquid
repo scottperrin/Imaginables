@@ -1,0 +1,262 @@
+<!-- /snippets/mega-menu-drawer.liquid -->
+
+<div id="NavDrawer" class="drawer drawer--left">
+  <div class="drawer__header">
+    <div class="drawer__title h3">{{ 'layout.drawers.browse' | t }}</div>
+    <div class="drawer__close js-drawer-close">
+      <button type="button">
+        {% include 'icon' with 'close' %}
+      </button>
+    </div>
+  </div>
+
+  {% comment %}
+    Mobile mega menu content
+    Link lists with handles ending in -1 or -2 will be automatically appended to their parent handle lists
+  {% endcomment %}
+
+  <!-- begin mobile-nav -->
+  <ul class="mobile-nav">
+    <li class="mobile-nav__item mobile-nav__search">
+      {% include 'search-bar' %}
+    </li>
+
+    {% for link in linklists[section.settings.main_menu].links %}
+      <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+        <div class="mobile-nav__has-sublist">
+          <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__toggle">{{ link.title }}</a>
+          <div class="mobile-nav__toggle">
+            <button>
+              {% include 'icon' with 'angle-down' %}
+            </button>
+          </div>
+        </div>
+        {% for block in section.blocks %}
+          {% if link.title == block.settings.title %}
+            <ul class="mobile-nav__sublist">
+              {% unless block.settings.child_image_enable_1 %}
+                {% unless block.settings.child_menu_1 == blank %}
+                  {% unless linklists[block.settings.child_menu_1].title contains "-1" %}
+                    {% unless linklists[block.settings.child_menu_1].title contains "-2" %}
+                      <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                          <a {% unless block.settings.child_menu_1_link == blank %}href="{{ block.settings.child_menu_1_link }}"{% endunless %} class="mobile-nav__link mobile-nav__toggle">{{ linklists[block.settings.child_menu_1].title }}</a>
+                          <div class="mobile-nav__toggle">
+                            <button>
+                              {% include 'icon' with 'angle-down' %}
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="mobile-nav__sublist">
+                          {% for childlink in linklists[block.settings.child_menu_1].links %}
+                            <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                              <div class="mobile-nav__has-sublist">
+                                <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                              </div>
+                            </li>
+                          {% endfor %}
+                          {% capture childlink_1_addon_1 %}{{ block.settings.child_menu_1 }}-1{% endcapture %}
+                          {% capture childlink_1_addon_2 %}{{ block.settings.child_menu_1 }}-2{% endcapture %}
+                          {% unless linklists[childlink_1_addon_1] == blank %}
+                            {% for childlink in linklists[childlink_1_addon_1].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                          {% unless linklists[childlink_1_addon_2] == blank %}
+                            {% for childlink in linklists[childlink_1_addon_2].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                        </ul>
+                      </li>
+                    {% endunless %}
+                  {% endunless %}
+                {% endunless %}
+              {% endunless %}
+
+              {% unless block.settings.child_image_enable_2 %}
+                {% unless block.settings.child_menu_2 == blank %}
+                  {% unless linklists[block.settings.child_menu_2].title contains "-1" %}
+                    {% unless linklists[block.settings.child_menu_2].title contains "-2" %}
+                      <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                          <a {% unless block.settings.child_menu_2_link == blank %}href="{{ block.settings.child_menu_2_link }}"{% endunless %} class="mobile-nav__link mobile-nav__toggle">{{ linklists[block.settings.child_menu_2].title }}</a>
+                          <div class="mobile-nav__toggle">
+                            <button>
+                              {% include 'icon' with 'angle-down' %}
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="mobile-nav__sublist">
+                          {% for childlink in linklists[block.settings.child_menu_2].links %}
+                            <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                              <div class="mobile-nav__has-sublist">
+                                <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                              </div>
+                            </li>
+                          {% endfor %}
+                          {% capture childlink_2_addon_1 %}{{ block.settings.child_menu_2 }}-1{% endcapture %}
+                          {% capture childlink_2_addon_2 %}{{ block.settings.child_menu_2 }}-2{% endcapture %}
+                          {% unless linklists[childlink_2_addon_1] == blank %}
+                            {% for childlink in linklists[childlink_2_addon_1].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                          {% unless linklists[childlink_2_addon_2] == blank %}
+                            {% for childlink in linklists[childlink_2_addon_2].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                        </ul>
+                      </li>
+                    {% endunless %}
+                  {% endunless %}
+                {% endunless %}
+              {% endunless %}
+
+              {% unless block.settings.child_image_enable_3 %}
+                {% unless block.settings.child_menu_3 == blank %}
+                  {% unless linklists[block.settings.child_menu_3].title contains "-1" %}
+                    {% unless linklists[block.settings.child_menu_3].title contains "-2" %}
+                      <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                          <a {% unless block.settings.child_menu_3_link == blank %}href="{{ block.settings.child_menu_3_link }}"{% endunless %} class="mobile-nav__link mobile-nav__toggle">{{ linklists[block.settings.child_menu_3].title }}</a>
+                          <div class="mobile-nav__toggle">
+                            <button>
+                              {% include 'icon' with 'angle-down' %}
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="mobile-nav__sublist">
+                          {% for childlink in linklists[block.settings.child_menu_3].links %}
+                            <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                              <div class="mobile-nav__has-sublist">
+                                <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                              </div>
+                            </li>
+                          {% endfor %}
+                          {% capture childlink_3_addon_1 %}{{ block.settings.child_menu_3 }}-1{% endcapture %}
+                          {% capture childlink_3_addon_2 %}{{ block.settings.child_menu_3 }}-2{% endcapture %}
+                          {% unless linklists[childlink_3_addon_1] == blank %}
+                            {% for childlink in linklists[childlink_3_addon_1].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                          {% unless linklists[childlink_3_addon_2] == blank %}
+                            {% for childlink in linklists[childlink_3_addon_2].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                        </ul>
+                      </li>
+                    {% endunless %}
+                  {% endunless %}
+                {% endunless %}
+              {% endunless %}
+
+              {% unless block.settings.child_image_enable_4 %}
+                {% unless block.settings.child_menu_4 == blank %}
+                  {% unless linklists[block.settings.child_menu_4].title contains "-1" %}
+                    {% unless linklists[block.settings.child_menu_4].title contains "-2" %}
+                      <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+                        <div class="mobile-nav__has-sublist">
+                          <a {% unless block.settings.child_menu_4_link == blank %}href="{{ block.settings.child_menu_4_link }}"{% endunless %} class="mobile-nav__link mobile-nav__toggle">{{ linklists[block.settings.child_menu_4].title }}</a>
+                          <div class="mobile-nav__toggle">
+                            <button>
+                              {% include 'icon' with 'angle-down' %}
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="mobile-nav__sublist">
+                          {% for childlink in linklists[block.settings.child_menu_4].links %}
+                            <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                              <div class="mobile-nav__has-sublist">
+                                <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                              </div>
+                            </li>
+                          {% endfor %}
+                          {% capture childlink_4_addon_1 %}{{ block.settings.child_menu_4 }}-1{% endcapture %}
+                          {% capture childlink_4_addon_2 %}{{ block.settings.child_menu_4 }}-2{% endcapture %}
+                          {% unless linklists[childlink_4_addon_1] == blank %}
+                            {% for childlink in linklists[childlink_4_addon_1].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                          {% unless linklists[childlink_4_addon_2] == blank %}
+                            {% for childlink in linklists[childlink_4_addon_2].links %}
+                              <li class="mobile-nav__item{% if childlink.active %} mobile-nav__item--active{% endif %}">
+                                <div class="mobile-nav__has-sublist">
+                                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title }}</a>
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                        </ul>
+                      </li>
+                    {% endunless %}
+                  {% endunless %}
+                {% endunless %}
+              {% endunless %}
+            </ul>
+          {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+
+    {% comment %}
+      If customer accounts are enabled, provide login and create account links
+    {% endcomment %}
+    {% if shop.customer_accounts_enabled %}
+      {% if customer %}
+        <li class="mobile-nav__item">
+          {% if customer.first_name != blank %}
+            {% capture first_name %}{{ customer.first_name }}{% endcapture %}
+            <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
+          {% else %}
+            <a href="/account">{{ 'layout.customer.account' | t }}</a>
+          {% endif %}
+        </li>
+        <li class="mobile-nav__item">
+          {{ 'layout.customer.log_out' | t | customer_logout_link }}
+        </li>
+      {% else %}
+        <li class="mobile-nav__item">
+          {{ 'layout.customer.log_in' | t | customer_login_link }}
+        </li>
+        <li class="mobile-nav__item">
+          {{ 'layout.customer.create_account' | t | customer_register_link }}
+        </li>
+      {% endif %}
+    {% endif %}
+  </ul>
+  <!-- //mobile-nav -->
+
+</div>
