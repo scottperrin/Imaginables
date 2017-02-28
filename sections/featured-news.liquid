@@ -1,4 +1,7 @@
 <!-- sections/content-slider.liquid -->
+
+{% assign counter = 0 %}
+
 <div class="news">
   <div class="wrapper">
 
@@ -8,12 +11,47 @@
       </div>
     </div>
 
-    <div class="grid--full">
-      <div class="grid__item large--three-fifths">
-        {% for article in blogs['news'].articles limit: 1 %}
+    <div class="grid grid--full">
+      {% for article in blogs[section.settings.blog].articles %}
+        {% if article.tags contains 'Featured' %}
+          {% if counter < 1 %}
+            <div class="grid__item large--three-fifths news-grid-item">
+              <a class="article__featured-image" href="{{ article.url }}">
+                <div class="image-ratio OneByOne hover-zoom">
+                  <div class="content">
+                    <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
+                    <h5>{{ article.title }}</h5>
+                  </div>
+                  <div class="hover-zoom-image" style="background-color:#1f2831;{% if article.image %}background-image:url('{{ article | img_url: 'original' }}');{% endif %}"></div>
+                  <div class="hover-zoom-image-dark"></div>
+                </div>
+              </a>
+            </div>
+            {% assign counter = counter | plus: 1 %}
+          {% elsif counter > 0 and counter < 3 %}
+            <div class="grid__item large--two-fifths news-grid-item">
+              <a class="article__featured-image" href="{{ article.url }}">
+                <div class="image-ratio News hover-zoom">
+                  <div class="content">
+                    <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
+                    <h5>{{ article.title }}</h5>
+                  </div>
+                  <div class="hover-zoom-image" style="background-color:#1f2831;{% if article.image %}background-image:url('{{ article | img_url: 'original' }}');{% endif %}"></div>
+                  <div class="hover-zoom-image-dark"></div>
+                </div>
+              </a>
+            </div>
+            {% assign counter = counter | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% comment %}
+        <div class="grid__item large--two-fifths">
+        {% for article in blogs['news'].articles limit: 2 offset: 1 %}
           {% if article.image %}
             <a class="article__featured-image" href="{{ article.url }}">
-              <div class="image-ratio OneByOne hover-zoom">
+              <div class="image-ratio News hover-zoom">
                 <div class="content">
                   <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
                   <h3>{{ article.title }}</h3>
@@ -23,40 +61,8 @@
             </a>
           {% endif %}
         {% endfor %}
-      </div>
-      <div class="grid__item large--two-fifths">
-      {% for article in blogs['news'].articles limit: 2 offset: 1 %}
-        {% if article.image %}
-          <a class="article__featured-image" href="{{ article.url }}">
-            <div class="image-ratio News hover-zoom">
-              <div class="content">
-                <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
-                <h3>{{ article.title }}</h3>
-              </div>
-              <div class="hover-zoom-image" style="background-image:url('{{ article | img_url: 'original' }}');"></div>
-            </div>
-          </a>
-        {% endif %}
-      {% endfor %}
-      </div>
-    </div>
-    {% comment %}
-    <div class="grid--full">
-    {% for article in blogs['news'].articles %}
-      {% if article.image %}
-        <div class="grid__item large--one-quarter medium--one-half">
-          <a class="article__featured-image" href="{{ article.url }}">
-            <div class="image-ratio OneByOne hover-zoom" style="background-image:url('{{ article | img_url: 'grande' }}');">
-              <div class="content">
-                <p><b><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d" }}</time></b></p>
-                <h3>{{ article.title }}</h3>
-              </div>
-            </div>
-          </a>
         </div>
-      {% endif %}
-    {% endfor %}
-    </div>
+      </div>
     {% endcomment %}
 
   </div>
@@ -68,6 +74,13 @@
       {
         "category": "Articles",
         "name": "Featured Stories"
+      }
+    ],
+    "settings": [
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Featured Blog"
       }
     ]
   }

@@ -1,0 +1,218 @@
+<!-- /templates/blog.resources.liquid -->
+
+{% paginate blog.articles by 5 %}
+
+{% if current_tags %}
+  {% assign story_tag = current_tags.first %}
+  {% assign story_page = pages[story_tag] %}
+
+  {% if story_page.content != blank %}
+
+    {% assign story_title = story_page.title %}
+    {% assign story_content = story_page.content %}
+    {% if story_page.content contains "<img" %}
+      {% assign story_src = story_page.content | split: ' src="' | last | split:'"' | first %}
+      {%- capture story_content %}{{ story_page.content | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]'  | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' }}{% endcapture -%}
+    {% endif %}
+
+    {% if story_content contains '[spec' %}
+      {% assign specs = story_content %}
+    {% endif %}
+
+  {% else %}
+
+    {% assign story_title = story_tag | capitalize %}
+    {% assign story_content = "" %}
+
+  {% endif %}
+
+  <header class="stories-header">
+    <div class="stories-header-image-wrapper">
+      <div class="stories-header-image"{% if story_src %} style="background-image:url({{ story_src }});background-size:cover;background-position:center center;"{% endif %}>
+        <div class="stories-header-image stories-header-image-dark"></div>
+      </div>
+      <h1 class="h2 text-center">{{ story_title }}</h1>
+    </div>
+    {% unless story_content == "" %}
+      {% if specs != blank %}
+        {% include 'product-specs' %}
+      {% else %}
+        <section>
+          <div class="container color blue">
+            <div class="wrapper stories-content">
+              {{ story_content }}
+            </div>
+          </div>
+        </section>
+      {% endif %}
+    {% endunless %}
+  </header>
+
+{% else %}
+  <div class="wrapper">
+    <h1 class="h2">{{ blog.title }}</h1>
+  </div>
+{% endif %}
+
+<div class="wrapper">
+
+  {% if current_tags %}
+
+    <div class="grid">
+      <div class="grid__item one-whole text-center">
+        <h3>{{ story_title }} {{ blog.title }}</h3>
+      </div>
+    </div>
+
+    <div class="grid grid-uniform">
+
+      {% for article in blog.articles limit: 2 %}
+
+        <div class="grid__item large--one-half">
+          <div class="article">
+
+            {% assign size = '_grande' %}
+            {% include 'blog-image' %}
+
+            <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+            <div class="rte">
+              {% include 'shortcode' load: article.content %}
+              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="grid grid-uniform">
+
+      {% for article in blog.articles offset: 2 %}
+
+        <div class="grid__item large--one-third">
+          <div class="article">
+
+            {% assign size = '_grande' %}
+            {% include 'blog-image' %}
+
+            <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+            <div class="rte">
+              {% include 'shortcode' load: article.content %}
+              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+            </div>
+
+          </div>
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+
+    <div class="grid">
+
+      <div class="grid__item large--one-whole">
+
+        {% for article in blog.articles limit: 1 %}
+
+          {% assign size = '_2048x2048' %}
+          {% include 'blog-image' %}
+
+          <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+          {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+          <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+          <div class="rte">
+            {% include 'shortcode' load: article.content %}
+            <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+          </div>
+
+          <hr>
+
+        {% endfor %}
+
+        <div class="grid-uniform">
+
+          {% for article in blog.articles limit: 2 offset: 1 %}
+
+            <div class="grid__item large--one-half">
+              <div class="article">
+
+                {% assign size = '_grande' %}
+                {% include 'blog-image' %}
+
+                <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+                {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+                <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+                <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+                <div class="rte">
+                  {% include 'shortcode' load: article.content %}
+                  <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+                </div>
+
+              </div>
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+        <hr>
+
+        <div class="grid-uniform">
+
+          {% for article in blog.articles offset: 3 %}
+
+            <div class="grid__item large--one-third">
+              <div class="article">
+
+                {% assign size = '_grande' %}
+                {% include 'blog-image' %}
+
+                <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+                {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+                {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+                <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+                <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+                <div class="rte">
+                  {% include 'shortcode' load: article.content %}
+                  <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+                </div>
+
+              </div>
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  {% endif %}
+
+</div>
+
+{% include 'pagination' %}
+
+{% endpaginate %}

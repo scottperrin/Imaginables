@@ -2,27 +2,33 @@
 {% assign specs = specs | replace: '[specs', '[split] [specs' | replace: '<br />', '' | remove_first: "[split]" | split: '[split]' %}
 
 <section id="specifications" class="tabs-slider grid--full color blue">
+
   <nav id="tabs-links">
-    {% for spec in specs %}
-      {% include 'shortcode' load: spec %}
-      <div data-tab="{{ title | handleize | prepend: 'tab-' }}" class="tab-link{% if forloop.first == true %} active{% endif %}">
-        {{ title }}
-        <div class="tab-content">
-          {% include 'product-specs-include' %}
+    <div class="wrapper">
+      {% for spec in specs %}
+        {% include 'shortcode' load: spec %}
+        <div data-tab="{{ title | handleize | prepend: 'tab-' }}" class="tab-link{% if forloop.first == true %} active{% endif %}">
+          {{ title }}
+          <div class="tab-content">
+            {% include 'product-specs-include' %}
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </nav>
   <div class="tabs">
-    {% for spec in specs %}
-      {% include 'shortcode' load: spec %}
-      <div id="{{ title | handleize | prepend: 'tab-' }}" class="tab{% if forloop.first == true %} active{% endif %}">
-        <div>
-          {% include 'product-specs-include' %}
+    <div class="wrapper">
+      {% for spec in specs %}
+        {% include 'shortcode' load: spec %}
+        <div id="{{ title | handleize | prepend: 'tab-' }}" class="tab{% if forloop.first == true %} active{% endif %}">
+          <div>
+            {% include 'product-specs-include' %}
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
 	</div>
+
 </section>
 
 <script>

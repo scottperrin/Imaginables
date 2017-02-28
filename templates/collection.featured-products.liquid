@@ -1,4 +1,4 @@
-<!-- /templates/collection.nofeatureditems.liquid -->
+<!-- /templates/collection.featured-products.liquid -->
 {% assign current_collection = collection.url %}
 {% paginate collection.products by 24 %}
   {% if collection.handle == 'filaments' %}
@@ -101,5 +101,8 @@
   {% endif %}
 
   {% include 'pagination' %}
+
+  {% assign linklist_handle = 'collection-products' %}
+  {% include 'collection-featured-items' %}
 
 {% endpaginate %}

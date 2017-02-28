@@ -16,7 +16,7 @@
     <header class="section-header">
       <div class="grid">
         <div class="grid__item">
-          <h1>{{ article.title }}</h1>
+          <h1 class="h2">{{ article.title }}</h1>
           {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
           {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
           <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
@@ -26,7 +26,8 @@
     </header>
 
     <div class="rte" itemprop="articleBody">
-      {{ article.content }}
+      {% include 'shortcode' load: article.content %}
+      <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
     </div>
 
     {% include 'social-sharing' %}
@@ -74,10 +75,10 @@
     <br><br>
 
     <div class="grid-uniform">
-      {% for article in blog.articles %}
-        <div class="grid__item large--one-half">
-          <div class="article">
-            <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+      {% for article in blog.articles | limit: 10 %}
+        <div class="grid__item one-whole">
+          <div class="article rte">
+            <h6 class="rte--header"><a href="{{ article.url }}">{{ article.title }}</a></h6>
             {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
             {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
             <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}

@@ -20,13 +20,13 @@
         <a href="{{ variant.url | within: collection }}"  data-product="{{ product.id }}" data-variant="{{ color | handleize }}" class="variant-image {% if forloop.first %} active{% endif %}">
           <img src="{{ variant.featured_image.src | img_url: '1024x1024' }}" alt="{{ variant.featured_image.alt | escape }}">
         </a>
-      {% capture tempList %}
-        {{ colorlist | append: color | append: '' }}
-      {% endcapture %}
-      {% assign colorlist = tempList %}
-    {% endunless %}
-  {% endfor %}
-{% endif %}
+        {% capture tempList %}
+          {{ colorlist | append: color | append: '' }}
+        {% endcapture %}
+        {% assign colorlist = tempList %}
+      {% endunless %}
+    {% endfor %}
+  {% endif %}
 {% endfor %}
 </div>
 <div class="grid__item {% if grid_width %}{{ grid_width }}{% else %}large--two-thirds{% endif %} flex__item{% cycle '', ' large--text-right' %}">

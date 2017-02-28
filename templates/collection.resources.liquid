@@ -1,21 +1,15 @@
-<!-- /templates/collection.printers.liquid -->
+<!-- /templates/collection.resources.liquid -->
+{% assign current_collection = collection.url %}
+{% paginate collection.products by 24 %}
+  {% if collection.handle == 'filaments' %}
 
-{% if collection.products == empty %}
+    {% include 'collection-filaments' %}
 
-  <div class="contailer color grey">
-    <div class="wrapper">
-      <div class="grid__item large--one-whole text-center">
-        {% include 'icon' with 'empty' %}
-        <h6>{{ 'collections.general.no_matches' | t }}</h6>
-      </div>
-    </div>
-  </div>
+  {% else %}
 
-{% else %}
-
-  {% paginate collection.products by 6 %}
     {% for product in collection.products %}
-      <div class="container{% cycle '', ' grey' %}">
+
+      <div class="container color{% cycle '', ' grey' %}">
         <div class="wrapper">
           <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
 
@@ -31,28 +25,27 @@
               {% endif %}
 
               <a href="{{ product.url | within: collection }}" class="grid__image">
-                <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                <img src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
               </a>
 
             </div>
             <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
-
               <div class="mini-wrapper">
                 <h2>
                   <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
                 </h2>
 
-                  {% assign content = product.description %}
-                  {% assign splits = content | split: '[split]' %}
-                  {% capture description %}{% endcapture %}
-                  {% for split in splits %}
-                    {% if split contains '[description]' and split contains '[/description]'  %}
-                      {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
-                    {% endif %}
-                  {% endfor %}
-                  <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+                {% assign content = product.description %}
+                {% assign splits = content | split: '[split]' %}
+                {% capture description %}{% endcapture %}
+                {% for split in splits %}
+                  {% if split contains '[description]' and split contains '[/description]'  %}
+                    {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
+                  {% endif %}
+                {% endfor %}
+                <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
 
-                <p>
+                <p class="price">
                   {% if on_sale %}
                     {% if product.price_varies %}
                       {% assign sale_price = product.price | money %}
@@ -77,9 +70,7 @@
                     <br><s>{{ product.compare_at_price | money }}</s>
                   {% endif %}
                 </p>
-
                 <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
-
                   <select name="id" id="productSelect" class="product-single__variants visually-hidden">
                     {% for variant in product.variants %}
                       {% if variant.available %}
@@ -91,29 +82,27 @@
                       {% endif %}
                     {% endfor %}
                   </select>
-
-                  <button type="submit" name="add" id="AddToCart" class="btn btn--large">
-                    <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-                  </button>
+                  {% if product.variants.size == 1 %}
+                    <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                      <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                    </button>
+                  {% else %}
+                    <a class="btn btn--large" href="{{ product.url | within: collection }}" title="{{ product.title }}">Shop Now</a>
+                  {% endif %}
                 </form>
-
               </div>
-
             </div>
-
           </div>
         </div>
       </div>
 
     {% endfor %}
 
+  {% endif %}
 
-    {% assign current_collection = collection.url %}
-    {% assign linklist_handle = 'collection-products' %}
-    {% include 'collection-featured-items' %}
+  {% include 'pagination' %}
 
-    {% include 'pagination' %}
+  {% assign linklist_handle = 'collection-resources' %}
+  {% include 'collection-featured-items' %}
 
-  {% endpaginate %}
-
-{% endif %}
+{% endpaginate %}

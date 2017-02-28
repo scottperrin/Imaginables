@@ -52,9 +52,9 @@
                   <div class="grid__item display-table-cell one-half text-right">
                     {{#if discountsApplied}}
                       <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
-                      <br><span>{{{linePrice}}}</span>
+                      <br><span class="cart--price">{{{linePrice}}}</span>
                     {{else}}
-                      <span>{{{linePrice}}}</span>
+                      <span class="cart--price">{{{linePrice}}}</span>
                     {{/if}}
                     </div>
                   </div>
@@ -87,7 +87,7 @@
             <p>{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</p>
           </div>
           <div class="grid__item one-third text-right">
-            <p>{{{totalPrice}}}</p>
+            <p class="cart--price">{{{totalPrice}}}</p>
           </div>
           {{#if totalCartDiscount}}
             <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
