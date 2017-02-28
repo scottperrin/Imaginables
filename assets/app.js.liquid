@@ -218,9 +218,12 @@ timber.getHash = function () {
 };
 
 timber.productPage = function (options) {
+
   var moneyFormat = options.money_format,
       variant = options.variant,
       selector = options.selector;
+      slick = options.slick || false,
+      $slickWrapper = options.slickWrapper || $('.slick-initialized')
 
   // Selectors
   var $productImage = $('#ProductPhotoImg'),
@@ -231,9 +234,12 @@ timber.productPage = function (options) {
       $addToCartText = $('#AddToCartText');
 
   if (variant) {
-
+    if (variant.featured_image && slick == true) {
+      console.log($slickWrapper)
+      $slickWrapper.slick('slickGoTo', (variant.featured_image.position - 1) )
+    }
+    else if (variant.featured_image && slick != true) {
     // Update variant image, if one is set
-    if (variant.featured_image) {
       var newImg = variant.featured_image,
           el = $productImage[0];
       Shopify.Image.switchImage(newImg, el, timber.switchImage);

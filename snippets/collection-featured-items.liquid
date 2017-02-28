@@ -1,0 +1,166 @@
+<!-- /snippets/collection-featured-items.liquid -->
+
+{% assign image_size = '1024x1024' %}
+
+{% if linklists[linklist_handle].links.size > 0 %}
+  {% assign link_count = 0 %}
+  {% for link in linklists[linklist_handle].links %}
+
+    {% if link.type == 'collection_link' %}
+      {% unless link.url == current_collection %}
+
+        {% assign collection = link.object %}
+        {% assign link_count = link_count | plus: 1 %}
+
+        <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+          <div class="wrapper">
+            <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+              <div class="grid__item large--one-third flex__item">
+                <a href="{{ link.url }}" class="grid__image">
+                  {% if collection.image %}
+                    <img src="{{ link.object | img_url: image_size }}" alt="{{ link.title | escape }}">
+                  {% else %}
+                    {% assign product = link.object.products.first %}
+                    <img src="{{ product | img_url: image_size }}" alt="{{ link.title | escape }}">
+                  {% endif %}
+                </a>
+              </div>
+
+              <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+                <div class="mini-wrapper">
+                  <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                  <p>{{ link.object.description | truncatewords: 36 | strip_html }}...</p>
+                  <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">Shop Now</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+      {% endunless %}
+
+    {% elsif link.type == 'product_link' %}
+
+      {% assign product = link.object %}
+      {% assign link_count = link_count | plus: 1 %}
+
+      <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+        <div class="wrapper">
+          <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+            <div class="grid__item large--one-third flex__item">
+              <a href="{{ link.url }}" class="grid__image">
+                <img src="{{ link.object.featured_image.src | img_url: image_size }}" alt="{{ link.title | escape }}">
+              </a>
+            </div>
+
+            <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+              <div class="mini-wrapper">
+                <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                <p>{{ link.object.description | truncatewords: 36 | strip_html }}...</p>
+
+                <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+
+                  <select name="id" id="productSelect" class="product-single__variants visually-hidden">
+                    {% for variant in link.variants %}
+                      {% if variant.available %}
+                        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+                      {% else %}
+                        <option disabled="disabled">
+                          {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+
+                  {% if link.variants.size == 1 %}
+                    <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                      <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                    </button>
+                  {% else %}
+                    <a class="btn btn--large" href="{{ link.url | within: collection }}" title="{{ link.title }}">Shop Now</a>
+                  {% endif %}
+
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+    {% elsif link.type == 'blog_link' %}
+
+      {% assign blog = link.object %}
+      {% assign article = link.object.articles.first %}
+      {% assign link_count = link_count | plus: 1 %}
+
+      <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+        <div class="wrapper">
+          <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+            <div class="grid__item large--one-third flex__item">
+              <a href="{{ link.url }}" class="grid__image">
+                <img src="{{ article | img_url: image_size }}" alt="{{ link.title | escape }}">
+              </a>
+            </div>
+
+            <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+              <div class="mini-wrapper">
+                <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                <p>{{ article.content | truncatewords: 30 | strip_html }}</p>
+                <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">{{ 'blogs.article.read_more' | t }}</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+    {% elsif link.type == 'page_link' %}
+
+      {% assign page = link.object %}
+      {% assign link_count = link_count | plus: 1 %}
+
+      {% if page.content contains "<img" %}
+        {% assign src = page.content | split: ' src="' | last | split:'"' | first | replace: '.jpg', '_1024x1024.jpg' %}
+      {% endif %}
+
+
+      <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+        <div class="wrapper">
+          <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+            <div class="grid__item large--one-third flex__item">
+              <a href="{{ link.url }}" class="grid__image">
+                <img src="{{ src }}" alt="{{ link.title | escape }}">
+              </a>
+            </div>
+
+            <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+              <div class="mini-wrapper">
+                <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                <p>{{ page.content | truncatewords: 30 | strip_html }}</p>
+                <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">{{ 'blogs.article.read_more' | t }}</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+    {% endif %}
+
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,49 @@
+<!-- /templates/collection.grid.liquid -->
+{% paginate collection.products by 50 %}
+
+<div class="container color grey">
+  <div class="wrapper">
+
+    {% if collection.description != blank %}
+      <header class="section-header">
+        <h2 class="section-header__title">{{ collection.title }}</h2>
+        <div class="rte rte--header">
+          {{ collection.description }}
+        </div>
+      </header>
+      <hr>
+      <div class="section-header">
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </div>
+    {% else %}
+      <header class="section-header">
+        <h2 class="section-header__title section-header__left">{{ collection.title }}</h2>
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </header>
+    {% endif %}
+
+    <div class="grid-uniform">
+      {% if collection.products == empty %}
+        <div class="grid__item large--one-whole text-center">
+          {% include 'icon' with 'empty' %}
+          <h6>{{ 'collections.general.no_matches' | t }}</h6>
+        </div>
+      {% else %}
+
+        {% for product in collection.products %}
+          {% include 'product-parts-grid-item' %}
+        {% endfor %}
+
+      {% endif %}
+    </div>
+
+    {% include 'pagination' %}
+
+  </div>
+</div>
+
+{% endpaginate %}

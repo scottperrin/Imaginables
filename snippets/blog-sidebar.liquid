@@ -6,15 +6,16 @@
   {% for article in blogs[blog.handle].articles limit:5 %}
     {% unless article.url == current_url %}
       <div class="grid__item">
-        {% assign size = '_medium' %}
+        {% assign size = '_x1000' %}
         {% include 'blog-image' %}
         <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
         <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
         <div class="rte">
           {% if article.excerpt.size > 0 %}
-            {{ article.excerpt }}
+            {% include 'shortcode' load: article.excerpt %}
           {% else %}
-            <p>{{ article.content | strip_html | truncatewords: 24 }}...</p>
+            {% capture content %}{{ article.content | strip_html | truncatewords: 24 }}{% endcapture %}
+            <p>{% include 'shortcode' load: content %}</p>
           {% endif %}
         </div>
         {% comment %}<p><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></p>{% endcomment %}
