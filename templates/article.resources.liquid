@@ -1,0 +1,88 @@
+<!-- /templates/article.liquid -->
+
+{% assign number_of_comments = article.comments_count %}
+
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<div class="wrapper">
+
+  <div class="grid">
+
+    <article class="grid__item large--two-thirds" itemscope itemtype="http://schema.org/Article">
+
+    {% assign size = '_1024x1024' %}
+    {% include 'blog-image' %}
+
+      <header class="section-header">
+        <div class="grid">
+          <div class="grid__item">
+            <h1 class="h2">{{ article.title }}</h1>
+            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="rte" itemprop="articleBody">
+        {% include 'shortcode' load: article.content %}
+        <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+      </div>
+
+      {% include 'social-sharing' %}
+
+      <ul class="inline-list">
+        {% include 'tags-article' %}
+      </ul>
+
+      {% comment %}
+      {% if blog.next_article or blog.previous_article %}
+        <hr>
+        <p class="clearfix">
+          {% if blog.previous_article %}
+            <span class="left">
+              &larr; {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
+            </span>
+          {% endif %}
+          {% if blog.next_article %}
+            <span class="right">
+              {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} &rarr;
+            </span>
+          {% endif %}
+        </p>
+      {% endif %}
+      {% endcomment %}
+
+      {% include 'breadcrumb' %}
+
+      <h3>{{ 'blogs.comments.without_count' | t }}</h3>
+
+      <div id="disqus_thread"></div>
+      <script>
+        var disqus_config = function () {
+            this.page.url = '{{ canonical_url }}';
+            this.page.identifier = '{{ article.handle | replace: '/', '_' }}';
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = '//imaginables.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+      </script>
+
+      <br><br>
+    </article>
+
+    <aside class="grid__item large--one-third" role="complementary">
+      {% assign sidebar_limit = 2 %}
+      {% include 'blog-sidebar' %}
+    </aside>
+  </div>
+
+</div>
+
+<script id="dsq-count-scr" src="//imaginables.disqus.com/count.js" async></script>

@@ -1,9 +1,12 @@
 <!-- /snippets/blog-sidebar.liquid -->
 
 {% assign current_url = article.url %}
+{% unless sidebar_limit %}
+  {% assign sidebar_limit = 5 %}
+{% endunless %}
 
 <div class="grid">
-  {% for article in blogs[blog.handle].articles limit:5 %}
+  {% for article in blogs[blog.handle].articles limit:sidebar_limit %}
     {% unless article.url == current_url %}
       <div class="grid__item">
         {% assign size = '_x1000' %}
