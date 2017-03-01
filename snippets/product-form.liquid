@@ -7,11 +7,24 @@
     ID addToCartForm is a selector for the ajax cart plugin
   {% endcomment %}
   <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
-    <div class="grid__item">
+    <div>
+
+      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+      <span id="ProductPrice" class="h6" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
+        {{ current_variant.price | money }}
+      </span>
+      {% if product.compare_at_price_max > product.price %}
+        <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+        <p id="ComparePrice" class="sale">
+          {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+        </p>
+      {% endif %}
 
       {% if product.available and product.variants.size > 1 %}
         {% include 'product-swatch' with 'Colour' %}
       {% endif %}
+
+
 
       <div class="select-wrapper large--right">
         <select name="id" id="productSelect" class="product-single__variants">
@@ -27,17 +40,9 @@
         </select>
       </div>
 
+
+
     </div>
-    <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-    <span id="ProductPrice" class="h6" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">
-      {{ current_variant.price | money }}
-    </span>
-    {% if product.compare_at_price_max > product.price %}
-      <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-      <p id="ComparePrice" class="sale">
-        {{ 'products.product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
-      </p>
-    {% endif %}
     <div class="grid">
       <div class="grid__item one-whole large--one-quarter large--text-right push--large--two-quarters center">
         <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>

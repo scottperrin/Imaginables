@@ -3573,10 +3573,13 @@ AddToCart {
 ==============================================================================*/
 
 .template-product {
-  .mini-wrapper{
+  .mini-wrapper {
     .js-qty{
       margin: 0 auto;
       margin-bottom: 20px;
+    }
+    @include at-query($max, $medium) {
+      padding-bottom: 0 !important;
     }
   }
 
@@ -3592,6 +3595,21 @@ AddToCart {
 
     .no-js & {
       display: block;
+    }
+  }
+
+  form.form-vertical {
+    .selector-wrapper {
+      label {
+        display: block;
+        margin-bottom: $gutter/4;
+      }
+
+    }
+    @include at-query($max, $medium) {
+      select {
+        margin: 0 auto $gutter/2;
+      }
     }
   }
 
