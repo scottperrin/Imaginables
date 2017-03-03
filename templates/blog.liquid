@@ -2,6 +2,8 @@
 
 {% paginate blog.articles by 6 %}
 
+{% assign content_limit = 50 %}
+
 {% if current_tags %}
   <h1 class="h2">{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
 {% else %}
@@ -24,8 +26,9 @@
       <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
       <div class="rte">
-        {% include 'shortcode' load: article.content %}
-        <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+        {% assign article_content = article.content | truncatewords: content_limit %}
+        {% include 'shortcode' load: article_content %}
+        <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
       </div>
 
       <hr>
@@ -49,8 +52,9 @@
             <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
             <div class="rte">
-              {% include 'shortcode' load: article.content %}
-              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+              {% assign article_content = article.content | truncatewords: content_limit %}
+              {% include 'shortcode' load: article_content %}
+              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
             </div>
 
           </div>
@@ -79,8 +83,9 @@
             <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
             <div class="rte">
-              {% include 'shortcode' load: article.content %}
-              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+              {% assign article_content = article.content | truncatewords: content_limit %}
+              {% include 'shortcode' load: article_content %}
+              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
             </div>
 
           </div>

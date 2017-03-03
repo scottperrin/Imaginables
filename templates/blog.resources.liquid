@@ -2,6 +2,8 @@
 
 {% paginate blog.articles by 5 %}
 
+{% assign content_limit = 50 %}
+
 {% if current_tags %}
   {% assign story_tag = current_tags.first %}
   {% assign story_page = pages[story_tag] %}
@@ -81,8 +83,9 @@
             <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
             <div class="rte">
-              {% include 'shortcode' load: article.content %}
-              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+              {% assign article_content = article.content | truncatewords: content_limit %}
+              {% include 'shortcode' load: article_content %}
+              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
             </div>
 
           </div>
@@ -110,8 +113,9 @@
             <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
             <div class="rte">
-              {% include 'shortcode' load: article.content %}
-              <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+              {% assign article_content = article.content | truncatewords: content_limit %}
+              {% include 'shortcode' load: article_content %}
+              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
             </div>
 
           </div>
@@ -139,8 +143,9 @@
           <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
           <div class="rte">
-            {% include 'shortcode' load: article.content %}
-            <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+            {% assign article_content = article.content | truncatewords: content_limit %}
+            {% include 'shortcode' load: article_content %}
+            <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
           </div>
 
           <hr>
@@ -164,8 +169,9 @@
                 <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
                 <div class="rte">
-                  {% include 'shortcode' load: article.content %}
-                  <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+                  {% assign article_content = article.content | truncatewords: content_limit %}
+                  {% include 'shortcode' load: article_content %}
+                  <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
                 </div>
 
               </div>
@@ -194,8 +200,9 @@
                 <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
 
                 <div class="rte">
-                  {% include 'shortcode' load: article.content %}
-                  <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+                  {% assign article_content = article.content | truncatewords: content_limit %}
+                  {% include 'shortcode' load: article_content %}
+                  <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
                 </div>
 
               </div>

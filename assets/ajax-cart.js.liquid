@@ -241,16 +241,16 @@ var ajaxCart = (function(module, $) {
         $cartCountSelector.addClass('hidden-count');
       }
     }
-    
+
     if ($cartCostSelector) {
       $cartCostSelector.html(Shopify.formatMoney(cart.total_price, settings.moneyFormat));
     }
-    
+
     // Cart messages - @Cam
 /*
     if ($cartMessage) {
       if (cart.total_price === 0) {
-        console.log('Cart is empty')
+        //console.log('Cart is empty')
         $cartMessage.show();
         $cartContainer.hide();
         cartCallback(cart);
@@ -258,12 +258,12 @@ var ajaxCart = (function(module, $) {
       } else {
         $cartContainer.show();
         $cartMessage.hide()
-        console.log('Cart is not empty')
+        //console.log('Cart is not empty')
         // do something else like show how much more to spend for free shipping
       }
     }
 */
-    
+
     // Cart messages - @Cam
     if ($cartMessage) {
       if (cart.total_price === 0) {
@@ -278,8 +278,8 @@ var ajaxCart = (function(module, $) {
         return;
       }
     }
-    
-    
+
+
   };
 
   formOverride = function () {
