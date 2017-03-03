@@ -160,6 +160,59 @@
 
       <div class="clearfix"></div>
 
+    {% else %}
+
+      {% if link.url contains "/tagged/" %}
+        {% assign blog_handle = link.url | split: '/tagged/' | first | replace: '/blogs/', '' %}
+        {% assign blog = blogs.[blog_handle] %}
+        {% assign article = blog.articles.last %}
+        {% assign link_count = link_count | plus: 1 %}
+
+        <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+          <div class="wrapper">
+            <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+              <div class="grid__item large--one-third flex__item">
+                <a href="{{ link.url }}" class="grid__image">
+                  <img src="{{ article | img_url: image_size }}" alt="{{ link.title | escape }}">
+                </a>
+              </div>
+
+              <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+                <div class="mini-wrapper">
+                  <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                  <p>{{ article.content | truncatewords: 30 | strip_html }}</p>
+                  <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">{{ 'blogs.article.read_more' | t }}</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+      {% else %}
+
+        <div class="container color{% cycle  ' green', ' black', ' dark', ' grey' %}">
+          <div class="wrapper">
+            <div class="grid large--grid--flex">
+
+              <div class="grid__item large--one-whole flex__item large--text-center">
+                <div class="mini-wrapper">
+                  <h2><a href="{{ link.url }}">{{ link.title }}</a></h2>
+                  <a class="btn btn--secondary btn--large" href="{{ link.url }}" title="{{ link.title }}">{{ 'blogs.article.read_more' | t }}</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+      {% endif %}
+
     {% endif %}
 
   {% endfor %}

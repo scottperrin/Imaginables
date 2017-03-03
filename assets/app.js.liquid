@@ -235,7 +235,7 @@ timber.productPage = function (options) {
 
   if (variant) {
     if (variant.featured_image && slick == true) {
-      console.log($slickWrapper)
+      //console.log($slickWrapper)
       $slickWrapper.slick('slickGoTo', (variant.featured_image.position - 1) )
     }
     else if (variant.featured_image && slick != true) {

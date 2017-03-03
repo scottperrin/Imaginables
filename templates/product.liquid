@@ -50,7 +50,7 @@ Capture the product description and split in to sections and distribute into sho
 {% if description != blank %}{% include 'shortcode-description' %}{% endif %}
 {% if specs != blank %}{% include 'product-specs' %}{% endif %}
 {% if hero != blank %}{% include 'shortcode' load: hero %}{% endif %}
-{% if technical != blank %}{% include 'shortcode' load: technical %}{% endif %}
+{% if technical != blank %}{%- include 'shortcode' load: technical -%}{% endif %}
 {% include 'product-stories' %}
 {% include 'product-related-products' %}
 {% include 'product-awards' %}
@@ -96,7 +96,7 @@ Capture the product description and split in to sections and distribute into sho
         var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
         if (radioButton.size()) {
           radioButton.get(0).checked = true;
-          console.log(radioButton);
+          //console.log(radioButton);
         }
       }
     }

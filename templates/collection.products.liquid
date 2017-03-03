@@ -1,4 +1,20 @@
-<!-- /snippets/collection-product.liquid -->
+<!-- /templates/collection.products.liquid -->
+{% assign current_collection = collection.url %}
+{% paginate collection.products by 24 %}
+  {% if collection.handle == 'filaments' %}
+
+    {% include 'collection-filaments' %}
+
+  {% else %}
+
+    {% for product in collection.products %}
+
+      <div class="container color{% cycle '', ' grey' %}">
+        <div class="wrapper">
+          <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+
+            <div class="grid__item large--one-third flex__item">
+
               {% assign on_sale = false %}
               {% if product.compare_at_price > product.price %}
                 {% assign on_sale = true %}
@@ -13,7 +29,7 @@
               </a>
 
             </div>
-            <div class="grid__item {% if grid_width %}{{ grid_width }}{% else %}large--two-thirds{% endif %} flex__item{% cycle '', ' large--text-right' %}">
+            <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
               <div class="mini-wrapper">
                 <h2>
                   <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
@@ -23,11 +39,11 @@
                 {% assign splits = content | split: '[split]' %}
                 {% capture description %}{% endcapture %}
                 {% for split in splits %}
-                  {% if split contains '[collection_description]' and split contains '[/collection_description]'  %}
-                    {% capture description %}{{ split | remove: '[collection_description]' | remove: '[/collection_description]' | strip_html | newline_to_br }}{% endcapture %}
+                  {% if split contains '[description]' and split contains '[/description]'  %}
+                    {% capture description %}{{ split | remove: '[description]' | remove: '[/description]' | strip_html }}{% endcapture %}
                   {% endif %}
                 {% endfor %}
-                <p>{{ description }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
+                <p>{{ description | truncatewords: 36 }} <b><a href="{{ product.url | within: collection }}" title="{{ product.title }}">More Info</a></b></p>
 
                 <p class="price">
                   {% if on_sale %}
@@ -55,7 +71,7 @@
                   {% endif %}
                 </p>
                 <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
-                  <select name="id" id="productSelect" class="product-single__variants{% if product.variants.size == 1 %} visually-hidden{% endif %}">
+                  <select name="id" id="productSelect" class="product-single__variants visually-hidden">
                     {% for variant in product.variants %}
                       {% if variant.available %}
                         <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
@@ -66,8 +82,27 @@
                       {% endif %}
                     {% endfor %}
                   </select>
-                  <button type="submit" name="add" id="AddToCart" class="btn btn--large">
-                    <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-                  </button>
+                  {% if product.variants.size == 1 %}
+                    <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                      <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                    </button>
+                  {% else %}
+                    <a class="btn btn--large" href="{{ product.url | within: collection }}" title="{{ product.title }}">Shop Now</a>
+                  {% endif %}
                 </form>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+  {% endif %}
+
+  {% include 'pagination' %}
+
+  {% assign linklist_handle = 'collection-products' %}
+  {% include 'collection-featured-items' %}
+
+{% endpaginate %}

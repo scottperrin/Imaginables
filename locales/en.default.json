@@ -81,6 +81,7 @@
     "general": {
       "all_of_collection": "All {{ collection }}",
       "no_matches": "Sorry, there are no products in this collection",
+      "not_supported": "Sorry, this link type is not suppported",
       "link_title": "Browse our {{ title }} collection",
       "grid_view": "Grid view",
       "list_view": "List view",
