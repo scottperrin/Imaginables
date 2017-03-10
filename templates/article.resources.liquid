@@ -56,8 +56,6 @@
       {% endif %}
       {% endcomment %}
 
-      {% include 'breadcrumb' %}
-
       <h3>{{ 'blogs.comments.without_count' | t }}</h3>
 
       <div id="disqus_thread"></div>
@@ -78,6 +76,7 @@
     </article>
 
     <aside class="grid__item large--one-third" role="complementary">
+      <h3 class="large--hide medium-down--show">{{ 'blogs.sidebar.recent_articles' | t }}</h3>
       {% assign sidebar_limit = 2 %}
       {% include 'blog-sidebar' %}
     </aside>

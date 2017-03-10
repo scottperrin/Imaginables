@@ -1,24 +1,24 @@
 <!-- /templates/collection.filaments.liquid -->
-{% assign grid_width = 'large--one-half' %}
-
 {% paginate collection.products by 24 %}
-{% for product in collection.products %}
 
-  <div class="container color{% cycle '', ' grey' %}">
-    <div class="wrapper">
-      <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
-        <div class="grid__item large--one-half flex__item">
-          {% if product.variants.size > 1 %}
-            {% include 'collection-swatch' %}
-          {% else %}
-            {% include 'collection-product' %}
-          {% endif %}
+  {% for product in collection.products %}
+
+    <div class="container color{% cycle '', ' grey' %}">
+      <div class="wrapper">
+        <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
+          <div class="grid__item large--one-third flex__item">
+            {% if product.variants.size > 1 %}
+              {% include 'collection-swatch' %}
+            {% else %}
+              {% include 'collection-product' %}
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-{% endfor %}
+  {% endfor %}
 
 {% include 'pagination' %}
+
 {% endpaginate %}
