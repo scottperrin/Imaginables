@@ -1,8 +1,8 @@
 <!-- /templates/blog.liquid -->
 
-{% paginate blog.articles by 6 %}
+{% paginate blog.articles by 9 %}
 
-{% assign content_limit = 50 %}
+{% assign content_limit = 60 %}
 
 {% if current_tags %}
   <h1 class="h2">{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
@@ -10,94 +10,97 @@
   <h1 class="h2">{{ blog.title }}</h1>
 {% endif %}
 
-<div class="grid">
+<div class="blog-content">
 
-  <div class="grid__item large--one-whole">
+  <div class="grid-uniform">
 
-    {% for article in blog.articles limit: 1 %}
+    {% for article in blog.articles limit: 2 %}
 
-      {% assign size = '_2048x2048' %}
-      {% include 'blog-image' %}
+      <div class="grid__item large--one-half">
+        <div class="article">
 
-      <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-      {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-      {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-      <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
-      <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+          {% assign size = '_1100x1100' %}
+          {% include 'blog-image' %}
 
-      <div class="rte">
-        {% assign article_content = article.content | truncatewords: content_limit %}
-        {% include 'shortcode' load: article_content %}
-        <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
+          <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+          {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+          <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+          <div class="rte">
+            {{ article.content | strip_html | truncatewords: content_limit }}
+            <div><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></div>
+          </div>
+
+        </div>
       </div>
-
-      <hr>
 
     {% endfor %}
 
-    <div class="grid-uniform">
+  </div>
 
-      {% for article in blog.articles limit: 2 offset: 1 %}
+  <hr>
 
-        <div class="grid__item large--one-half">
-          <div class="article">
+  <div class="grid-uniform">
 
-            {% assign size = '_grande' %}
-            {% include 'blog-image' %}
+    {% for article in blog.articles offset: 2 limit: 3 %}
 
-            <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
-            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
-            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+      <div class="grid__item large--one-third">
+        <div class="article">
 
-            <div class="rte">
-              {% assign article_content = article.content | truncatewords: content_limit %}
-              {% include 'shortcode' load: article_content %}
-              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
-            </div>
+          {% assign size = '_700x700' %}
+          {% include 'blog-image' %}
 
+          <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+          {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+          <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+          <div class="rte">
+            {{ article.content | strip_html | truncatewords: content_limit }}
+            <div><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></div>
           </div>
+
         </div>
+      </div>
 
-      {% endfor %}
-
-    </div>
-
-    <hr>
-
-    <div class="grid-uniform">
-
-      {% for article in blog.articles offset: 3 %}
-
-        <div class="grid__item large--one-third">
-          <div class="article">
-
-            {% assign size = '_grande' %}
-            {% include 'blog-image' %}
-
-            <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
-            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
-            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
-
-            <div class="rte">
-              {% assign article_content = article.content | truncatewords: content_limit %}
-              {% include 'shortcode' load: article_content %}
-              <div><a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a></div>
-            </div>
-
-          </div>
-        </div>
-
-      {% endfor %}
-
-    </div>
+    {% endfor %}
 
   </div>
 
-</div>
+  <hr>
+
+  <div class="grid-uniform grid-last">
+
+    {% assign content_limit = 30 %}
+
+    {% for article in blog.articles offset: 5 %}
+
+      <div class="grid__item large--one-quarter">
+        <div class="article">
+
+          {% assign size = '_500x500' %}
+          {% include 'blog-image' %}
+
+          <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+          {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+          <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+          <div class="rte">
+            {{ article.content | strip_html | truncatewords: content_limit }}
+            <div><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></div>
+          </div>
+
+        </div>
+      </div>
+
+    {% endfor %}
+
+  </div>
 
 </div>
 

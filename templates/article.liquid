@@ -26,13 +26,12 @@
     </header>
 
     <div class="rte" itemprop="articleBody">
-      {% include 'shortcode' load: article.content %}
-      <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+      {{ article.content }}
     </div>
 
     {% include 'social-sharing' %}
 
-    <ul class="inline-list">
+    <ul class="tags-list inline-list">
       {% include 'tags-article' %}
     </ul>
 
@@ -54,8 +53,6 @@
     {% endif %}
     {% endcomment %}
 
-    {% include 'breadcrumb' %}
-
     <h3>{{ 'blogs.comments.without_count' | t }}</h3>
 
     <div id="disqus_thread"></div>
@@ -74,23 +71,11 @@
 
     <br><br>
 
-    <div class="grid-uniform">
-      {% for article in blog.articles | limit: 10 %}
-        <div class="grid__item one-whole">
-          <div class="article rte">
-            <h6 class="rte--header"><a href="{{ article.url }}">{{ article.title }}</a></h6>
-            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
-            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
   </article>
 
   <aside class="grid__item large--one-third" role="complementary">
+    <h3 class="large--hide medium-down--show">{{ 'blogs.sidebar.recent_articles' | t }}</h3>
+    {% assign sidebar_limit = 2 %}
     {% include 'blog-sidebar' %}
   </aside>
 </div>
