@@ -81,7 +81,7 @@
   <div id="PageContainer">
     {% include 'theme-header' %}
 
-    <main class="{% unless template == 'index' or template contains 'collection' or template contains 'product' or template contains 'resources' %}wrapper {% endunless %}main-content" role="main">
+    <main class="{% unless template == 'index' or template contains 'collection' or template contains 'product' or template contains 'resources' or template contains 'sections' %}wrapper {% endunless %}main-content" role="main">
       {{ content_for_layout }}
     </main>
     {% include 'theme-footer' %}
@@ -123,6 +123,15 @@
       jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
         // Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
         timber.RightDrawer.open();
+        jQuery(".submit-cart-drawer button[type=submit]").click(function(){
+          if(jQuery('#agree').is(':checked')) {
+            jQuery(".submit-cart-drawer button").submit();
+          }
+          else{
+            alert("{{ 'cart.general.please_agree' | t }}");
+            return false;
+          }
+        });
       });
     </script>
   {% endif %}
@@ -161,7 +170,7 @@
   {% endcomment %}
   <script>
     // Modals
-    jQuery(document).ready(function($){
+    jQuery(document).ready(function($) {
       // move popups to the end of the body
       $('.popup').detach().appendTo('body');
     	// close popup
@@ -175,32 +184,53 @@
           $('.popup').removeClass('visible');
         }
       });
+
+      // Prevent cart from submitting without agreeing to terms
+      jQuery(document).ready(function(){
+        jQuery(".submit-cart button[name='checkout']").click(function(){
+          if(jQuery('#agree').is(':checked')) {
+            jQuery(".submit-cart button").submit();
+          }
+          else{
+            alert("{{ 'cart.general.please_agree' | t }}");
+            return false;
+          }
+        });
+      });
     });
+
     // Open modals based on their ID as data-attribute
     $('.modal-link').on('click', function(event) {
       event.preventDefault();
       var popupId = $(this).attr('data-popup');
       $(popupId + '.popup').addClass('visible');
     });
-  </script>
 
-  <script>
-  // Product Page Swatches
-  jQuery(function() {
-    jQuery('#swatchOption :radio').change(function() {
+    // Product Page Swatches
+    jQuery(function() {
+      jQuery('#swatchOption :radio').change(function() {
+        var optionIndex = jQuery(this).closest('#swatchOption').attr('data-option-index');
+        var optionValue = jQuery(this).val();
+        //console.log(optionIndex + ' ' + optionValue)
+        jQuery(this)
+          .closest('form')
+          .find('.single-option-selector')
+          .eq(optionIndex)
+          .val(optionValue)
+          .trigger('change');
+      });
 
-      var optionIndex = jQuery(this).closest('#swatchOption').attr('data-option-index');
-      var optionValue = jQuery(this).val();
-      //console.log(optionIndex + ' ' + optionValue)
-      jQuery(this)
-        .closest('form')
-        .find('.single-option-selector')
-        .eq(optionIndex)
-        .val(optionValue)
-        .trigger('change');
+      jQuery('.collectionVariants select').change(function() {
+        var optionValue = jQuery(this).val();
+        var optionPrice = jQuery(this).find(":selected").data("price");
+        console.log(optionPrice + ' ' + optionValue)
+        jQuery(this)
+          .closest('form')
+          .find('.price')
+          .html(optionPrice)
+          .trigger('change');
+      });
     });
-
-  });
   </script>
 
 </body>

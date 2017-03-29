@@ -1,6 +1,6 @@
 <!-- snippets/product-awards.liquid -->
 {% assign count = 0 %}
-{% for article in blogs.awards.articles limit:16 %}
+{% for article in blogs.awards.articles %}
   {% for tag in article.tags %}
     {% if tag == product.title %}
       {% assign count = count | plus: 1 %}
@@ -9,25 +9,77 @@
 {% endfor %}
 
 {% if count > 0 %}
-  <section id="awards" class="container color grey">
+  <section id="awards" class="container color white">
     <div class="wrapper">
       <div class="grid--full grid-uniform">
         <div class="grid__item flex__item">
           <h3 class="text-center">Awards & Recognition</h3>
         </div>
         <div class="grid__item flex__item award-wrapper">
-          {% for article in blogs.awards.articles limit:16 %}
-            {% for tag in article.tags %}
-              {% if tag == product.title %}
-              {% include 'shortcode' load: article.content %}
-                <div class="award">
-                  {% if link != blank %}<a href="{{ link }}" target="_blank" rel="nofollow" title="{{ article.title }}">{% endif %}<img src="{{ article | img_url: 'large' }}" alt="{{ article.title }}">{% if link != blank %}</a>{% endif %}
-                </div>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
+          <div class="slick-wrapper">
+            <div class="slick_left">{% include 'icon' with 'previous' %}</div>
+            <div class="slick_right">{% include 'icon' with 'next' %}</div>
+            <div class="awards text-center">
+              {% for article in blogs.awards.articles %}
+                {% for tag in article.tags %}
+                  {% if tag == product.title %}
+                  {% include 'shortcode' load: article.content %}
+                    <div class="award">
+                      {% if link != blank %}<a href="{{ link }}" target="_blank" rel="nofollow" title="{{ article.title }}">{% endif %}<img src="{{ article | img_url: 'large' }}" alt="{{ article.title }}">{% if link != blank %}</a>{% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
+  <script>
+    $(window).load(function(){
+      $('.awards').slick({
+      dots: false,
+      prevArrow: '#awards .slick_left',
+      nextArrow: '#awards .slick_right',
+      infinite: true,
+      speed: 300,
+      autoplay: true,
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+      });
+    });
+  </script>
 {% endif %}

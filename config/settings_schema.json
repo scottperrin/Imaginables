@@ -152,6 +152,11 @@
             "label": "Page"
           }
         ]
+      },
+      {
+        "type": "page",
+        "id": "cart_tc_link",
+        "label": "Terms and Conditions page"
       }
     ]
   },

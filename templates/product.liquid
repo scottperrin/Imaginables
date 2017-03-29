@@ -1,4 +1,5 @@
 <!-- /templates/product.liquid -->
+
 {% comment %}
 Capture the product description and split in to sections and distribute into shortcode includes
 {% endcomment %}
@@ -13,7 +14,41 @@ Capture the product description and split in to sections and distribute into sho
   {% endif %}
   {% if split contains '[spec' %}
     {% comment %}Strip all the html except for lists{% endcomment %}
-    {% capture specs %}{{ split | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]'  | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' }}{% endcapture %}
+    {% assign links = split | replace: '<a', '[link]<a' | replace: '</a>', '</a>[link]' | split: '[link]' %}
+    {% assign count = 0 %}
+    {% assign link_array = '' %}
+    {% for link in links %}
+    {% assign count = count | plus: 1 %}
+    {% assign modulo = count | modulo: 2 %}
+      {% if modulo == 0 %}
+        {% assign link_array = link_array | append: link  | append: ',' %}
+      {% endif %}
+    {% endfor %}
+    {% assign links = link_array | split: ',' %}
+    {% assign this = split %}
+    {% assign count = 0 %}
+    {% for link in links %}
+      {% assign count = count | plus: 1 %}
+      {% assign replacement = '[link-' | append: count | append: ']' %}
+      {% assign this = this | replace: link, replacement %}
+    {% endfor %}
+
+    {% assign this = this | replace: '<ul>', '[ul]' | replace: '</ul>', '[/ul]' | replace: '<li>', '[li]' | replace: '</li>', '[/li]' | strip_html | replace: '[ul]', '<ul>' | replace: '[/ul]', '</ul>' | replace: '[li]', '<li>' | replace: '[/li]', '</li>' %}
+
+    {% assign link_array = link_array | replace: '"', '*+*' %}
+    {% assign links = link_array | split: ',' %}
+    {% assign count = 0 %}
+    {% for link in links %}
+    {% assign count = count | plus: 1 %}
+    {% assign replacement = '[link-' | append: count | append: ']' %}
+      {% assign this = this | replace: replacement, link %}
+    {% endfor %}
+
+
+    {% capture specs %}
+      {{ this }}
+    {% endcapture %}
+
   {% endif %}
   {% if split contains '[technical' %}
     {% capture technical %}{{ split }}{% endcapture %}
@@ -22,6 +57,7 @@ Capture the product description and split in to sections and distribute into sho
     {% capture awards %}{{ split | remove: '[awards]' | remove: '[/awards]' }}{% endcapture %}
   {% endif %}
 {% endfor %}
+
 <div itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
@@ -35,25 +71,25 @@ Capture the product description and split in to sections and distribute into sho
   <section class="container color">
     <div class="wrapper">
       <div class="grid grid-uniform text-center">
-        <div class="grid__item flex__item large--one-half large--text-right text-center">
+        <div class="grid__item flex__item large--five-twelfths large--text-right text-center">
           <div class="mini-wrapper">
             {% include 'product-form' %}
           </div>
         </div>
-        <div class="product-image-slider grid__item large--one-half flex__item text-center">
+        <div class="product-image-slider grid__item large--seven-twelfths flex__item text-center">
           {% include 'product-image-slider' %}
         </div>
       </div>
     </div>
   </section>
 
-{% if description != blank %}{% include 'shortcode-description' %}{% endif %}
-{% if specs != blank %}{% include 'product-specs' %}{% endif %}
-{% if hero != blank %}{% include 'shortcode' load: hero %}{% endif %}
-{% if technical != blank %}{%- include 'shortcode' load: technical -%}{% endif %}
-{% include 'product-stories' %}
-{% include 'product-related-products' %}
-{% include 'product-awards' %}
+  {% if description != blank %}{% include 'shortcode-description' %}{% endif %}
+  {% if specs != blank %}{% include 'product-specs' %}{% endif %}
+  {% if hero != blank %}{% include 'shortcode' load: hero %}{% endif %}
+  {% if technical != blank %}{%- include 'shortcode' load: technical -%}{% endif %}
+  {% include 'product-stories' %}
+  {% include 'product-related-products' %}
+  {% include 'product-awards' %}
 
 </div>
 

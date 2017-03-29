@@ -73,13 +73,6 @@
             </div>
           {{/items}}
         </div>
-
-        {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
-          <div class="visually-hidden">
-            <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
-            <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
-          </div>
-        {% endraw %}{% endif %}{% raw %}
       </div>
       <div class="ajaxcart__footer">
         <div class="grid--full">
@@ -94,12 +87,24 @@
           {{/if}}
         </div>
         <small class="text-center">{% endraw %}{{ 'cart.general.shipping_at_checkout' | t }}{% raw %}</small><br><br>
-        <button type="submit" class="btn--secondary btn--full cart__checkout" name="checkout">
-          {% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} &rarr;
-        </button>
-        {% endraw %}{% if additional_checkout_buttons %}
-          <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
-        {% endif %}{% raw %}
+        <p>
+          <input type="checkbox" id="agree"/>
+          <label for="agree">{% endraw %}{{ 'cart.general.agree' | t }}{% unless settings.cart_tc_link == blank %} <a href="/pages/{{ settings.cart_tc_link }}" target="_blank">{{ pages[settings.cart_tc_link].title }}</a>{% endunless %}{% raw %}</label>
+        </p>
+        <div class="submit-cart-drawer">
+          <button type="submit" class="btn--secondary btn--full cart__checkout" name="checkout">
+            {% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} &rarr;
+          </button>
+          {% endraw %}{% if additional_checkout_buttons %}
+            <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+          {% endif %}{% raw %}
+        </div>
+        {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+          <div>
+            <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+            <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+          </div>
+        {% endraw %}{% endif %}{% raw %}
       </div>
     </form>
   {% endraw %}
