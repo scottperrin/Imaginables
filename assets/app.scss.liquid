@@ -2837,9 +2837,18 @@ label.error {
   #Pages + Cart
 ==============================================================================*/
 
-.template-page {
+.template-page:not(.template-layout-sections) {
   .main-content {
     margin: $gutter*2 auto ($gutter/2);
+  }
+}
+
+.template-layout-sections {
+  .container.color {
+    padding: $gutter*2 0;
+    .mini-wrapper {
+      padding: 0;
+    }
   }
 }
 
@@ -3307,6 +3316,17 @@ AddToCart {
     }
   }
 
+  .grid__item.large--text-right {
+    @include at-query($min, $large) {
+      form {
+        float: right;
+        .grid {
+          float: right;
+        }
+      }
+    }
+  }
+
   .grid__image {
     display: block;
     margin: 0 auto;
@@ -3715,12 +3735,13 @@ AddToCart {
   }
   .award-wrapper {
     text-align: center;
+    margin-bottom: $gutter/2;
     .award {
       display: inline-block;
       position: relative;
       img {
         max-height: 150px;
-        margin: 10px 30px;
+        margin: 10px auto;
       }
     }
   }
@@ -3876,6 +3897,12 @@ AddToCart {
     .social-sharing {
       margin-bottom: $gutter/2;
     }
+  }
+}
+
+.template-article.template-layout-resellers {
+  h1.h2 {
+    margin-bottom: 0;
   }
 }
 

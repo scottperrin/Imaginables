@@ -27,7 +27,7 @@
           <div class="wrapper">
             <div class="{% cycle 'grid', 'grid--rev' %} large--grid--flex">
 
-              <div class="grid__item large--one-third flex__item">
+              <div class="grid__item large--one-half flex__item">
 
                 {% assign on_sale = false %}
                 {% if product.compare_at_price > product.price %}
@@ -43,7 +43,7 @@
                 </a>
 
               </div>
-              <div class="grid__item large--two-thirds flex__item{% cycle '', ' large--text-right' %}">
+              <div class="grid__item large--one-half flex__item{% cycle '', ' large--text-right' %}">
                 <div class="mini-wrapper">
                   <h2>
                     <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
@@ -61,33 +61,64 @@
                   {% endfor %}
                   <p>{{ description | truncatewords: 40 }}</p>
 
-                  <p class="price">
-                    {% if on_sale %}
-                      {% if product.price_varies %}
-                        {% assign sale_price = product.price | money %}
-                        {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-                      {% else %}
-                        <strong>{{ 'products.product.on_sale' | t }}</strong>
-                        {{ product.price | money }}
+                  <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="collectionVariants form-vertical">
+                    <div>
+                      {% if product.available and product.variants.size > 1 %}
+                        {% include 'product-swatch' with 'Colour' %}
                       {% endif %}
-                    {% else %}
-                      {% if product.price_varies %}
-                        {% assign price = product.price | money %}
-                        {{ 'products.general.from_text_html' | t: price: price }}
-                      {% else %}
-                        {{ product.price | money }}
-                      {% endif %}
-                    {% endif %}
-                    {% if sold_out %}
-                      <br><strong>{{ 'products.product.sold_out' | t }}</strong>
-                    {% endif %}
-                    {% if on_sale %}
-                      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-                      <br><s>{{ product.compare_at_price | money }}</s>
-                    {% endif %}
-                  </p>
 
-                  <a href="{{ product.url | within: collection }}" title="{{ product.title }}" class="btn btn--large">{{ 'products.product.add_to_cart' | t }}</a>
+                      <p class="price">
+                        {% if on_sale %}
+                          {% if product.price_varies %}
+                            {% assign sale_price = product.price | money %}
+                            {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                          {% else %}
+                            <strong>{{ 'products.product.on_sale' | t }}</strong>
+                            {{ product.price | money }}
+                          {% endif %}
+                        {% else %}
+                          {% if product.price_varies %}
+                            {% assign price = product.price | money %}
+                            {{ 'products.general.from_text_html' | t: price: price }}
+                          {% else %}
+                            {{ product.price | money }}
+                          {% endif %}
+                        {% endif %}
+                        {% if sold_out %}
+                          <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+                        {% endif %}
+                        {% if on_sale %}
+                          <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                          <br><s>{{ product.compare_at_price | money }}</s>
+                        {% endif %}
+                      </p>
+
+                      <div class="select-wrapper{% unless product.variants.size > 1 %} visually-hidden{% endunless %}">
+                        <select name="id" id="productSelect" class="product-single__variants">
+                          {% for variant in product.variants %}
+                            {% assign variant_title = variant.title %}
+                            {% if variant_title == "Default Title" %}
+                              {% assign variant_title = product.title %}
+                            {% endif %}
+                            {% if variant.available %}
+                              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-price="{{ variant.price | money_with_currency }}" value="{{ variant.id }}">{{ variant_title }}</option>
+                            {% else %}
+                              <option disabled="disabled">
+                                {{ variant_title }} - {{ 'products.product.sold_out' | t }}
+                              </option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="qty_wrapper visually-hidden">
+                      <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                      <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                    </div>
+                    <button type="submit" name="add" id="AddToCart" class="btn btn--large">
+                      <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                    </button>
+                  </form>
 
                 </div>
               </div>

@@ -1,6 +1,9 @@
 <!-- /snippets/shortcode-specs.liquid -->
+
 {% capture title %}{% include 'shortcode-render' render:'title' default:'title' %}{% endcapture %}
 {% capture text %}{% include 'shortcode-render' render:'text' default:'text' %}{% endcapture %}
+{% assign text = text | replace: '*+*', '"' | replace: '""', '"' %}
+
 {% capture image %}{% include 'shortcode-render' render:'image' default:'' %}{% endcapture %}
-{% capture text2 %}{% include 'shortcode-render' render:'text2' default:'text' %}{% endcapture %}
+{% capture text2 %}{% include 'shortcode-render' render:'text2' default:'text2' %}{% endcapture %}
 {% capture image2 %}{% include 'shortcode-render' render:'image2' default:'' %}{% endcapture %}
