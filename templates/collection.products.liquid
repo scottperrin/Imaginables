@@ -1,5 +1,8 @@
 <!-- /templates/collection.products.liquid -->
+
+{% layout 'fullwidth' %}
 {% assign current_collection = collection.url %}
+
 {% paginate collection.products by 24 %}
   {% if collection.handle == 'filaments' %}
 

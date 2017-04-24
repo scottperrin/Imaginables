@@ -19,17 +19,13 @@
         <div class="grid">
           <div class="grid__item">
             <h1 class="h2">{{ article.title }}</h1>
-            {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-            {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-            <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
-            <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
           </div>
         </div>
       </header>
 
       <div class="rte" itemprop="articleBody">
         {% include 'shortcode' load: article.content %}
-        <a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>
+        {% unless link == blank %}<a href="{{ link }}" rel="nofollow" class="btn" target="_blank">{{ 'blogs.article.read_more' | t }}</a>{% endunless %}
       </div>
 
       {% include 'social-sharing' %}
@@ -56,21 +52,7 @@
       {% endif %}
       {% endcomment %}
 
-      <h3>{{ 'blogs.comments.without_count' | t }}</h3>
 
-      <div id="disqus_thread"></div>
-      <script>
-        var disqus_config = function () {
-            this.page.url = '{{ canonical_url }}';
-            this.page.identifier = '{{ article.handle | replace: '/', '_' }}';
-        };
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = '//imaginables.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-      </script>
 
       <br><br>
     </article>
