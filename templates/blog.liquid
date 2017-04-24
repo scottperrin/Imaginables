@@ -1,6 +1,6 @@
 <!-- /templates/blog.liquid -->
 
-{% paginate blog.articles by 8 %}
+{% paginate blog.articles by 9 %}
 
 {% assign content_limit = 60 %}
 
@@ -14,10 +14,10 @@
 
   <div class="grid-uniform">
 
-    {% for article in blog.articles limit: 2 %}
+    {% for article in blog.articles limit: 1 %}
 
-      <div class="grid__item large--one-half">
-        <div class="article">
+      <div class="grid__item large--one-whole">
+        <div class="article article-margin">
 
           {% assign size = '_1100x1100' %}
           {% include 'blog-image' %}
@@ -40,14 +40,40 @@
 
   </div>
 
-  <hr>
+  <div class="grid-uniform">
+
+    {% for article in blog.articles limit: 2 offset: 1 %}
+
+      <div class="grid__item large--one-half">
+        <div class="article article-margin">
+
+          {% assign size = '_1100x1100' %}
+          {% include 'blog-image' %}
+
+          <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+          {% comment %}{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+          <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>{% endcomment %}
+          <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
+
+          <div class="rte">
+            {{ article.content | strip_html | truncatewords: content_limit }}
+            <div><a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a></div>
+          </div>
+
+        </div>
+      </div>
+
+    {% endfor %}
+
+  </div>
 
   <div class="grid-uniform">
 
-    {% for article in blog.articles offset: 2 limit: 3 %}
+    {% for article in blog.articles offset: 3 limit: 3 %}
 
       <div class="grid__item large--one-third">
-        <div class="article">
+        <div class="article article-margin">
 
           {% assign size = '_700x700' %}
           {% include 'blog-image' %}
@@ -70,16 +96,14 @@
 
   </div>
 
-  <hr>
-
   <div class="grid-uniform grid-last">
 
     {% assign content_limit = 30 %}
 
-    {% for article in blog.articles offset: 5 %}
+    {% for article in blog.articles offset: 6 %}
 
       <div class="grid__item large--one-quarter">
-        <div class="article">
+        <div class="article article-margin">
 
           {% assign size = '_500x500' %}
           {% include 'blog-image' %}

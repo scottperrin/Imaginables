@@ -1,13 +1,13 @@
 <!-- snippets/product-stories.liquid -->
 
 {% comment %}
-Check that we have articles that match the current product handle
+Check that we have articles that match the current product title
 {% endcomment %}
 
 {% assign count = 0 %}
 {% for article in blogs.stories.articles %}
   {% for tag in article.tags %}
-    {% if tag == product.handle or tag == 'General Story' %}
+    {% if tag == product.title or tag == 'General Story' %}
       {% assign count = count | plus: 1 %}
     {% endif %}
   {% endfor %}
@@ -27,19 +27,23 @@ Check that we have articles that match the current product handle
             <div class="slick-stories grid-uniform">
               {% for article in blogs.stories.articles %}
                 {% for tag in article.tags %}
-                  {% if tag == product.handle or tag == 'General Story' %}
+                  {% if tag == product.title or tag == 'General Story' %}
+                    {% assign story_link = false %}
                     {% if article.content contains '[story' %}
                       {% assign article_content = article.content | split: '[story ' %}
                       {% assign article_content = article_content | last %}
                       {%- assign link = article_content | replace: 'link="', '' | replace: '"]', '' -%}
+                      {% assign story_link = true %}
+                    {% else %}
+                      {% assign link = article.url %}
                     {% endif %}
                     <div class="grid__item text-center">
                       <div class="story-wrapper">
-                        {% if link != blank %}<a href="{{ link }}" target="_blank" rel="nofollow" title="{{ article.title }}" class="grid__image" style="background-image:url({{ article | img_url: 'large' }});background-size:cover;background-position:center center;"></a>{% endif %}
+                        {% if link != blank %}<a href="{{ link }}"{% if story_link %} target="_blank" rel="nofollow"{% endif %} title="{{ article.title }}" >{% endif %}<div class="grid__image" style="background-image:url({{ article | img_url: 'large' }});background-size:cover;background-position:center center;"></div>{% if link != blank %}</a>{% endif %}
                         <div class="story-part-text">
                           <div class="story-part-text-inner">
                             <p>
-                              {% if link != blank %}<a target="_blank" rel="nofollow" title="{{ article.title }}" href="{{ link }}">{% endif %}
+                              {% if link != blank %}<a{% if story_link %} target="_blank" rel="nofollow"{% endif %} title="{{ article.title }}" href="{{ link }}">{% endif %}
                                 {{ article.title }}
                               {% if link != blank %}</a>{% endif %}
                             </p>
