@@ -3389,8 +3389,8 @@ AddToCart {
 .template-product {
   .product-image-slider {
     .slick-slide img {
-      max-height: 100%;
       margin: 0 auto;
+      max-height: 100%;
     }
     #ProductThumbs {
       max-height: $gutter*1.5;
@@ -3630,11 +3630,15 @@ AddToCart {
     }
     figure {
       margin: 0;
-      max-height:350px;
+      height: 427px;
+      @include at-query($max, $small) {
+        height: auto;
+        max-height: 427px;
+      }
     }
   }
   #ProductPhoto {
-    padding: ($gutter) ($gutter) 0;
+    padding: 0;
     @include at-query($max, $small) {
       padding-top: 0;
     }
