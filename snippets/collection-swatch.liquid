@@ -1,4 +1,5 @@
 <!-- /snippets/collection-swatch.liquid -->
+
 {% assign on_sale = false %}
 {% if product.compare_at_price > product.price %}
   {% assign on_sale = true %}
@@ -54,7 +55,7 @@
           {{ variant.options[index] }}
         {% endcapture %}
         {% unless colorlist contains color %}
-          <div class="swatch{% if forloop.first %} active{% endif %}" style="background-color:{{ color | handleize }}; background-image:url('{{ color | downcase | strip | handleize | append: '.png' | asset_url }}');background-size:cover;" data-product="{{ product.id }}" data-color="{{ color | handleize }}" title="{{ color | strip }}" /></div>
+          <div class="swatch{% if forloop.first %} active{% endif %}" style="background-color:{{ color | handleize }}; background-image:url('{{ color | downcase | strip | handleize | append: '.png' | asset_url }}');background-size:cover;" data-product="{{ product.id }}" data-color="{{ color | handleize }}" title="{{ color | strip }}"></div>
           {% capture tempList %}
             {{ colorlist | append: color | append: '' }}
           {% endcapture %}
