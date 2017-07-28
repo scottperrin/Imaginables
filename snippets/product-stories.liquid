@@ -7,7 +7,7 @@ Check that we have articles that match the current product title
 {% assign count = 0 %}
 {% for article in blogs.stories.articles %}
   {% for tag in article.tags %}
-    {% if tag == product.title or tag == 'General Story' %}
+    {% if tag == product.title or tag == product.handle or tag == 'General Story' %}
       {% assign count = count | plus: 1 %}
     {% endif %}
   {% endfor %}
@@ -27,7 +27,7 @@ Check that we have articles that match the current product title
             <div class="slick-stories grid-uniform">
               {% for article in blogs.stories.articles %}
                 {% for tag in article.tags %}
-                  {% if tag == product.title or tag == 'General Story' %}
+                  {% if tag == product.title or tag == product.handle or tag == 'General Story' %}
                     {% assign story_link = false %}
                     {% if article.content contains '[story' %}
                       {% assign article_content = article.content | split: '[story ' %}
