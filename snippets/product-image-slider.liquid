@@ -9,9 +9,7 @@
   <section class="product_slider">
     {% for image in product.images %}
       <figure data-thumb="{{ image.src | img_url: '1024x1024' }}">
-        <div class="img-wrapper">
-          <img src="{{ image.src | img_url: '1024x1024' }}" id="ProductPhotoImg">
-        </div>
+        <img src="{{ image.src | img_url: '1024x1024' }}" id="ProductPhotoImg">
         {% if image.alt %}<figcaption class="visually-hidden">{{ image.alt }}</figcaption>{% endif %}
       </figure>
     {% endfor %}
