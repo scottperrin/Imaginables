@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" ><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" ><!--<![endif]-->
+<!-- ===========================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+
+Cam @ Elkfox.com
+http://experts.shopify.com/elkfox
+============================================================================ -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	{% if template == 'index' %}
+		<title>{{ shop.name }} | {{ page_title }}</title>
+	{% elsif template == '404' %}
+		<title>Page Not Found | {{ shop.name }}</title>
+	{% else %}
+		<title>{{ page_title }} | {{ shop.name }}</title>
+	{% endif %}
+
+	{% if page_description %}
+		<meta name="description" content="{{ page_description }}" />
+	{% endif %}
+
+	<!-- Hide products pages not in collection subfolder from Google to avoid duplicate results -->
+	{% unless collection.handle %}
+		<meta name="robots" content="noindex,follow" />
+	{% endunless %}
+
+	{{ content_for_header }}
+
+	<!-- CSS -->
+	{{ 'normalize.css' | asset_url | stylesheet_tag }}
+	{{ 'foundation.min.css' | asset_url | stylesheet_tag }}
+	{{ 'foundation-icons.css' | asset_url | stylesheet_tag }}
+	{{ 'slick.css' | asset_url | stylesheet_tag }}
+	{{ 'side-cart.css' | asset_url | stylesheet_tag }}
+	{{ 'elkfox.css' | asset_url | stylesheet_tag }}
+
+	<!-- Google Fonts -->
+	<link href='//fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+
+  	{{ 'jquery.js' | asset_url | script_tag }}
+  	{{ 'custom.modernizr.js' | asset_url | script_tag }}
+
+	<!-- Shopify js -->
+	{% if template contains 'customers' %}
+		{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+		{{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+	{% endif %}
+	{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+	<!-- Icons -->
+	<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />
+	<link rel="apple-touch-icon-precomposed" href="{{ 'apple-touch-icon-precomposed.png' | asset_url }}" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ 'apple-touch-icon-57x57-precomposed.png' | asset_url }}" />
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ 'apple-touch-icon-60x60-precomposed.png' | asset_url }}" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ 'apple-touch-icon-76x76-precomposed.png' | asset_url }}" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ 'apple-touch-icon-120x120-precomposed.png' | asset_url }}" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ 'apple-touch-icon-152x152-precomposed.png' | asset_url }}" />
+
+	<!-- Facebook Open Graph -->
+  {% if template == "product" %}
+      <meta property="og:title" content="{{ shop.name }} — {{ product.title }}"/>
+      <meta property="og:type" content="product"/>
+      <meta property="og:image" content="{{ product.featured_image | product_img_url: 'medium' }}"/>
+      <meta property="og:url" content="{{ shop.url }}{{ product.url }}"/>
+  {% elsif template == "article" %}
+      <meta property="og:title" content="{{ shop.name }} — {{ article.title }}"/>
+      <meta property="og:type" content="article"/>
+      <meta property="og:image" content="{{ 'logo.png' | asset_url }}"/>
+      <meta property="og:url" content="{{ shop.url }}{{ article.url }}"/>
+  {% else %}
+      <meta property="og:title" content="{{ shop.name }}"/>
+      <meta property="og:type" content="article"/>
+      <meta property="og:image" content="{{ 'gallery_image_1.jpg' | asset_url }}"/>
+      <meta property="og:url" content="{{ shop.url }}"/>
+  {% endif %}
+  <meta property="og:site_name" content="{{ shop.name }}"/>
+	
+	<meta name="google-site-verification" content="qFewQhohaEOUHCbekVqhQjBtHzFZifV4COQoVMV-oJw" />
+	<!-- Global site tag (gtag.js) - Google Ads: 951531719 -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-951531719"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-951531719'); </script>
+
+</head>
+
+<body class="{{ template | replace: '.', ' ' | truncatewords: 1, '' }} antialiased" id="{{ page_title | handle }}">
+
+	<!-- Include Header & Top Navigation -->
+		{% include 'header' %}
+		{% include 'nav' %}
+		{% include 'mobile-menu' %}
+	<!-- End Include Header & Top Navigation -->
+
+  	<!-- Include Main Content -->
+  	<main role="main">
+		<div  class="row">
+            {% if template == 'list-collections' %}
+            {% include 'collection-listing' %}
+            {% else %}
+            {{ content_for_layout }}
+            {% endif %}
+      	</div>
+  	</main>
+  	<!-- End Include Main Content -->
+
+	{% include 'footer' %}
+
+  	{% include 'side-cart' %}
+
+  	<a href="#" class="scrollToTop" title"Go back to the top!">&#9650;</a>
+  	<script>
+  		// Scroll to top
+		$(document).ready(function(){
+
+			//Check to see if the window is top if not then display button
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 200) {
+					$('.scrollToTop').fadeIn();
+				} else {
+					$('.scrollToTop').fadeOut();
+				}
+			});
+
+			//Click event to scroll to top
+			$('.scrollToTop').click(function(){
+				$('html, body').animate({scrollTop : 0},800);
+				return false;
+			});
+
+		});
+
+		// Side Cart
+			jQuery(document).ready(function($){
+				//if you change this breakpoint in the style.css file (or _layout.scss if you use SASS), don't forget to update this value as well
+				var $L = 1200,
+					$menu_navigation = $('#main-nav'),
+					$cart_trigger = $('#cd-cart-trigger'),
+					$hamburger_icon = $('#cd-hamburger-menu'),
+					$lateral_cart = $('#cd-cart'),
+					$shadow_layer = $('#cd-shadow-layer');
+
+				//open lateral menu on mobile
+				$hamburger_icon.on('click', function(event){
+					event.preventDefault();
+					//close cart panel (if it's open)
+					$lateral_cart.removeClass('speed-in');
+					toggle_panel_visibility($menu_navigation, $shadow_layer, $('body'));
+				});
+
+				//open cart
+				$cart_trigger.on('click', function(event){
+					event.preventDefault();
+					//close lateral menu (if it's open)
+					$menu_navigation.removeClass('speed-in');
+					toggle_panel_visibility($lateral_cart, $shadow_layer, $('body'));
+				});
+
+				//close lateral cart or lateral menu
+				$shadow_layer.on('click', function(){
+					$shadow_layer.removeClass('is-visible');
+					// firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
+					if( $lateral_cart.hasClass('speed-in') ) {
+						$lateral_cart.removeClass('speed-in').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+							$('body').removeClass('overflow-hidden');
+						});
+						$menu_navigation.removeClass('speed-in');
+					} else {
+						$menu_navigation.removeClass('speed-in').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+							$('body').removeClass('overflow-hidden');
+						});
+						$lateral_cart.removeClass('speed-in');
+					}
+				});
+
+				//move #main-navigation inside header on laptop
+				//insert #main-navigation after header on mobile
+				move_navigation( $menu_navigation, $L);
+				$(window).on('resize', function(){
+					move_navigation( $menu_navigation, $L);
+
+					if( $(window).width() >= $L && $menu_navigation.hasClass('speed-in')) {
+						$menu_navigation.removeClass('speed-in');
+						$shadow_layer.removeClass('is-visible');
+						$('body').removeClass('overflow-hidden');
+					}
+
+				});
+			});
+
+			function toggle_panel_visibility ($lateral_panel, $background_layer, $body) {
+				if( $lateral_panel.hasClass('speed-in') ) {
+					// firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
+					$lateral_panel.removeClass('speed-in').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+						$body.removeClass('overflow-hidden');
+					});
+					$background_layer.removeClass('is-visible');
+
+				} else {
+					$lateral_panel.addClass('speed-in').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+						$body.addClass('overflow-hidden');
+					});
+					$background_layer.addClass('is-visible');
+				}
+			}
+
+			function move_navigation( $navigation, $MQ) {
+				if ( $(window).width() >= $MQ ) {
+					$navigation.detach();
+					$navigation.appendTo('header');
+				} else {
+					$navigation.detach();
+					$navigation.insertAfter('header');
+				}
+			}
+  	</script>
+
+  	<!-- Scripts -->
+  		<!-- Foundation scripts -->
+		{{ 'foundation.min.js' | asset_url | script_tag }}
+		<script>
+  			$(document).foundation();
+		</script>
+
+		<!-- Fastclick -->
+		<!-- {{ 'fastclick.js' | asset_url | script_tag }}
+		<script>
+  			$(function() {
+	  			FastClick.attach(document.body);
+	  		});
+		</script> -->
+
+		<!-- Smooth Scrolling -->
+		{{ 'smooth-scroll.js' | asset_url | script_tag }}
+		<script>
+			smoothScroll.init();
+		</script>
+
+		<!-- Product Image JS by @lukebussey -->
+		{{ 'productimages.js' | asset_url | script_tag }}
+
+        <!-- Let's add a product zoom becaue Foundation doesn't have one. Thank's to Jack Moore! -->
+        {{ 'jquery.zoom.js' | asset_url | script_tag }}
+
+		<!-- Slideshow -->
+		{{ 'slick.min.js' | asset_url | script_tag }}
+		<script>
+			$(document).ready(function(){
+				$('.slideshow').slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: true,
+					fade: true,
+					speed: 2000,
+					autoplaySpeed: 4000
+				});
+			});
+			$(document).ready(function(){
+				$('.gallery.large').slick({
+					slidesToShow: 3,
+					slidesToScroll: 1,
+					autoplay: true,
+					autoplaySpeed: 1500
+				});
+			});
+			$(document).ready(function(){
+				$('.gallery.small').slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: true,
+					autoplaySpeed: 1500
+				});
+			});
+			// Testimonials
+			$(document).ready(function(){
+				$('#reviews').slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: true,
+					speed: 2000,
+					autoplaySpeed: 4000,
+					arrows: false
+				});
+			});
+		</script>
+  	<!-- End scripts -->
+
+
+</body>
+</html>

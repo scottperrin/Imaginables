@@ -1,0 +1,9 @@
+{% if first_time_accessed %}
+  <!-- Event snippet for DREMEL 3D45 IMAGINABLES PURCHASES conversion page -->
+  <script>
+    gtag('event', 'conversion', {
+      'send_to': 'AW-951531719/1yHGCKjQnJEBEMfx3MUD',
+      'transaction_id': '{{ order.id }}'
+    });
+  </script>
+{% endif %}

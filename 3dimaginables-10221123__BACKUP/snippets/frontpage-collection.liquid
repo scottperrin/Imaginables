@@ -1,8 +1,0 @@
-{% assign collection = collections.frontpage %}
-{% for product in collection.products %}
-	{% include 'product-loop' %}
-{% else %}
-	<div class="large-12 columns shopify-no-products-message">
-		<p>You have no products in your Frontpage collection. <a href="http://www.shopify.com/admin/custom_collections">Add some.</a></p>
-	</div>
-{% endfor %}
