@@ -1,0 +1,17 @@
+<footer>
+	<div class="row">
+		{% include 'subscribe' %}
+	</div>
+	<div class="row">
+		<div class="medium-6 columns hide-for-small">
+			{% if settings.bottom_menu_on %}  
+				<!-- Include Bottom Navigation -->
+				{% include 'footer-nav' %}
+				<!-- End Include Bottom Navigation -->
+			{% endif %}
+		</div>
+		<div class="medium-6 columns">
+	    	<p align="right">&copy; Copyright {{ "now" | date: "%Y" }} Imaginables Pty Ltd | <a href="http://shopify.com/?ref=elkfox" title="Shopify.com">Shopify</a> & <a href="http://elkfox.com/?ref=imaginables" title="Shopify Experts">Elkfox</a></p>
+		</div>
+	</div>
+</footer>

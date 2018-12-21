@@ -1,0 +1,493 @@
+[
+  {
+    "name": "Welcome",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/wiki.shopify.com\/Theme_Settings) to learn more about how you can make your theme customizable."
+      }
+    ]
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo Options"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_logo",
+        "label": "Use Custom Logo?"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom Logo",
+        "max-width": 940,
+        "max-height": 300
+      },
+      {
+        "type": "checkbox",
+        "id": "site_title",
+        "label": "Include Site Title as 'Heading 1'"
+      },
+      {
+        "type": "paragraph",
+        "content": "Maximum logo dimensions are 940px wide by 300px high. Your uploaded file will be resized to fit within those constraints. Need a full-width banner? Upload an image with a width of 940px, and a height of 300px or less."
+      }
+    ]
+  },
+  {
+    "name": "Slideshow",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slideshow Options"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_enable",
+        "label": "Enable Slideshow on Home Page?"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_pause",
+        "label": "Pause Slideshow On Hover?"
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_1_enable",
+        "label": "Use a first slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_1.jpg",
+        "label": "Slideshow Image 1",
+        "max-width": 1000,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_2_enable",
+        "label": "Use a second slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_2.jpg",
+        "label": "Slideshow Image 2",
+        "max-width": 1000,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_3_enable",
+        "label": "Use a third slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_3.jpg",
+        "label": "Slideshow Image 3",
+        "max-width": 1000,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_4_enable",
+        "label": "Use a fourth slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_4.jpg",
+        "label": "Slideshow Image 4",
+        "max-width": 1000,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_5_enable",
+        "label": "Use a fifth slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_5.jpg",
+        "label": "Slideshow Image 5",
+        "max-width": 1000,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "slideshow_image_6_enable",
+        "label": "Use a sixth slideshow image?"
+      },
+      {
+        "type": "image",
+        "id": "slideshow_image_6.jpg",
+        "label": "Slideshow Image 6",
+        "max-width": 1000,
+        "max-height": 800
+      }
+    ]
+  },
+  {
+    "name": "Homepage Gallery",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Homepage Gallery Options"
+      },
+      {
+        "type": "paragraph",
+        "content": "Gallery images must be under 800x800 pixels, and should be over 600x600 pixels."
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_enable",
+        "label": "Enable Gallery on Home Page?"
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_1_enable",
+        "label": "Use the first gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_1.jpg",
+        "label": "Gallery Image 1",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_2_enable",
+        "label": "Use a second gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_2.jpg",
+        "label": "Gallery Image 2",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_3_enable",
+        "label": "Use a third gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_3.jpg",
+        "label": "Gallery Image 3",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_4_enable",
+        "label": "Use a fourth gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_4.jpg",
+        "label": "Gallery Image 4",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_5_enable",
+        "label": "Use a fifth gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_5.jpg",
+        "label": "Gallery Image 5",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_6_enable",
+        "label": "Use a sixth gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_6.jpg",
+        "label": "Gallery Image 6",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_7_enable",
+        "label": "Use a seventh gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_7.jpg",
+        "label": "Gallery Image 7",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_8_enable",
+        "label": "Use an eigth gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_8.jpg",
+        "label": "Gallery Image 8",
+        "max-width": 800,
+        "max-height": 800
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_image_9_enable",
+        "label": "Use a ninth gallery image?"
+      },
+      {
+        "type": "image",
+        "id": "gallery_image_9.jpg",
+        "label": "Gallery Image 9",
+        "max-width": 800,
+        "max-height": 800
+      }
+    ]
+  },
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "type": "select",
+        "id": "products_per_row",
+        "label": "Products Per Row",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          }
+        ],
+        "default": "3"
+      },
+      {
+        "type": "select",
+        "id": "pagination_limit",
+        "label": "Products Per Page",
+        "options": [
+          {
+            "value": "48",
+            "label": "48"
+          },
+          {
+            "value": "36",
+            "label": "36"
+          },
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          },
+          {
+            "value": "8",
+            "label": "8"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ],
+        "default": "12"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sale_circle",
+        "label": "Show sale circle on products?"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "related-products",
+        "label": "Show Related Products?"
+      }
+    ]
+  },
+  {
+    "name": "Extra Widgets",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Mailchimp Form"
+      },
+      {
+        "type": "checkbox",
+        "id": "mailchimp_form",
+        "label": "Include Mailchimp Form"
+      },
+      {
+        "type": "text",
+        "id": "my_text",
+        "label": "Mailchimp Form ID",
+        "default": "Form ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "If you want to add a Mailchimp subscription form select 'Include Mailchimp Form' IMPORTANT: Make sure you add your Form ID!"
+      }
+    ]
+  },
+  {
+    "name": "Bottom Menu",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "bottom_menu_on",
+        "label": "Enable Bottom Menu"
+      }
+    ]
+  },
+  {
+    "name": "Browser, iOS & Android Icons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Please only change this section if you know what you are doing"
+      },
+      {
+        "type": "image",
+        "id": "favicon.ico",
+        "label": "Favicon"
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 64x64 pixels 'favicon.ico' file"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-precomposed.png",
+        "label": "Generic Touch Icon",
+        "max-width": 57,
+        "max-height": 57
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 57x57 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-57x57-precomposed.png",
+        "label": "57x57 Icon",
+        "max-width": 57,
+        "max-height": 57
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 57x57 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-60x60-precomposed.png",
+        "label": "60x60 Icon",
+        "max-width": 60,
+        "max-height": 60
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 60x60 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-72x72-precomposed.png",
+        "label": "72x72 Icon",
+        "max-width": 72,
+        "max-height": 72
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 72x72 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-76x76-precomposed.png",
+        "label": "76x76 Icon",
+        "max-width": 76,
+        "max-height": 76
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 76x76 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-114x114-precomposed.png",
+        "label": "114x114 Icon",
+        "max-width": 114,
+        "max-height": 114
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 114x114 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-120x120-precomposed.png",
+        "label": "120x120 Icon",
+        "max-width": 120,
+        "max-height": 120
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 120x120 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-144x144-precomposed.png",
+        "label": "144x144 Icon",
+        "max-width": 144,
+        "max-height": 144
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 144x144 pixels"
+      },
+      {
+        "type": "image",
+        "id": "apple-touch-icon-152x152-precomposed.png",
+        "label": "152x152 Icon",
+        "max-width": 152,
+        "max-height": 152
+      },
+      {
+        "type": "paragraph",
+        "content": "Must be 152x152 pixels"
+      }
+    ]
+  }
+]

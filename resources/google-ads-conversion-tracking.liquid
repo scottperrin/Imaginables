@@ -1,0 +1,17 @@
+<!-- Global site tag (gtag.js) - Google Ads: 951531719 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-951531719"></script>
+<script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-951531719'); </script>
+
+{% for item in checkout.line_items %}
+  <!-- DEBUG looking at {{ line.title }} -->
+  {% if item.title contains 'Dremel 3D45' limit: 1 %}
+    <!-- Event snippet for DREMEL 3D45 IMAGINABLES PURCHASES conversion page -->
+    <script>
+      console.info('Order contains DREMEL 3D45')
+      gtag('event', 'conversion', {
+        'send_to': 'AW-951531719/1yHGCKjQnJEBEMfx3MUD',
+        'transaction_id': '{{ order.name }}'
+      });
+    </script>
+  {% endif %}
+{% endfor %}

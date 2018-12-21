@@ -1,0 +1,92 @@
+{% capture star %}<svg xmlns="http://www.w3.org/2000/svg" class="nc-icon glyph" width="16" height="16" viewBox="0 0 16 16"><path d="M15.1 5.4l-4.3-0.6L8.9 0.9c-0.3-0.7-1.5-0.7-1.8 0l-1.9 3.9L0.9 5.4C0 5.6-0.3 6.6 0.3 7.1l3.1 3 -0.7 4.3c-0.1 0.8 0.7 1.4 1.5 1.1L8 13.5l3.9 2c0.7 0.4 1.6-0.2 1.5-1.1l-0.7-4.3 3.1-3C16.3 6.6 16 5.6 15.1 5.4z" fill="#444"/></svg>{% endcapture %}
+
+{% capture star_empty %}<svg xmlns="http://www.w3.org/2000/svg" class="nc-icon glyph" width="16" height="16" viewBox="0 0 16 16"><path d="M11.9 15.5L8 13.5l-3.9 2c-0.7 0.4-1.6-0.2-1.5-1.1l0.7-4.3L0.3 7.1c-0.6-0.6-0.3-1.6 0.6-1.7l4.3-0.6L7.1 0.9c0.3-0.7 1.5-0.7 1.8 0l1.9 3.9 4.3 0.6c0.8 0.1 1.1 1.1 0.6 1.7l-3.1 3 0.7 4.3C13.5 15.3 12.6 15.9 11.9 15.5zM8.5 11.5l2.5 1.3 -0.5-2.8c-0.1-0.3 0.1-0.7 0.3-0.9l2-2L10 6.7C9.7 6.7 9.4 6.5 9.3 6.2L8 3.6 6.7 6.2c-0.1 0.3-0.4 0.5-0.8 0.5L3.1 7.1l2 2c0.2 0.2 0.3 0.6 0.3 0.9l-0.5 2.8 2.5-1.3C7.8 11.3 8.2 11.3 8.5 11.5z" fill="#444"/></svg>{% endcapture %}
+
+{% capture star_half %}<svg xmlns="http://www.w3.org/2000/svg" class="nc-icon glyph" width="16" height="16" viewBox="0 0 16 16"><path d="M8 0.4c-0.4 0-0.7 0.2-0.9 0.5l-1.9 3.9L0.9 5.4C0 5.5-0.3 6.5 0.3 7.1l3.1 3 -0.7 4.3c-0.1 0.8 0.7 1.4 1.5 1.1L8 13.5V0.4z" fill="#444"/></svg>{% endcapture %}
+
+<!-- Testimonials Slider -->
+<div class="row" id="reviews">
+
+  {% for article in blogs.reviews.articles | limit: 24 %}
+  
+    <div class="review" itemprop="review" itemscope itemtype="http://schema.org/Review">
+  
+      <div class="large-2  medium-4 columns">
+        
+        {% assign size = '_large' %}
+        {% assign src = false %}
+        {% if article.image %}
+          {% assign size = size | remove: '_' %}
+          {% assign src = article.image.src | img_url: size %}
+        {% elsif article.content contains '<img' %}
+          {% assign img = article.content | split: '<img' %}
+          {% assign src = img[1] | split: 'src="' %}
+          {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'http:' | remove: 'https:' %}
+          {% if src %}
+            {% assign src = src
+            | replace:'_pico',size
+            | replace:'_icon',size
+            | replace:'_thumb',size
+            | replace:'_small',size
+            | replace:'_medium',size
+            | replace:'_large',size
+            | replace:'_grande',size
+            | replace:'_original',size
+            | replace:'_1024x1024',size
+            | replace:'_2048x2048',size
+            | replace:'_master',size
+            %}
+          {% endif %}
+        {% endif %}
+        {% if src != false %}
+          <div style="background-image:url('{{ src }}');padding-bottom: 100%; background-size: contain; background-repeat: no-repeat; background-position: top;"></div>
+        {% else %}
+          <div style="text-align:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="nc-icon glyph" width="64" height="64" viewBox="0 0 64 64"><style>.a{fill:#d0cccc;}</style><path data-color="color-2" d="M32 43c-6.1 0-11-4.9-11-11v-6c0-6.1 4.9-11 11-11s11 4.9 11 11v6C43 38.1 38.1 43 32 43z" class="a"/><path d="M32 1C14.9 1 1 14.9 1 32s13.9 31 31 31 31-13.9 31-31S49.1 1 32 1zM52.1 52.9v-1c0-2.5-1.4-4.8-3.5-6.1l-7.6-4.4C38.6 43.6 35.5 45 32 45c-3.5 0-6.6-1.4-8.9-3.6l-7.6 4.4c-2.2 1.2-3.5 3.6-3.5 6.1v1C6.4 47.6 3 40.2 3 32 3 16 16 3 32 3s29 13 29 29C61 40.2 57.6 47.6 52.1 52.9z" class="a"/></svg>
+          </div>
+        {% endif %}
+        
+      </div>
+  
+      <div class="large-10 medium-8 columns">
+        
+        <span class="rating">
+          <meta itemprop="worstRating" content = "1"/>
+          {% if article.tags contains 'rated_1' %}
+            <span class="rating_meta" style="visibility:hidden;display:none;">
+              <span itemprop="ratingValue">1</span>/<span itemprop="bestRating">5</span>
+            </span>
+            <span>{{ star }} {{ star_empty }} {{ star_empty }} {{ star_empty }} {{ star_empty }}</span>
+          {% elsif article.tags contains 'rated_2' %}
+            <span class="rating_meta" style="visibility:hidden;display:none;">
+              <span itemprop="ratingValue">2</span>/<span itemprop="bestRating">5</span>
+            </span>
+            <span>{{ star }} {{ star }} {{ star_empty }} {{ star_empty }} {{ star_empty }}</span>
+          {% elsif article.tags contains 'rated_3' %}
+            <span class="rating_meta" style="visibility:hidden;display:none;">
+              <span itemprop="ratingValue">3</span>/<span itemprop="bestRating">5</span>
+            </span>
+            <span>{{ star }} {{ star }} {{ star }} {{ star_empty }} {{ star_empty }}</span>
+          {% elsif article.tags contains 'rated_4' %}
+            <span class="rating_meta" style="visibility:hidden;display:none;">
+              <span itemprop="ratingValue">4</span>/<span itemprop="bestRating">5</span>
+            </span>
+            <span>{{ star }} {{ star }} {{ star }} {{ star }} {{ star_empty }}</span>
+          {% elsif article.tags contains 'rated_5' %}
+            <span class="rating_meta" style="visibility:hidden;display:none;">
+              <span itemprop="ratingValue">5</span>/<span itemprop="bestRating">5</span>
+            </span>
+            <span>{{ star }} {{ star }} {{ star }} {{ star }} {{ star }}</span>
+          {% endif %}
+        </span>
+        
+        <p itemprop="reviewBody">{{ article.content | strip_html | truncatewords: 40 }}</p>
+        <span itemprop="author"><b>{{ article.title }}</b></span>
+        <meta itemprop="datePublished" content="{{ article.published_at }}">
+      </div>
+  
+    </div>
+    
+  {% endfor %}
+</div>
+<!-- End Testimonials Slider -->

@@ -1,0 +1,114 @@
+<div itemscope itemtype="http://schema.org/Product" id="product-details">
+  
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+  
+  {% assign content = product.description | split: '[split]' %}
+  
+		<div class="large-12 columns">
+      
+		  <hgroup id="product-title">
+			<h1 itemprop="name">{{ product.title }}</h1>
+			{% assign product_vendor_handle = product.vendor | handle %}
+			{% comment %}
+			Do we have a collection that has the same name as our product vendor name?
+			If we do, let's have the vendor link point to it.
+			If not, we will point to the automatic vendor collection.
+			{% endcomment %}
+			{% if collections[product_vendor_handle].handle == product_vendor_handle %}
+			  {% assign vendor_url = collections[product_vendor_handle].url %}
+			{% else %}
+			  {% assign vendor_url = product.vendor | url_for_vendor %}
+			{% endif %}
+		  </hgroup>
+		  
+		</div>
+      
+		<!-- #product-photos -->
+	    <div class="large-6 columns" id="product-images">
+	        <div id="{{ product.url | within: collection | replace: '/', '-' }}">
+				<img src="{{ product.featured_image | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" id="product_feature_image" />
+			</div>
+	
+	        {% if product.images.size > 1 %}
+	            <ul class="medium-block-grid-4 product_thumbs">
+	                {% for image in product.images %}
+	                    <li><a href="{{ image | product_img_url: 'grande' }}" title="{{ product.title }}"><img class="th" src="{{ image | product_img_url: 'small' }}" alt="{{ product.title | escape }}"></a></li>
+	                {% endfor %}        
+	            </ul>
+	        {% endif %}
+	    </div>
+		<!-- End #product-photos -->
+      
+		<!-- #product-details -->
+		<div class="large-6 columns" id="product-detials">
+			
+		  <br><br>
+			
+          <div id="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+            {% if product.available %}
+            <link itemprop="availability" href="http://schema.org/InStock" />
+            {% else %}
+            <link itemprop="availability" href="http://schema.org/OutOfStock" />
+            {% endif %}
+            
+			{% if product.tags contains 'TBC' %}
+				<h5>Price: <span class="price" itemprop="price">TBC</span></h5> 
+			{% else %}
+                {% unless product.tags contains 'doodle3d wifi box' %}
+                <h5>
+                    {% if product.compare_at_price > product.price %}
+                    <span class="price" itemprop="price">{{ product.price | money }}</span>&nbsp; incl. GST<s class="sale-price">{{ product.compare_at_price_max | money }}</s>
+                    {% else %}
+                    <span class="price" itemprop="price">{{ product.price | money }}&nbsp; Incl. GST</span>
+                    {% endif %}
+                </h5>
+                {% endunless %}
+            {% endif %}
+          </div>
+			
+		  <h3><b>Pre-order</b></h3>
+		  <p><small style="line-height:1;font-size:0.9em;font-style:italic;">To sign up for the pre-order list enter your details below...</small></p>
+          {% if product.metafields.custom_fields.mailchimp_list %}
+			{% if settings.newsletter_form_action != blank %}
+			  {% assign form_action = settings.newsletter_form_action %}
+			{% else %}
+			  {% assign form_action = '#' %}
+			{% endif %}
+			 <form action="{{ product.metafields.custom_fields.mailchimp_list }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group" style="max-width:200px;">
+			   <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="your@email.com" name="EMAIL" id="mail" class="input-group-field" aria-label="Email Address" autocorrect="off" autocapitalize="off">
+			   <span class="input-group-btn"><input type="submit" class="button" name="subscribe" id="subscribe" value="Submit" style="min-height:35px;height:35px;line-height:4px;"></span>
+			 </form>
+		    {% endif %}
+      
+            <div id="product-description" class="rte" itemprop="description">
+                {{ content[0] }}
+            </div>
+      
+		</div>
+		<!-- END #product-details -->
+    
+    	{% include 'share' %}
+    	
+    	<div class="large-12 columns">
+	    	{{ content[1] }}
+    	</div>
+    	
+    	
+		{% if product.tags contains 'doodle3d wifi box' %}
+			<div class="large-12 columns">
+				{{ pages.doodle-video.content }}
+			</div>
+		{% endif %}
+    	
+		
+		{% if settings.related-products %}
+			<div class="large-12 columns">
+				<!-- Related Products -->
+					{% include 'related-products' %}
+				<!-- End Related Products -->
+			</div>
+		{% endif %}
+
+</div>
